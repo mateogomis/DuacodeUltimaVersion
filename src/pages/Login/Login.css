@@ -1,0 +1,237 @@
+.login-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    font-family: "Raleway", sans-serif;
+    flex-direction: row; /* Por defecto, en filas */
+}
+
+/* Slideshow */
+.slideshow {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: url('../../assets/images/login.jpg'); /* Imagen fija */
+}
+
+.slideshow-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slideshow-description {
+    font-size: 18px;
+    text-align: center;
+    max-width: 300px;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slideshow-title.hidden,
+.slideshow-description.hidden {
+    opacity: 0;
+}
+
+/* Login Form */
+.login-form-container {
+    flex: 1;
+    background: #2d2f36;
+    color: #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.tab.active {
+    color: #4fc1b7;
+    border-bottom: 2px solid #4fc1b7;
+}
+
+.form-content {
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.form-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #5a6374;
+    border-radius: 5px;
+    background: transparent;
+    color: #ccc;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4fc1b7;
+}
+
+.form-remember {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.form-button {
+    width: 80%;
+    padding: 10px;
+    background: #4fc1b7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-button:hover {
+    background: #2c8b79;
+}
+
+.form-forgot,
+.form-terms {
+    font-size: 12px;
+}
+
+.form-forgot a,
+.form-terms a {
+    color: #4fc1b7;
+    text-decoration: none;
+}
+
+/* Responsividad para pantallas medianas */
+@media (max-width: 1024px) {
+    .slideshow-title {
+        font-size: 36px;
+    }
+
+    .slideshow-description {
+        font-size: 16px;
+        max-width: 250px;
+    }
+
+    .form-input {
+        width: 90%;
+    }
+
+    .form-button {
+        width: 90%;
+    }
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .slideshow {
+        flex: none;
+        height: 50%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .login-form-container {
+        flex: none;
+        height: 50%;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .tabs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tab {
+        width: 100%;
+    }
+
+    .slideshow-title {
+        font-size: 28px;
+    }
+
+    .slideshow-description {
+        font-size: 14px;
+        max-width: 200px;
+    }
+
+    .form-input {
+        width: 95%;
+    }
+
+    .form-button {
+        width: 95%;
+    }
+
+    /* Ajusta la posición del formulario en pantallas muy pequeñas */
+    .login-form-container {
+        justify-content: flex-start;
+        padding-top: 30px;
+    }
+}
+.qr-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .qr-scanner-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .qr-button {
+    margin-top: 10px;
+  }
+  
+  .scanned-result {
+    color: green;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
