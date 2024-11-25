@@ -1,0 +1,17 @@
+.profile-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .profile-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-info {
+    font-size: 16px;
+    color: var(--text-color);
+  }
+  
