@@ -129,7 +129,7 @@ const Home = () => {
           <a href="#services">Services</a>
           <a href="#plans">Plans</a>
           <a href="#contact">Contact</a>
-          <a href="#login" className="header-login">
+          <a href="/login" className="header-login">
             Log In
           </a>
         </nav>
