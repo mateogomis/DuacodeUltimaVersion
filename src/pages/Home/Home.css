@@ -9,7 +9,81 @@ body {
   background-color: #2d2f36; /* Fondo gris medio oscuro */
   color: #f5f5f5; /* Blanco puro */
 }
-
+/* Estilos para el fondo del video */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Envía el video al fondo */
+  }
+  
+  .background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta para cubrir el área */
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Overlay del contenido principal */
+  .home-main {
+    position: relative;
+    height: 100vh; /* Ajusta la altura para que el video llene la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Asegura que el contenido esté encima del video */
+  }
+  
+  /* Estilos del contenido encima del video */
+  .home-content {
+    position: relative;
+    z-index: 2; /* Asegura que el texto esté encima del video */
+    text-align: center;
+    background: rgba(0, 0, 0, 0); /* Fondo semitransparente para mejor legibilidad */
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  /* Mantén animaciones del título */
+  .home-title {
+    font-size: 80px;
+    font-weight: 700;
+    color: #f5f5f5;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    animation: slideIn 1.5s ease-out;
+  }
+  
+  .home-subtitle {
+    font-size: 20px;
+    color: #828282;
+    margin: 20px 0;
+    animation: slideIn 2s ease-out;
+    animation-delay: 0.5s;
+  }
+  
+  .home-button {
+    margin-top: 20px;
+    background-color: #4ecca3;
+    color: #1c1e26;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .home-button:hover {
+    background-color: #37a088;
+    transform: scale(1.1);
+  }
+  
 .home-container {
   text-align: center;
   margin: 0;
@@ -65,7 +139,7 @@ body {
 
 /* Main section styles */
 .home-main {
-  background: url("../../assets/images/sky.png") no-repeat center center fixed;
+  background: url("/public/sky.mp4") no-repeat center center fixed;
   background-size: cover;
   min-height: calc(100vh - 60px);
   display: flex;
@@ -75,35 +149,86 @@ body {
   padding: 20px;
 }
 
-.home-title {
-  font-size: 80px;
-  font-weight: 700;
-  color: #f5f5f5; /* Blanco puro */
-  margin: 20px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura */
-}
-
-.home-subtitle {
-  font-size: 20px;
-  color: #828282; /* Gris claro */
-  margin: 20px 0;
-}
-
-.home-button {
-  margin-top: 20px;
-  background-color: #4ecca3; /* Verde azulado */
-  color: #1c1e26; /* Gris oscuro */
-  font-size: 18px;
-  padding: 10px 20px;
-  border-radius: 20px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.home-button:hover {
-  background-color: #37a088; /* Verde azulado más oscuro */
-  transform: scale(1.1); /* Efecto de zoom */
-}
-
+/* Agregar animación de movimiento al título */
+@keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Aplicar la animación al título principal */
+  .home-title {
+    font-size: 80px;
+    font-weight: 700;
+    color: #f5f5f5; /* Blanco puro */
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura */
+    animation: slideIn 1.5s ease-out; /* Animación de entrada */
+  }
+  
+  /* Opcional: Animación para el subtítulo */
+  .home-subtitle {
+    font-size: 20px;
+    color: #828282; /* Gris claro */
+    margin: 20px 0;
+    animation: slideIn 2s ease-out; /* Animación de entrada con retraso */
+    animation-delay: 0.5s;
+  }
+  
+/* Animación personalizada para el título */
+@keyframes slideAndBounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Aplicar la animación al título principal */
+  .home-title {
+    font-size: 80px;
+    font-weight: 700;
+    color: #ffffff; /* Blanco puro */
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura */
+    animation: slideAndBounce 1.5s ease-out; /* Animación personalizada */
+  }
+  
+  /* Opcional: Animación para el subtítulo */
+  .home-subtitle {
+    font-size: 20px;
+    color: #4ecca3; /* Gris claro */
+    margin: 20px 0;
+    animation: fadeIn 2s ease-out; /* Animación suave para el subtítulo */
+  }
+  
+  .home-button {
+    margin-top: 20px;
+    background-color: #4ecca3; /* Verde azulado */
+    color: #1c1e26; /* Gris oscuro */
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; /* Quita la línea subrayada */
+  }
+  
+  .home-button:hover {
+    background-color: #37a088; /* Verde azulado más oscuro */
+    transform: scale(1.1); /* Efecto de zoom */
+  }
+  
 /* Nature Section */
 .nature-section {
   background: url("../../assets/images/nature.jpg") no-repeat center center

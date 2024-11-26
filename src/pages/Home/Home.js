@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "react-calendar/dist/Calendar.css"; // Estilos por defecto del calendario
 import "./Home.css";
 import Empleados from "../Empleados/Empleados";
@@ -6,8 +6,8 @@ import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
 import Eventos from "../Eventos/Eventos";
 import Calendario from "../Calendario/Calendario";
-const Home = () => {
 
+const Home = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,24 +33,35 @@ const Home = () => {
       <header className="home-header">
         <div className="header-logo">DUACODE</div>
         <nav className="header-nav">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#plans">Plans</a>
-          <a href="#contact">Contact</a>
-          <a href="/login" className="header-login">
-            Log In
-          </a>
+          <a href="#protocolos">Protocolos</a>
+          <a href="#organigramas">Organigramas</a>
+          <a href="#salas">Salas</a>
+          <a href="#nuestroEquipo">Nuestro equipo</a>
+          <a href="#eventos">Eventos</a>
         </nav>
       </header>
 
       <main className="home-main">
-        <h1 className="home-title">Bienvenido a duacode</h1>
-        <p className="home-subtitle">Presiona el botón para iniciar sesión</p>
-        <button className="home-button">Iniciar sesión</button>
+        {/* Fondo de video */}
+        <div className="video-background">
+          <video autoPlay muted loop className="background-video">
+            <source
+              src="https://cdn.pixabay.com/video/2023/04/11/158384-816637349_large.mp4"
+              type="video/mp4"
+            />
+            Tu navegador no soporta vídeos HTML5.
+          </video>
+        </div>
+
+        {/* Contenido superpuesto */}
+        <div className="home-content">
+          <h1 className="home-title">Bienvenido a duacode</h1>
+          <a href="/login" className="home-button"> Iniciar sesión
+          </a>
+        </div>
       </main>
 
       <Empleados />
-
       <Eventos />
 
       <section className="nature-section">

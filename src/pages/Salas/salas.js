@@ -9,7 +9,7 @@ const Salas = () => {
       capacity: 10,
       availability: "Libre",
       status: "Disponible",
-      locationUrl: "https://maps.google.com?q=Sala+de+Reuniones+A",
+      locationUrl: "https://www.google.com/maps/place/Avenida+de+Catalu%C3%B1a+9/@39.4789099,-0.3578712,684m/data=!3m3!1e3!4b1!5s0xd6048989092a1ab:0x6a789a75536c54f2!4m6!3m5!1s0xd6048989a8d70bb:0x3ba1acbdf00c31f!8m2!3d39.4789058!4d-0.3552963!16s%2Fg%2F11gh01zt6m?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D",
     },
     {
       id: 2,
@@ -17,7 +17,7 @@ const Salas = () => {
       capacity: 25,
       availability: "Ocupada",
       status: "No Disponible",
-      locationUrl: "https://maps.google.com?q=Sala+de+Conferencias",
+      locationUrl: "https://www.google.com/maps/place/duacode/@43.3675685,-8.4033268,644m/data=!3m3!1e3!4b1!5s0xd2e7c7e3d186475:0x7edf0a3a897a156c!4m6!3m5!1s0xd2e7c88b31e218b:0xede967cd590ff102!8m2!3d43.3675646!4d-8.4007519!16s%2Fg%2F1ptz22tlv?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D",
     },
     {
       id: 3,
