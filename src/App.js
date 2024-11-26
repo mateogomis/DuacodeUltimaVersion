@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 
+// App component
 const App = () => {
   const location = useLocation(); // Obtén la ruta actual
 
@@ -25,19 +26,11 @@ const App = () => {
   );
 };
 
+// AppWrapper for Router
 const AppWrapper = () => {
   return (
     <Router>
-      <div className="app-container">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <App />
     </Router>
   );
 };
