@@ -10,30 +10,30 @@ const slides = [
   },
   {
     title: "UX",
-    description: "Profesionales en hacertelo mas facil ;)",
+    description: "Profesionales en hacértelo más fácil ;)",
   },
-
   {
     title: "Equipo Rookie </>",
-    description: "  Martin Ois, Adrian Contreras, Mateo Picatoste",
+    description: "Martin Ois, Adrian Contreras, Mateo Picatoste",
   },
 ];
 
 const Login = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTextHidden, setIsTextHidden] = useState(false); // Estado para ocultar texto durante la transición
-  const [isLogin, setIsLogin] = useState(true); // Estado para alternar entre login y registro
+  const [isTextHidden, setIsTextHidden] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [qrActive, setQrActive] = useState(false);
   const [scannedResult, setScannedResult] = useState(null);
+  const [socialPopup, setSocialPopup] = useState({ visible: false, type: "" });
   const webcamRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsTextHidden(true); // Oculta el texto actual
+      setIsTextHidden(true);
       setTimeout(() => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-        setIsTextHidden(false); // Muestra el texto siguiente
-      }, 800); // Tiempo sincronizado con la transición CSS
+        setIsTextHidden(false);
+      }, 800);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
@@ -60,37 +60,24 @@ const Login = () => {
         setQrActive(true);
       }
     } catch (err) {
-      const confirm = window.confirm(
-        "Se requiere acceso a la cámara para usar esta función. ¿Quieres permitir el acceso?"
-      );
-      if (confirm) {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-          });
-          if (stream) {
-            setQrActive(true);
-          }
-        } catch (err) {
-          alert(
-            "No se pudo activar la cámara. Por favor, verifica tus permisos."
-          );
-        }
-      } else {
-        alert("No se otorgó acceso a la cámara.");
-      }
+      alert("No se pudo activar la cámara. Por favor, verifica tus permisos.");
     }
   };
 
-  const handleGoogleLogin = () => {
-    alert("Iniciar sesión con Google: Redirigiendo...");
-    // Aquí puedes implementar lógica para iniciar sesión con Google
-    // como integrar Firebase, Auth0 o cualquier API relacionada.
+  const handleSocialLogin = (platform) => {
+    if (platform === "Google") {
+      window.location.href =
+        "https://accounts.google.com/o/oauth2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email profile";
+    } else if (platform === "GitHub") {
+      window.location.href =
+        "https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user";
+    } else {
+      setSocialPopup({ visible: true, type: platform });
+    }
   };
 
-  const handleGitHubLogin = () => {
-    alert("Iniciar sesión con GitHub: Redirigiendo...");
-    // Aquí puedes implementar lógica para iniciar sesión con GitHub
+  const closeSocialPopup = () => {
+    setSocialPopup({ visible: false, type: "" });
   };
 
   return (
@@ -144,26 +131,30 @@ const Login = () => {
                 Iniciar sesión con QR
               </button>
               <div className="social-login">
-                <div
+                <button
+                  type="button"
                   className="social-button google-button"
-                  onClick={handleGoogleLogin}
+                  onClick={() => handleSocialLogin("Google")}
                 >
                   <img
-                    src="/IconoGoogle.png"
-                    alt="Icono Google"
-                    style={{ width: "40px", height: "40px" }}
+                    src="/iconoGoogle.png"
+                    alt="Google Icon"
+                    className="social-icon"
                   />
-                </div>
-                <div
+                  Iniciar sesión con Google
+                </button>
+                <button
+                  type="button"
                   className="social-button github-button"
-                  onClick={handleGitHubLogin}
+                  onClick={() => handleSocialLogin("GitHub")}
                 >
                   <img
-                    src="/IconoGit.png"
-                    alt="Icono GitHub"
-                    style={{ width: "40px", height: "40px" }}
+                    src="/iconoGit.png"
+                    alt="GitHub Icon"
+                    className="social-icon"
                   />
-                </div>
+                  Iniciar sesión con GitHub
+                </button>
               </div>
               <p className="form-forgot">
                 <a href="#forgot">¿Olvidaste tu contraseña?</a>
@@ -171,7 +162,11 @@ const Login = () => {
             </form>
           ) : (
             <form className="form">
-              <input type="email" placeholder="Correo" className="form-input" />
+              <input
+                type="email"
+                placeholder="Correo"
+                className="form-input"
+              />
               <input
                 type="text"
                 placeholder="Nombre de usuario"
@@ -183,6 +178,32 @@ const Login = () => {
                 className="form-input"
               />
               <button className="form-button">Registrarse</button>
+              <div className="social-login">
+                <button
+                  type="button"
+                  className="social-button google-button"
+                  onClick={() => handleSocialLogin("Google")}
+                >
+                  <img
+                    src="/iconoGoogle.png"
+                    alt="Google Icon"
+                    className="social-icon"
+                  />
+                  Registrarse con Google
+                </button>
+                <button
+                  type="button"
+                  className="social-button github-button"
+                  onClick={() => handleSocialLogin("GitHub")}
+                >
+                  <img
+                    src="/iconoGit.png"
+                    alt="GitHub Icon"
+                    className="social-icon"
+                  />
+                  Registrarse con GitHub
+                </button>
+              </div>
               <p className="form-terms">
                 Al registrarte, aceptas nuestros{" "}
                 <a href="#terms">Términos de servicio</a>
@@ -209,6 +230,15 @@ const Login = () => {
                 Resultado escaneado: {scannedResult}
               </p>
             )}
+          </div>
+        </div>
+      )}
+      {socialPopup.visible && (
+        <div className="social-popup">
+          <div className="popup-content">
+            <h3>Iniciar sesión con {socialPopup.type}</h3>
+            <p>Selecciona tu cuenta para continuar o añade una nueva.</p>
+            <button onClick={closeSocialPopup}>Cerrar</button>
           </div>
         </div>
       )}
