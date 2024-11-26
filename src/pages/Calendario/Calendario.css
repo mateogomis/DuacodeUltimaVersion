@@ -1,0 +1,20 @@
+.custom-calendar {
+    border: none;
+    background-color: #1c1e26;
+    color: #f5f5f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #4ecca3 !important;
+    color: #1c1e26 !important;
+  }
+  
+  .calendar-events {
+    text-align: center;
+    color: #f5f5f5;
+  }
+  

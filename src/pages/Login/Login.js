@@ -72,7 +72,9 @@ const Login = () => {
             setQrActive(true);
           }
         } catch (err) {
-          alert("No se pudo activar la cámara. Por favor, verifica tus permisos.");
+          alert(
+            "No se pudo activar la cámara. Por favor, verifica tus permisos."
+          );
         }
       } else {
         alert("No se otorgó acceso a la cámara.");
@@ -142,20 +144,26 @@ const Login = () => {
                 Iniciar sesión con QR
               </button>
               <div className="social-login">
-                <button
-                  type="button"
+                <div
                   className="social-button google-button"
                   onClick={handleGoogleLogin}
                 >
-                  Iniciar sesión con Google
-                </button>
-                <button
-                  type="button"
+                  <img
+                    src="/IconoGoogle.png"
+                    alt="Icono Google"
+                    style={{ width: "40px", height: "40px" }}
+                  />
+                </div>
+                <div
                   className="social-button github-button"
                   onClick={handleGitHubLogin}
                 >
-                  Iniciar sesión con GitHub
-                </button>
+                  <img
+                    src="/IconoGit.png"
+                    alt="Icono GitHub"
+                    style={{ width: "40px", height: "40px" }}
+                  />
+                </div>
               </div>
               <p className="form-forgot">
                 <a href="#forgot">¿Olvidaste tu contraseña?</a>
@@ -163,11 +171,7 @@ const Login = () => {
             </form>
           ) : (
             <form className="form">
-              <input
-                type="email"
-                placeholder="Correo"
-                className="form-input"
-              />
+              <input type="email" placeholder="Correo" className="form-input" />
               <input
                 type="text"
                 placeholder="Nombre de usuario"
@@ -197,10 +201,7 @@ const Login = () => {
               screenshotFormat="image/jpeg"
               style={{ width: "100%", height: "auto" }}
             />
-            <button
-              className="form-button"
-              onClick={() => setQrActive(false)}
-            >
+            <button className="form-button" onClick={() => setQrActive(false)}>
               Cerrar escáner
             </button>
             {scannedResult && (

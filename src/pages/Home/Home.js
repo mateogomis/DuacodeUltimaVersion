@@ -1,30 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css"; // Estilos por defecto del calendario
 import "./Home.css";
-import Empleados from "../empleados/Empleados";
+import Empleados from "../Empleados/Empleados";
 import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
 import Eventos from "../Eventos/Eventos";
+import Calendario from "../Calendario/Calendario";
 const Home = () => {
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [eventsForDate, setEventsForDate] = useState([]);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-
-    const simulatedEvents = [
-      { title: "Evento A", date: "2024-11-22" },
-      { title: "Evento B", date: "2024-11-23" },
-    ];
-
-    const formattedDate = date.toISOString().split("T")[0];
-    const filteredEvents = simulatedEvents.filter(
-      (event) => event.date === formattedDate
-    );
-    setEventsForDate(filteredEvents);
-  };
-
+ 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -79,7 +63,7 @@ const Home = () => {
         </h2>
       </section>
 
-      <calendario />
+      <Calendario />
       <Salas />
 
       <section className="organigrama-section">
