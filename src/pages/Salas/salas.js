@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./salas.css";
-import { useEffect } from "react";
+import "./Salas.css";
 const Salas = () => {
   const [salas, setSalas] = useState([]);
   const [loading, setLoading] = useState(true);

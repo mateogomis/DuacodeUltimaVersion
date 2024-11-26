@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./protocolos.css";
+import "./Protocolos.css";
 import axios from "axios";
 
 const Protocolos = () => {
