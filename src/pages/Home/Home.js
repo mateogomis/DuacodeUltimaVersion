@@ -8,7 +8,6 @@ import Eventos from "../Eventos/Eventos";
 import Calendario from "../Calendario/Calendario";
 const Home = () => {
 
- 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

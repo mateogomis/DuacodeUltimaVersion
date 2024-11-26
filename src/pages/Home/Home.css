@@ -136,197 +136,27 @@ body {
 }
 
 .custom-calendar {
-  border: none;
-  background-color: #1c1e26;
-  color: #f5f5f5;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px auto;
-}
-
-.react-calendar__tile--active {
-  background-color: #4ecca3 !important;
-  color: #1c1e26 !important;
-}
-
-.calendar-events {
-  text-align: center;
-  color: #f5f5f5;
-}
-
-/* Room Section */
-.room-section {
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
-  padding: 50px 20px;
-  text-align: center;
-  position: relative;
-  margin-top: 50px;
-}
-
-.room-section-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
-  margin-bottom: 30px;
-}
-
-/* Room Cards Container */
-.room-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  perspective: 1000px; /* Añade perspectiva */
-}
-
-/* Room Cards */
-.room-card {
-  width: 250px;
-  height: 200px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  transform: translateY(150px) rotate(-5deg); /* Posición inicial */
-  opacity: 0;
-  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  text-align: left;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ffff00; /* Color amarillo inicial */
-  color: #000; /* Texto negro */
-}
-
-/* Room Section */
-.room-section {
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
-  padding: 50px 20px;
-  text-align: center;
-  position: relative;
-  margin-top: 50px;
-}
-
-.room-section-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
-  margin-bottom: 30px;
-}
-
-/* Room Cards Container */
-.room-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  perspective: 1000px; /* Añade perspectiva */
-}
-
-/* Room Cards */
-.room-card {
-  width: 250px;
-  height: 200px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  transform: translateY(150px) rotate(-5deg); /* Posición inicial */
-  opacity: 0;
-  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  text-align: left;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ffff00; /* Color amarillo inicial */
-  color: #000; /* Texto negro */
-}
-
-/* Alternating Card Colors */
-.room-card:nth-child(1) {
-  background-color: #ffff00; /* Amarillo brillante */
-}
-
-.room-card:nth-child(2) {
-  background-color: #90ee90; /* Verde claro */
-}
-
-.room-card:nth-child(3) {
-  background-color: #add8e6; /* Azul claro */
-}
-
-.room-card:nth-child(4) {
-  background-color: #ffb6c1; /* Rosa claro */
-}
-
-.room-card:nth-child(5) {
-  background-color: #87ceeb; /* Celeste */
-}
-
-/* Hover Effect */
-.room-card:hover {
-  transform: translateY(-10px) rotate(1deg);
-  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-}
-
-/* Visibility Animation */
-.room-card.visible {
-  transform: translateY(0) rotate(0deg);
-  opacity: 1;
-}
-
-/* Movement Effect on Scroll */
-@keyframes float {
-  0% {
-    transform: translateY(0) rotate(-1deg);
+    border: none;
+    background-color: #1c1e26;
+    color: #f5f5f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
   }
-  50% {
-    transform: translateY(-10px) rotate(1deg);
+  
+  .react-calendar__tile--active {
+    background-color: #4ecca3 !important;
+    color: #1c1e26 !important;
   }
-  100% {
-    transform: translateY(0) rotate(-1deg);
+  
+  .calendar-events {
+    text-align: center;
+    color: #f5f5f5;
   }
-}
+  
 
-.room-card.visible:hover {
-  animation: float 2s infinite ease-in-out; /* Movimiento continuo al hacer hover */
-}
 
-/* Room Card Title */
-.room-card h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Room Card Info */
-.room-card p {
-  font-size: 14px;
-  line-height: 1.4;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .room-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .room-card {
-    width: 90%;
-  }
-}
 /* Organigrama Section */
 .organigrama-section {
   padding: 60px 30px;
