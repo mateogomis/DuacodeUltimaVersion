@@ -5,21 +5,45 @@ const Salas = () => {
   const [salas, setSalas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  useEffect(() => {
-    const fetchSalas = async () => {
-      try {
-        const response = await axios.get('');
-        setSalas(response.data);
-      } catch (error) {
-        setError('Error al obtener las salas');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchSalas();
-  }, []);
-  if (loading) return <p>Cargando salas...</p>;
-  if (error) return <p>{error}</p>;
+  const rooms = [
+    {
+      id: 1,
+      name: "Sala de Reuniones A",
+      capacity: 10,
+      availability: "Libre",
+      status: "Disponible",
+    },
+    {
+      id: 2,
+      name: "Sala de Conferencias",
+      capacity: 25,
+      availability: "Ocupada",
+      status: "No Disponible",
+    },
+    {
+      id: 3,
+      name: "Sala de Proyectos",
+      capacity: 15,
+      availability: "Libre",
+      status: "Disponible",
+    },
+  ];
+
+  // useEffect(() => {
+  //   const fetchSalas = async () => {
+  //     try {
+  //       const response = await axios.get('');
+  //       setSalas(response.data);
+  //     } catch (error) {
+  //       setError('Error al obtener las salas');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchSalas();
+  // }, []);
+  // if (loading) return <p>Cargando salas...</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <section className="room-section">
