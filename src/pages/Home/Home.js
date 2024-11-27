@@ -34,7 +34,7 @@ const Home = () => {
         <div className="header-logo">DUACODE</div>
         <nav className="header-nav">
           <a href="#protocolos">Protocolos</a>
-          <a href="#organigramas">Organigramas</a>
+          <a href="#organigramas">Organigrama</a>
           <a href="#salas">Salas</a>
           <a href="#nuestroEquipo">Nuestro equipo</a>
           <a href="#eventos">Eventos</a>
