@@ -1,0 +1,139 @@
+/* Estilos generales para el calendario */
+.rbc-calendar {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Cabecera del calendario */
+.rbc-header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.rbc-header:hover {
+    background-color: #0056b3;
+}
+
+.rbc-btn-group {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.rbc-toolbar button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.rbc-toolbar button:hover {
+    background-color: #218838;
+}
+
+/* Estilos para las celdas del calendario */
+.rbc-day {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.rbc-day:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos para los eventos */
+.rbc-event {
+    background-color: #ff7f50;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.rbc-event:hover {
+    background-color: #ff5722;
+}
+
+/* Estilos para los eventos de todo el día */
+.rbc-allday-cell {
+    background-color: #d1ecf1;
+    color: #007bff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.rbc-allday-cell:hover {
+    background-color: #bee5eb;
+}
+
+/* Estilos para el contorno de los días */
+.rbc-day-bg {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.rbc-day-number {
+    color: #007bff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Estilos para la vista semanal */
+.rbc-timeslot-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.rbc-time-slot {
+    width: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.rbc-time-slot:hover {
+    background-color: #e9ecef;
+}
+
+.rbc-time {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Animaciones y transiciones */
+.rbc-day:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Estilo general de las celdas activas (días seleccionados) */
+.rbc-selected {
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+}
+
+.rbc-selected:hover {
+    background-color: #218838;
+}

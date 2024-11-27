@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import Organigrama from "./pages/Organigrama/Organigrama"
 import Proyectos from "./pages/Proyectos/Proyectos";
+import TestCalendario from "./pages/TestCalendario/TestCalendario"
 
 // App component
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/organigrama" element={<Organigrama />} />
+          <Route path="/testcalendario" element={<TestCalendario />} />
           <Route path="/login" element={<Login />} />
           <Route path="/proyectos" element={<Proyectos />} />
         </Routes>
