@@ -1,44 +1,18 @@
-// MyCalendar.js
+// TestCalendario.js
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar'; // Asegúrate de importar Calendar
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import './TestCalendario.css'
+import './TestCalendario.css';
+import './loader.css';
+
 const TestCalendario = () => {
   const [events, setEvents] = useState([]); // Estado para los eventos del calendario
   const [loading, setLoading] = useState(true); // Estado para la carga de datos
 
-  // Ejemplo de datos de citas (pueden ser de una API)
-  const data = [
-    {
-      "id": 1,
-      "sala": 6,
-      "reservado_por": "Alejandro Blanco Robinson",
-      "fecha": "2024-11-28",
-      "hora_inicio": "11:00:00",
-      "hora_fin": "12:00:00",
-      "empleados_asistentes": [
-        {
-          "id": 96,
-          "nombre": "Ines",
-          "apellido_1": "Olsrud",
-          "apellido_2": "Austin",
-          "email": "ines.olsrud@example.com"
-        },
-        {
-          "id": 134,
-          "nombre": "Lison",
-          "apellido_1": "Henry",
-          "apellido_2": "Campbell",
-          "email": "lison.henry@example.com"
-        }
-      ]
-    }
-  ];
-
   // Función para convertir los datos al formato de react-big-calendar
-  const formatData = (data) => {
-    return data.map(event => {
+  const formatData = (reservas) => {
+    return reservas.map(event => {
       const startDate = new Date(`${event.fecha}T${event.hora_inicio}`);
       const endDate = new Date(`${event.fecha}T${event.hora_fin}`);
 
@@ -54,14 +28,29 @@ const TestCalendario = () => {
 
   // Cargar los eventos cuando el componente se monta
   useEffect(() => {
-    const formattedEvents = formatData(data); // Formatear los datos
-    setEvents(formattedEvents); // Guardar los eventos en el estado
-    setLoading(false); // Cambiar el estado de carga
-  }, [data]);
+    // Realizar la solicitud a la API para obtener los datos de la sala
+    fetch('http://localhost:8000/api/sedes/salas/1/')
+      .then(response => response.json())
+      .then(data => {
+        // Formatear las reservas para el calendario
+        console.log(data.json)
+        const formattedEvents = formatData(data.reservas);
+        setEvents(formattedEvents); // Guardar los eventos en el estado
+        setLoading(false); // Cambiar el estado de carga
+      })
+      .catch(error => {
+        console.error('Error al cargar las reservas:', error);
+        setLoading(false);
+      });
+  }, []); // Dependencias vacías, solo se ejecuta al montar el componente
 
-  // Mostrar el mensaje de carga si aún no se han cargado los eventos
+  // Carga animacion de carga mientras consulta a la bbdd
   if (loading) {
-    return <div>Cargando el calendario...</div>;
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
