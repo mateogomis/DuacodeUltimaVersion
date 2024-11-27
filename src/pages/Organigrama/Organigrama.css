@@ -1,0 +1,39 @@
+/* Organigrama.css */
+
+/* Contenedor del organigrama */
+/* .org-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+/* Contenedor de los hijos (izquierda y derecha) */
+/* .left-right-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+} */
+
+/* .child-node {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+} */
+
+/* .initechNode {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    width: 120px;
+} */
+
+/* Estilo para la imagen del nodo */
+.node-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
