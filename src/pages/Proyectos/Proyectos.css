@@ -1,0 +1,63 @@
+.proyecto-section {
+    background-color: #1c1e266c;
+    color: #F5F5F5;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.proyecto-nombre {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #4ECCA3;
+}
+
+.proyecto-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.proyecto-card {
+    background-color: #2D2F36;
+    color: #F5F5F5;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.proyecto-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    border-color: #4ECCA3;
+}
+
+.proyecto-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.proyecto-card p {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+.proyecto-card strong {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .proyecto-cards {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .proyecto-card {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

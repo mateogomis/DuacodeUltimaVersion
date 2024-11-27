@@ -1,5 +1,5 @@
 /* Room Section */
-.room-section {
+.salas-section {
   background-color: #2d2f36; /* Fondo gris medio oscuro */
   color: #f5f5f5; /* Blanco puro */
   padding: 50px 20px;
@@ -8,7 +8,7 @@
   margin-top: 50px;
 }
 
-.room-section-title {
+.salas-section-title {
   font-size: 36px;
   font-weight: bold;
   color: #4ecca3; /* Verde azulado */
@@ -16,7 +16,7 @@
 }
 
 /* Room Cards Container */
-.room-cards {
+.salas-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -25,7 +25,7 @@
 }
 
 /* Room Cards */
-.room-card {
+.salas-card {
   width: 300px; /* Ajuste para el botón */
   height: 240px; /* Espacio adicional para el botón */
   padding: 20px;
@@ -46,38 +46,38 @@
 }
 
 /* Alternating Card Colors */
-.room-card:nth-child(1) {
+.salas-card:nth-child(1) {
   background-color: #ffff00; /* Amarillo brillante */
 }
 
-.room-card:nth-child(2) {
+.salas-card:nth-child(2) {
   background-color: #90ee90; /* Verde claro */
 }
 
-.room-card:nth-child(3) {
+.salas-card:nth-child(3) {
   background-color: #add8e6; /* Azul claro */
 }
 
-.room-card:nth-child(4) {
+.salas-card:nth-child(4) {
   background-color: #ffb6c1; /* Rosa claro */
 }
 
-.room-card:nth-child(5) {
+.salas-card:nth-child(5) {
   background-color: #87ceeb; /* Celeste */
 }
 
 /* Hover Effect */
-.room-card:hover {
+.salas-card:hover {
   transform: translateY(-10px) rotate(1deg);
   box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
 
-/* Visibility Animation */
-.room-card.visible {
+/* Visibility Animation
+.salas-card.visible {
   transform: translateY(0) rotate(0deg);
   opacity: 1;
-}
+} */
 
 /* Movement Effect on Scroll */
 @keyframes float {
@@ -92,12 +92,12 @@
   }
 }
 
-.room-card.visible:hover {
+.salas-card.visible:hover {
   animation: float 2s infinite ease-in-out; /* Movimiento continuo al hacer hover */
 }
 
 /* Room Card Title */
-.room-card h3 {
+.salas-card h3 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -105,14 +105,14 @@
 }
 
 /* Room Card Info */
-.room-card p {
+.salas-card p {
   font-size: 14px;
   line-height: 1.4;
   color: #242424; /* Texto oscuro */
 }
 
 /* Room Section */
-.room-section {
+.salas-section {
   background-color: #2d2f36; /* Fondo gris medio oscuro */
   color: #f5f5f5; /* Blanco puro */
   padding: 50px 20px;
@@ -121,7 +121,7 @@
   margin-top: 50px;
 }
 
-.room-section-title {
+.salas-section-title {
   font-size: 36px;
   font-weight: bold;
   color: #4ecca3; /* Verde azulado */
@@ -129,7 +129,7 @@
 }
 
 /* Room Cards Container */
-.room-cards {
+.salas-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -137,7 +137,7 @@
 }
 
 /* Room Cards */
-.room-card {
+.salas-card {
   width: 300px;
   height: 240px;
   padding: 20px;
@@ -155,18 +155,18 @@
 }
 
 /* Alternating Card Colors */
-.room-card:nth-child(1) {
+.salas-card:nth-child(1) {
   background-color: #ffff00;
 }
-.room-card:nth-child(2) {
+.salas-card:nth-child(2) {
   background-color: #90ee90;
 }
-.room-card:nth-child(3) {
+.salas-card:nth-child(3) {
   background-color: #add8e6;
 }
 
 /* Room Card Title */
-.room-card h3 {
+.salas-card h3 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -174,14 +174,14 @@
 }
 
 /* Room Card Info */
-.room-card p {
+.salas-card p {
   font-size: 14px;
   line-height: 1.4;
   color: #242424; /* Texto oscuro */
 }
 
 /* Room Section */
-.room-section {
+.salas-section {
   background-color: #2d2f36; /* Fondo gris medio oscuro */
   color: #f5f5f5; /* Blanco puro */
   padding: 50px 20px;
@@ -190,7 +190,7 @@
   margin-top: 50px;
 }
 
-.room-section-title {
+.salas-section-title {
   font-size: 36px;
   font-weight: bold;
   color: #4ecca3; /* Verde azulado */
@@ -198,7 +198,7 @@
 }
 
 /* Room Cards Container */
-.room-cards {
+.salas-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -206,7 +206,7 @@
 }
 
 /* Room Cards */
-.room-card {
+.salas-card {
   width: 300px;
   height: auto; /* Ajuste automático para contenido */
   padding: 20px;
@@ -223,18 +223,18 @@
 }
 
 /* Alternating Card Colors */
-.room-card:nth-child(1) {
+.salas-card:nth-child(1) {
   background-color: #ffff00;
 }
-.room-card:nth-child(2) {
+.salas-card:nth-child(2) {
   background-color: #90ee90;
 }
-.room-card:nth-child(3) {
+.salas-card:nth-child(3) {
   background-color: #add8e6;
 }
 
 /* Room Card Title and Icon Container */
-.room-header {
+.salas-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -242,7 +242,7 @@
 }
 
 /* Room Card Title */
-.room-card h3 {
+.salas-card h3 {
   font-size: 18px;
   font-weight: bold;
   color: #242424; /* Texto oscuro */
@@ -250,7 +250,7 @@
 }
 
 /* SVG Icon Container */
-.room-map-icon {
+.salas-map-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -262,19 +262,19 @@
 }
 
 /* Icon Hover Effect */
-.room-map-icon:hover {
+.salas-map-icon:hover {
   background-color: #4ecca3; /* Verde azulado para hover */
   transform: scale(1.1); /* Zoom leve en hover */
 }
 
-.room-map-icon svg {
+.salas-map-icon svg {
   width: 20px;
   height: 20px;
   fill: #ffffff; /* Blanco puro para el icono */
 }
 
 /* Room Card Info */
-.room-card p {
+.salas-card p {
   font-size: 14px;
   line-height: 1.4;
   color: #242424; /* Texto oscuro */
@@ -282,39 +282,13 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .room-cards {
+  .salas-cards {
     flex-direction: column;
     align-items: center;
     gap: 20px;
   }
 
-  .room-card {
-    width: 90%;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .room-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .room-card {
-    width: 90%;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .room-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .room-card {
+  .salas-card {
     width: 90%;
   }
 }

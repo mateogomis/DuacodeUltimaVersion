@@ -6,6 +6,8 @@ import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
 import Eventos from "../Eventos/Eventos";
 import Calendario from "../Calendario/Calendario";
+import Organigrama from "../Organigrama/Organigrama";
+import Proyectos from "../Proyectos/Proyectos";
 
 const Home = () => {
   useEffect(() => {
@@ -33,11 +35,12 @@ const Home = () => {
       <header className="home-header">
         <div className="header-logo">DUACODE</div>
         <nav className="header-nav">
+          <a href="/Proyectos">Proyectos</a>
           <a href="#protocolos">Protocolos</a>
-          <a href="#organigramas">Organigrama</a>
-          <a href="#salas">Salas</a>
-          <a href="#nuestroEquipo">Nuestro equipo</a>
+          <a href="/Salas">Salas</a>
+          <a href="/Organigrama">Organigrama</a>
           <a href="#eventos">Eventos</a>
+          <a href="#nuestroEquipo">Nuestro equipo</a>
         </nav>
       </header>
 
@@ -56,7 +59,9 @@ const Home = () => {
         {/* Contenido superpuesto */}
         <div className="home-content">
           <h1 className="home-title">Bienvenido a duacode</h1>
-          <a href="/login" className="home-button"> Iniciar sesión
+          <a href="/login" className="home-button">
+            {" "}
+            Iniciar sesión
           </a>
         </div>
       </main>
