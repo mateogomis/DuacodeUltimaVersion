@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import About from "./pages/About/About";
+// import About from "./pages/About/About";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
+import Organigrama from "./pages/Organigrama/Organigrama"
 
 // App component
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/organigrama" element={<Organigrama />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
