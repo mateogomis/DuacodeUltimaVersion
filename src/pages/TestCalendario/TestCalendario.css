@@ -59,6 +59,10 @@
     background-color: #37a088; /* Verde más oscuro */
     transform: scale(1.05); /* Efecto zoom */
 }
+.rbc-toolbar-label {
+    color: #000;
+    /* Texto negro */
+}
 
 /* Eventos del calendario */
 .rbc-event {

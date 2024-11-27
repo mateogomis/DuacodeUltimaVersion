@@ -1,6 +1,5 @@
-// TestCalendario.js
 import React, { useState, useEffect } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar'; // Asegúrate de importar Calendar
+import { Calendar, momentLocalizer } from 'react-big-calendar'; 
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './TestCalendario.css';
@@ -16,11 +15,16 @@ const TestCalendario = () => {
       const startDate = new Date(`${event.fecha}T${event.hora_inicio}`);
       const endDate = new Date(`${event.fecha}T${event.hora_fin}`);
 
+      // Asegurarse de que los empleados sean una cadena separada por comas
+      const empleadosAsistentes = event.empleados_asistentes
+        .map(empleado => `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`)
+        .join(', ');
+
       return {
         start: startDate,
         end: endDate,
-        title: `Reservado por: ${event.reservado_por}`,
-        resource: event.empleados_asistentes, // Puedes usar esto para mostrar información adicional
+        title: `Reserva: ${event.reservado_por}`, // Mostrar nombre del que reserva
+        empleados: empleadosAsistentes, // Añadir empleados asistentes para usarlos en la vista
         allDay: false,
       };
     });
@@ -33,7 +37,6 @@ const TestCalendario = () => {
       .then(response => response.json())
       .then(data => {
         // Formatear las reservas para el calendario
-        console.log(data.json)
         const formattedEvents = formatData(data.reservas);
         setEvents(formattedEvents); // Guardar los eventos en el estado
         setLoading(false); // Cambiar el estado de carga
@@ -62,6 +65,19 @@ const TestCalendario = () => {
         localizer={momentLocalizer(moment)} // Localizador con moment.js
         step={30} // Intervalo de 30 minutos por slot
         timeslots={1} // Cantidad de intervalos de tiempo por día
+        components={{
+          event: ({ event }) => (
+            <div>
+              <div style={{ color: 'orange', fontWeight: 'bold' }}>
+                {event.title} {/* Nombre del que hace la reserva en naranja */}
+              </div>
+              <div style={{ fontSize: '0.9em', color: 'white' }}>
+                <strong>Asistentes:</strong><br />
+                {event.empleados} {/* Mostrar los asistentes debajo en blanco */}
+              </div>
+            </div>
+          ),
+        }}
       />
     </div>
   );
