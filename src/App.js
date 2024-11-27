@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import Organigrama from "./pages/Organigrama/Organigrama"
+import TestCalendario from "./pages/TestCalendario/TestCalendario"
 
 // App component
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/organigrama" element={<Organigrama />} />
+          <Route path="/testcalendario" element={<TestCalendario />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
