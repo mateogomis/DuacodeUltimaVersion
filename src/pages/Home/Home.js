@@ -37,7 +37,7 @@ const Home = () => {
         <nav className="header-nav">
           <a href="/Proyectos">Proyectos</a>
           <a href="#protocolos">Protocolos</a>
-          <a href="#salas">Salas</a>
+          <a href="/Salas">Salas</a>
           <a href="/Organigrama">Organigrama</a>
           <a href="#eventos">Eventos</a>
           <a href="#nuestroEquipo">Nuestro equipo</a>
