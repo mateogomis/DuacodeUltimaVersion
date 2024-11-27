@@ -1,36 +1,45 @@
-// src/components/Organigrama.js
-import React from 'react';
-import OrgChart from 'react-orgchart';
-import 'react-orgchart/index.css';
+import React, { useState, useEffect } from "react";
+import OrgChart from "react-orgchart";  // Importar la librería
+import "react-orgchart/index.css";      // Importar los estilos de la librería
 
-// Datos de ejemplo para el organigrama
-const tree = {
-  name: 'CEO',
+// Definición de los datos de ejemplo para el organigrama
+const initechOrg = {
+  name: "Bill Lumbergh",
+  actor: "Gary Cole",
   children: [
     {
-      name: 'CTO',
+      name: "Peter Gibbons",
+      actor: "Ron Livingston",
       children: [
-        { name: 'Desarrollador 1' },
-        { name: 'Desarrollador 2' }
+        {
+          name: "And More!!",
+          actor: "This is just to show how to build a complex tree with multiple levels of children. Enjoy!"
+        }
       ]
     },
     {
-      name: 'CFO',
-      children: [
-        { name: 'Contabilidad' },
-        { name: 'Finanzas' }
-      ]
+      name: "Milton Waddams",
+      actor: "Stephen Root"
+    },
+    {
+      name: "Bob Slydell",
+      actor: "John C. McGi..."
     }
   ]
 };
 
-const Organigrama = () => {
+// Componente personalizado para cada nodo
+const MyNodeComponent = ({ node }) => {
   return (
-    <div>
-      <h1>Bienvenido al Organigrama</h1>
-      <OrgChart tree={tree} />
+    <div className="initechNode" onClick={() => alert("Hi my real name is: " + node.actor)}>
+      {node.name}
     </div>
   );
+};
+
+// Componente principal que renderiza el organigrama
+const Organigrama = () => {
+  return <OrgChart tree={initechOrg} NodeComponent={MyNodeComponent} />;
 };
 
 export default Organigrama;
