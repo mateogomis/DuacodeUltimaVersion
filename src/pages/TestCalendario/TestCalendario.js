@@ -25,6 +25,7 @@ const TestCalendario = () => {
         end: endDate,
         title: `Reserva: ${event.reservado_por}`, // Mostrar nombre del que reserva
         empleados: empleadosAsistentes, // Añadir empleados asistentes para usarlos en la vista
+        motivo: event.motivo, // Añadir motivo de la reserva
         allDay: false,
       };
     });
@@ -38,6 +39,7 @@ const TestCalendario = () => {
       .then(data => {
         // Formatear las reservas para el calendario
         const formattedEvents = formatData(data.reservas);
+        console.log(data)
         setEvents(formattedEvents); // Guardar los eventos en el estado
         setLoading(false); // Cambiar el estado de carga
       })
@@ -74,6 +76,9 @@ const TestCalendario = () => {
               <div style={{ fontSize: '0.9em', color: 'white' }}>
                 <strong>Asistentes:</strong><br />
                 {event.empleados} {/* Mostrar los asistentes debajo en blanco */}
+                <br />
+                <strong>Motivo:</strong><br />
+                <em>{event.motivo}</em> {/* Mostrar el motivo de la reserva */}
               </div>
             </div>
           ),

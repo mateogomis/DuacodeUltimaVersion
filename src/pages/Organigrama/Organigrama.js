@@ -1,32 +1,31 @@
 // src/components/Organigrama.js
 
 import React from 'react';
-// import OrgChart from '@unicef/react-org-chart';
-// import OrgChart from '@unicef/react-org-chart/dist/OrgChart'; 
-
+// import OrgChart from 'awesome-react-org-chart'; // Importamos la librería
+// import 'awesome-react-org-chart/dist/style.css'; // Importamos el estilo de la librería
 
 // Datos de ejemplo para el organigrama
 const data = {
-  "id": 1,
-  "name": "CEO",
-  "children": [
+  id: 1,
+  name: "CEO",
+  children: [
     {
-      "id": 2,
-      "name": "CTO",
-      "children": [
+      id: 2,
+      name: "CTO",
+      children: [
         {
-          "id": 3,
-          "name": "Dev 1"
+          id: 3,
+          name: "Dev 1"
         },
         {
-          "id": 4,
-          "name": "Dev 2"
+          id: 4,
+          name: "Dev 2"
         }
       ]
     },
     {
-      "id": 5,
-      "name": "CFO"
+      id: 5,
+      name: "CFO"
     }
   ]
 };
@@ -34,14 +33,14 @@ const data = {
 const Organigrama = () => {
   return (
     <div>
-      <h1>Organigrama de la Empresa</h1>
+      { <h1>Organigrama de la Empresa</h1> }
       {/* <OrgChart
         tree={data} // El objeto que contiene la jerarquía
-        NodeComponent={({ node }) => (
+        renderNode={(node) => (
           <div style={{ padding: 10, border: '1px solid #ccc', borderRadius: 5 }}>
             <strong>{node.name}</strong>
           </div>
-        )}
+         )} 
       /> */}
     </div>
   );
