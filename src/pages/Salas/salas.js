@@ -80,7 +80,7 @@ const Salas = () => {
               {sala.capacidad} personas
             </p>
             <p className="salas-info">
-              <strong>Sede n.º</strong> {sala.sede}
+              <strong>Sede n.º</strong> {sala.sede.nombre}
             </p>
           </div>
         ))}

@@ -1,4 +1,6 @@
-/* Organigrama.css */
+div {
+  font-family: Arial, sans-serif;
+}
 
 /* Contenedor del organigrama */
 /* .org-chart-container {

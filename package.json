@@ -7,8 +7,10 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@zxing/library": "^0.21.3",
-    "awesome-react-org-chart": "^1.4.11",
     "axios": "^1.7.7",
+    "d3": "^7.9.0",
+    "d3-org-chart": "^3.1.1",
+    "jquery": "^3.7.1",
     "moment": "^2.30.1",
     "orgchart": "^4.0.1",
     "react": "^18.3.1",
@@ -33,7 +35,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "globals": {
+      "$": "readonly"
+    }
   },
   "browserslist": {
     "production": [
