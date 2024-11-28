@@ -9,6 +9,7 @@ import Organigrama from "./pages/Organigrama/Organigrama"
 import Proyectos from "./pages/Proyectos/Proyectos";
 import TestCalendario from "./pages/TestCalendario/TestCalendario"
 import Salas from "./pages/Salas/Salas";
+import OrganigramaMateo from './pages/Organigrama/OrganigramaMateo';
 
 // App component
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/salas" element={<Salas/>}/>
+          <Route path="/organigramaMateo" element={<OrganigramaMateo />} />
         </Routes>
       </main>
       {/* Renderiza el Footer solo si no estás en la página de login */}

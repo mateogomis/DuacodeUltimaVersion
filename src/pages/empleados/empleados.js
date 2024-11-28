@@ -10,7 +10,9 @@ const Empleados = () => {
     const fetchEmpleados = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/empleados/');
+        
         setEmpleados(response.data);
+        console.log(response.data)
       } catch (error) {
         setError("Error al obtener los empleados");
       } finally {
