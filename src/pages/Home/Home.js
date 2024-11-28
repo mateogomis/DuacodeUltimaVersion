@@ -79,7 +79,7 @@ const Home = () => {
       </section>
 
       <Calendario />
-      <Salas />
+      {/* <Salas /> */}
 
       <section className="organigrama-section">
         <h2 className="organigrama-title">Organigrama de la Empresa</h2>
