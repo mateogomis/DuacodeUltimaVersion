@@ -83,52 +83,32 @@
   transform: translateY(0) rotate(0deg);
 }
 
-/* Float Animation on Hover */
-@keyframes float {
-  0% {
-    transform: translateY(0) rotate(-1deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(1deg);
-  }
-  100% {
-    transform: translateY(0) rotate(-1deg);
-  }
-}
-
-.salas-card.visible:hover {
-  animation: float 2s infinite ease-in-out; /* Movimiento continuo al hacer hover */
-}
-
-/* Header with Name and Map Icon */
-.salas-header {
+/* Image Container Styles */
+.salas-image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
-  gap: 10px; /* Espaciado entre el nombre y el ícono */
+  width: 120px; /* Ancho fijo del círculo */
+  height: 120px; /* Altura fija del círculo */
+  border-radius: 50%; /* Hace que el contenedor sea circular */
+  overflow: hidden; /* Recorta el contenido que sobresale */
+  border: 3px solid #e0e0e0; /* Borde elegante */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Sombra para resaltar */
+  margin: 0 auto 15px auto; /* Centrado horizontal y espaciado inferior */
+  background-color: #f8f8f8; /* Fondo claro para imágenes que no cargan */
 }
 
-.salas-map-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+/* Estilo para las imágenes */
+.salas-image {
+  width: 100%; /* Asegura que la imagen ocupa todo el ancho del contenedor */
+  height: 100%; /* Asegura que la imagen ocupa toda la altura */
+  object-fit: cover; /* Mantiene proporciones y recorta si es necesario */
+  transition: transform 0.3s ease; /* Transición suave para hover */
 }
 
-.salas-map-icon:hover {
-  background-color: #4ecca3; /* Verde azulado para hover */
-  transform: scale(1.1); /* Zoom leve en hover */
-}
-
-.salas-map-icon svg {
-  width: 20px;
-  height: 20px;
-  fill: #ffffff; /* Blanco puro para el icono */
+/* Hover en imágenes */
+.salas-image-container:hover .salas-image {
+  transform: scale(1.1); /* Efecto de zoom suave al hacer hover */
 }
 
 /* Responsive Design */
@@ -147,4 +127,34 @@
     flex-direction: column;
     align-items: center;
   }
+}
+/* Header with Name and Map Icon */
+.salas-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px; /* Espaciado entre el nombre y el ícono */
+}
+
+.salas-map-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* Aumentado el ancho */
+  height: 40px; /* Aumentado el alto */
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.salas-map-icon:hover {
+  background-color: #4ecca3; /* Verde azulado para hover */
+  transform: scale(1.1); /* Zoom leve en hover */
+}
+
+.salas-map-icon svg {
+  width: 25px; /* Tamaño del SVG (ícono) */
+  height: 25px; /* Tamaño del SVG (ícono) */
+  fill: #ffffff; /* Blanco puro para el icono */
 }

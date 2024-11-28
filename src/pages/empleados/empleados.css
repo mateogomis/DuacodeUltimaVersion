@@ -12,32 +12,67 @@
     color: #4ECCA3; /* Verde azulado */
 }
 
-.employee-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+/* Centrar el carrusel y ajustar su estilo */
+.employee-carousel-container {
+    max-width: 1200px; /* Limita el ancho máximo del carrusel */
+    margin: 0 auto; /* Centra el carrusel horizontalmente */
+    padding: 0 20px; /* Añade separación en los laterales */
+    position: relative; /* Necesario para centrar flechas */
 }
 
+.slick-slider {
+    position: relative;
+}
+
+.slick-prev,
+.slick-next {
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 2rem; /* Ajusta el tamaño de las flechas */
+    color: #4ECCA3; /* Color de las flechas */
+}
+
+/* Dots de navegación */
+.slick-dots {
+    bottom: -20px; /* Ajusta la posición vertical de los dots */
+    text-align: center;
+}
+
+.slick-dots li button:before {
+    color: #aaa; /* Color base */
+    font-size: 1rem; /* Tamaño de los puntos */
+}
+
+.slick-dots li.slick-active button:before {
+    color: #4ECCA3; /* Verde azulado para el punto activo */
+}
+
+/* Tarjetas del empleado */
 .employee-card {
     background-color: #2D2F36; /* Gris medio oscuro */
     color: #F5F5F5; /* Blanco puro */
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     padding: 20px;
-    width: 300px;
+    width: 280px;
+    margin: 0 10px; /* Espaciado entre las tarjetas */
     text-align: center;
     border: 2px solid transparent;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Hover Effect on Employee Card */
 .employee-card:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
     border-color: #4ECCA3; /* Verde azulado */
 }
 
+/* Imagen del empleado */
 .employee-image-container {
     width: 100px;
     height: 100px;
@@ -58,6 +93,7 @@
     object-fit: cover;
 }
 
+/* Nombre y detalles del empleado */
 .employee-name {
     font-size: 1.5rem;
     margin-bottom: 10px;
@@ -66,18 +102,71 @@
 .employee-info {
     font-size: 0.9rem;
     margin: 5px 0;
+    color: #d3d3d3; /* Color gris claro para información secundaria */
 }
-/* Responsive */
-@media (max-width: 768px) {
-    .employee-cards,
-    .event-cards {
-        flex-direction: column;
-        gap: 15px;
+
+/* Responsivo */
+@media (max-width: 1024px) {
+    .employee-card {
+        width: 250px; /* Ajusta el ancho en pantallas medianas */
     }
 
-    .employee-card,
-    .event-card {
-        width: 90%;
-        margin: 0 auto;
+    .slick-prev,
+    .slick-next {
+        width: 35px;
+        height: 35px;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        font-size: 1.8rem; /* Ajusta el tamaño de las flechas */
+    }
+}
+/* Estilo del botón contenedor del icono */
+.expand-button {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin bordes */
+    cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
+    margin-top: 10px; /* Separación superior del botón */
+    transition: transform 0.3s ease; /* Animación suave para escalar */
+  }
+  
+  .expand-button:hover {
+    transform: scale(1.2); /* Aumenta el tamaño ligeramente al pasar el mouse */
+  }
+  
+  /* Estilo del SVG (icono) */
+  .expand-button svg {
+    fill: #4ecca3; /* Color verde azulado para el icono */
+    width: 30px; /* Ancho del icono */
+    height: 30px; /* Altura del icono */
+    transition: fill 0.3s ease, transform 0.3s ease; /* Animación para cambios de color y tamaño */
+  }
+  
+  /* Cambia el color del icono al pasar el mouse */
+  .expand-button:hover svg {
+    fill: #37a088; /* Verde más oscuro al pasar el mouse */
+  }
+  
+  /* Opcional: estilo para la tarjeta expandida */
+  .employee-card.expanded .expand-button svg {
+    fill: #ffffff; /* Cambia el color del icono cuando la tarjeta está expandida */
+    transform: rotate(45deg); /* Opcional: rota el icono para indicar el estado de expansión */
+  }
+  
+
+@media (max-width: 768px) {
+    .employee-card {
+        width: 90%; /* Ocupa casi todo el ancho en pantallas pequeñas */
+        margin: 0 auto; /* Centrado */
+    }
+
+    .slick-prev,
+    .slick-next {
+        display: none; /* Oculta las flechas en pantallas pequeñas */
+    }
+
+    .slick-dots {
+        bottom: -15px; /* Ajusta los puntos en móviles */
     }
 }

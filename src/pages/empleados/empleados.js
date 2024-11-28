@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import axios from "axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./Empleados.css";
 
 const Empleados = () => {
   const [empleados, setEmpleados] = useState([]);
+  const [expandedCards, setExpandedCards] = useState({}); // Controla qué tarjetas están expandidas
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchEmpleados = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/empleados/');
-        
+        const response = await axios.get("http://localhost:8000/api/empleados/");
         setEmpleados(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         setError("Error al obtener los empleados");
       } finally {
@@ -21,13 +25,43 @@ const Empleados = () => {
     };
     fetchEmpleados();
   }, []);
+
+  const toggleInfo = (id) => {
+    setExpandedCards((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   if (loading) return <p>Cargando empleados...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <section className="employee-section">
       <h2 className="employee-section-title">Conoce a Nuestro Equipo</h2>
-      <div className="employee-cards">
+      <Slider {...carouselSettings} className="employee-carousel">
         {empleados.map((empleado) => (
           <div className="employee-card" key={empleado.id}>
             <div className="employee-image-container">
@@ -38,39 +72,70 @@ const Empleados = () => {
               />
             </div>
             <h3 className="employee-name">{empleado.nombre}</h3>
-            <p className="employee-info">
-              <strong>Estado: </strong>
-              {empleado.baja==false && empleado.excedencia==false && empleado.vacaciones==false && empleado.teletrabajo==false  ? "Está trabajando" : "No está trabajando"}
-            </p>
-            <p className="employee-info">
-              <strong>Cumpleaños:</strong> {empleado.cumpleanos}
-            </p>
-            <p className="employee-info">
-              <strong>Contratación:</strong> {empleado.fecha_contratacion}
-            </p>
-            <p className="employee-info">
-              <strong>Correo:</strong> {empleado.email}
-            </p>
-            <p className="employee-info">
-              <strong>Teléfono:</strong> {empleado.telefono}
-            </p>
-            <p className="employee-info">
-              <strong>Oficina:</strong> {empleado.sede}
-            </p>
-            <p className="employee-info">
-              <strong>Supervisor:</strong> {empleado.supervisor}
-            </p>
-            <p className="employee-info">
-              <strong>Puesto:</strong> {empleado.rol.nombre}
-            </p>
-            <p className="employee-info">
-              <strong>Vacaciones: </strong> 
-              {empleado.vacaciones ? "Está de vacaciones" : "No está de vacaciones"}
-            </p>
+            <button
+              className="expand-button"
+              onClick={() => toggleInfo(empleado.id)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                className="bi bi-person-plus-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                <path
+                  fillRule="evenodd"
+                  d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"
+                />
+              </svg>
+            </button>
+            {expandedCards[empleado.id] && (
+              <div className="employee-info-expanded">
+                <p>
+                  <strong>Estado: </strong>
+                  {empleado.baja === false &&
+                  empleado.excedencia === false &&
+                  empleado.vacaciones === false &&
+                  empleado.teletrabajo === false
+                    ? "Está trabajando"
+                    : "No está trabajando"}
+                </p>
+                <p>
+                  <strong>Cumpleaños:</strong> {empleado.cumpleanos}
+                </p>
+                <p>
+                  <strong>Contratación:</strong> {empleado.fecha_contratacion}
+                </p>
+                <p>
+                  <strong>Correo:</strong> {empleado.email}
+                </p>
+                <p>
+                  <strong>Teléfono:</strong> {empleado.telefono}
+                </p>
+                <p>
+                  <strong>Oficina:</strong> {empleado.sede}
+                </p>
+                <p>
+                  <strong>Supervisor:</strong> {empleado.supervisor}
+                </p>
+                <p>
+                  <strong>Puesto:</strong> {empleado.rol.nombre}
+                </p>
+                <p>
+                  <strong>Vacaciones: </strong>
+                  {empleado.vacaciones
+                    ? "Está de vacaciones"
+                    : "No está de vacaciones"}
+                </p>
+              </div>
+            )}
           </div>
         ))}
-      </div>
+      </Slider>
     </section>
   );
 };
+
 export default Empleados;
