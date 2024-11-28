@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import $ from 'jquery'; // Importa jQuery
 import axios from 'axios'; // Importa axios para la solicitud a la API
+import '../TestCalendario/loader.css';
 
 const Organigrama = () => {
   const [datasource, setDatasource] = useState(null); // Estado para los datos del organigrama
@@ -12,7 +13,7 @@ const Organigrama = () => {
         const response = await axios.get('http://localhost:8000/api/organigrama'); // Cambia la URL según tu endpoint
         console.log('Datos originales desde la API:', response.data);
 
-        // Trabajamos solo con el primer objeto del array
+        // Trabajamos solo con el primer objeto del array (CEO)
         const rootData = response.data[0];
         console.log('Datos seleccionados (root):', rootData);
 
@@ -62,10 +63,6 @@ const Organigrama = () => {
             event.stopPropagation(); // Evitar la propagación del clic a otros nodos
           });
         },
-        // compact: function (data) {
-        //   // Compacta solo si el nodo tiene más de 10 hijos
-        //   return data?.children?.length > 10;
-        // },
       });
     }
   }, [datasource]); // Se ejecuta cuando cambia datasource
@@ -89,7 +86,12 @@ const Organigrama = () => {
         border: '1px solid #ddd',
       }}
     >
-      {!datasource && <p>Cargando organigrama...</p>} {/* Muestra mensaje mientras los datos se están cargando */}
+      {!datasource &&   // Carga animacion de carga mientras consulta a la bbdd
+
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    }
     </div>
   );
 };
