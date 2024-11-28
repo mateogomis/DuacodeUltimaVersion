@@ -1,61 +1,89 @@
-import React, { useEffect, useState, useRef } from 'react';
-import * as d3 from 'd3';
-import { OrgChart } from 'd3-org-chart';
+import React, { useEffect } from 'react';
+import $ from 'jquery'; // Importa jQuery
+// import 'https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js'; // Asegúrate de que orgchart.js se cargue después de jQuery
 
 const Organigrama = () => {
-  const [data, setData] = useState([]); // Estado para almacenar los datos del organigrama
-  const chartContainer = useRef(null); // Referencia al contenedor del gráfico
-
   useEffect(() => {
-    // Hacer una solicitud GET para cargar los datos del organigrama
-    fetch('http://localhost:8000/api/organigrama')
-      .then((response) => response.json())
-      .then((data) => {
-        // Ajusta los datos si es necesario
-        setData(data);
-        console.log(data[1])
-      })
-      .catch((error) => {
-        console.error('Error al cargar los datos:', error);
+    // Espera que jQuery y orgchart.js estén cargados
+    if (typeof $ !== 'undefined' && typeof $.fn.orgchart !== 'undefined') {
+      const datasource = {
+        name: 'Lao Lao',
+        title: 'general manager',
+        children: [
+          {
+            name: 'Bo Miao',
+            title: 'department manager',
+            compact: true,
+            children: [
+              { name: 'Fei Xuan', title: 'engineer' },
+              { name: 'Er Xuan', title: 'engineer' },
+              { name: 'San Xuan', title: 'engineer' },
+              {
+                name: 'Si Xuan',
+                title: 'engineer',
+                compact: true,
+                children: [
+                  { name: 'Feng Shou', title: 'engineer' },
+                  { name: 'Er Shou', title: 'engineer' },
+                  { name: 'San Shou', title: 'engineer' },
+                  { name: 'Si Shou', title: 'engineer' },
+                ],
+              },
+              { name: 'Wu Xuan', title: 'engineer' },
+            ],
+          },
+          {
+            name: 'Su Miao',
+            title: 'department manager',
+            children: [
+              { name: 'Tie Hua', title: 'senior engineer' },
+              {
+                name: 'Hei Hei',
+                title: 'senior engineer',
+                children: [
+                  { name: 'Dan Dan', title: 'engineer' },
+                  { name: 'Er Dan', title: 'engineer' },
+                  { name: 'San Dan', title: 'engineer' },
+                  { name: 'Si Dan', title: 'engineer' },
+                  { name: 'Wu Dan', title: 'engineer' },
+                  { name: 'Liu Dan', title: 'engineer' },
+                  { name: 'Qi Dan', title: 'engineer' },
+                  { name: 'Ba Dan', title: 'engineer' },
+                  { name: 'Jiu Dan', title: 'engineer' },
+                  { name: 'Shi Dan', title: 'engineer' },
+                ],
+              },
+              { name: 'Pang Pang', title: 'senior engineer' },
+            ],
+          },
+          { name: 'Hong Miao', title: 'department manager' },
+        ],
+      };
+
+      // Inicializa orgchart una vez que jQuery esté listo
+      $('#chart-container').orgchart({
+        data: datasource,
+        nodeContent: 'title',
+        compact: function (data) {
+          return data?.children?.length >= 10;
+        },
       });
-  }, []); // Se ejecuta solo una vez al montar el componente
-
-  useEffect(() => {
-    if (data.length > 0 && chartContainer.current) {
-      const chart = new OrgChart(); // Crear una nueva instancia del organigrama
-
-      chart
-        .container(chartContainer.current) // Conecta el gráfico al contenedor
-        .data(data) // Configura los datos
-        .nodeHeight((d) => 100) // Altura de los nodos
-        .nodeWidth((d) => 150) // Ancho de los nodos
-        .nodeContent((d) => {
-          console.log("D :", d)
-          // Contenido personalizado del nodo
-          return `
-            <div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center;">
-                    <img src="http://localhost:8000${d.data.foto}" alt="${d.data.nombre}" style="width: 70px; height: 70px;  object-fit: cover;" />
-
-              <h3>${d.data.nombre}</h3>
-              <p>${d.data.puesto}</p>
-            </div>
-          `;
-        })
-        .onNodeClick((node) => alert(`Nodo seleccionado: ${node.data.nombre}`)) // Evento al hacer clic en un nodo
-        .render(); // Renderiza el gráfico
+    } else {
+      console.log(typeof jQuery);
+console.log(typeof $.fn.orgchart);
     }
-  }, [data]); // Este efecto se ejecuta cada vez que los datos cambian
+  }, []);
 
   return (
-    <div>
-      <h1>Organigrama</h1>
-      <div
-        ref={chartContainer}
-        style={{ width: '100%', height: '600px', border: '1px solid #ddd' }}
-      ></div>
-    </div>
+    <div
+      id="chart-container"
+      style={{
+        width: '100%',
+        height: '600px',
+        border: '1px solid #ddd',
+      }}
+    ></div>
   );
 };
 
 export default Organigrama;
-
