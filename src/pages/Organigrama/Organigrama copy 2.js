@@ -3,7 +3,7 @@ import $ from 'jquery'; // Importa jQuery
 import axios from 'axios'; // Importa axios para la solicitud a la API
 
 const Organigrama = () => {
-  const [datasource, setDatasource] = useState(null); // Estado para los datos del organigrama
+  const [datasource, setDatasource] = useState(null);
 
   useEffect(() => {
     // Cargar datos desde la API
@@ -31,9 +31,15 @@ const Organigrama = () => {
 
   useEffect(() => {
     // Verifica que jQuery y orgchart.js estén cargados y que datasource esté disponible
-    if (datasource && typeof $ !== 'undefined' && typeof $.fn.orgchart !== 'undefined') {
+    if (
+      datasource &&
+      typeof $ !== 'undefined' &&
+      typeof $.fn.orgchart !== 'undefined'
+    ) {
       const container = $('#chart-container');
-      container.empty(); // Limpia el contenedor antes de inicializar
+      if (container.children().length > 0) {
+        container.empty(); // Limpia el contenedor antes de inicializar
+      }
 
       // Inicializa orgchart con los datos transformados
       container.orgchart({
@@ -62,10 +68,6 @@ const Organigrama = () => {
             event.stopPropagation(); // Evitar la propagación del clic a otros nodos
           });
         },
-        // compact: function (data) {
-        //   // Compacta solo si el nodo tiene más de 10 hijos
-        //   return data?.children?.length > 10;
-        // },
       });
     }
   }, [datasource]); // Se ejecuta cuando cambia datasource
@@ -76,6 +78,7 @@ const Organigrama = () => {
       name: `${data.nombre} ${data.apellido_1} ${data.apellido_2}`, // Nombre completo
       title: data.rol.nombre, // Título o cargo del empleado
       foto: data.foto, // URL de la foto
+      relationship: data.relationship || '000', // Relación para control del plugin
       children: data.children ? data.children.map(transformData) : [], // Procesar recursivamente los hijos
     };
   };
@@ -89,9 +92,70 @@ const Organigrama = () => {
         border: '1px solid #ddd',
       }}
     >
-      {!datasource && <p>Cargando organigrama...</p>} {/* Muestra mensaje mientras los datos se están cargando */}
+      {!datasource && <p>Cargando organigrama...</p>}
     </div>
   );
 };
 
 export default Organigrama;
+
+
+
+
+
+
+
+
+// {
+//         name: 'Lao Lao',
+//         title: 'general manager',
+//         children: [
+//           {
+//             name: 'Bo Miao',
+//             title: 'department manager',
+//             compact: true,
+//             children: [
+//               { name: 'Fei Xuan', title: 'engineer' },
+//               { name: 'Er Xuan', title: 'engineer' },
+//               { name: 'San Xuan', title: 'engineer' },
+//               {
+//                 name: 'Si Xuan',
+//                 title: 'engineer',
+//                 compact: true,
+//                 children: [
+//                   { name: 'Feng Shou', title: 'engineer' },
+//                   { name: 'Er Shou', title: 'engineer' },
+//                   { name: 'San Shou', title: 'engineer' },
+//                   { name: 'Si Shou', title: 'engineer' },
+//                 ],
+//               },
+//               { name: 'Wu Xuan', title: 'engineer' },
+//             ],
+//           },
+//           {
+//             name: 'Su Miao',
+//             title: 'department manager',
+//             children: [
+//               { name: 'Tie Hua', title: 'senior engineer' },
+//               {
+//                 name: 'Hei Hei',
+//                 title: 'senior engineer',
+//                 children: [
+//                   { name: 'Dan Dan', title: 'engineer' },
+//                   { name: 'Er Dan', title: 'engineer' },
+//                   { name: 'San Dan', title: 'engineer' },
+//                   { name: 'Si Dan', title: 'engineer' },
+//                   { name: 'Wu Dan', title: 'engineer' },
+//                   { name: 'Liu Dan', title: 'engineer' },
+//                   { name: 'Qi Dan', title: 'engineer' },
+//                   { name: 'Ba Dan', title: 'engineer' },
+//                   { name: 'Jiu Dan', title: 'engineer' },
+//                   { name: 'Shi Dan', title: 'engineer' },
+//                 ],
+//               },
+//               { name: 'Pang Pang', title: 'senior engineer' },
+//             ],
+//           },
+//           { name: 'Hong Miao', title: 'department manager' },
+//         ],
+//       };
