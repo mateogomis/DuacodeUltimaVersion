@@ -1,4 +1,4 @@
-/* Room Section */
+/* General Room Section Styles */
 .salas-section {
   background-color: #2d2f36; /* Fondo gris medio oscuro */
   color: #f5f5f5; /* Blanco puro */
@@ -24,30 +24,34 @@
   perspective: 1000px; /* Añade perspectiva */
 }
 
-/* Room Cards */
+/* Room Card Styles */
 .salas-card {
-  width: 300px; /* Ajuste para el botón */
-  height: 240px; /* Espacio adicional para el botón */
+  width: 300px;
+  height: auto; /* Ajuste automático para contenido */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  transform: translateY(150px) rotate(-5deg); /* Posición inicial */
-  opacity: 0;
   transition: transform 0.6s ease-out, opacity 0.6s ease-out;
   font-size: 16px;
   font-family: Arial, sans-serif;
   text-align: left;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffff00; /* Color amarillo inicial */
+  background-color: #7cffbd; /* Color amarillo inicial */
   color: #000; /* Texto negro */
+  transform: translateY(150px) rotate(-5deg); /* Posición inicial */
+  opacity: 0;
+}
+
+.salas-name {
+  text-align: center;
+  margin-right: 10px; /* Espaciado entre el nombre y el ícono */
 }
 
 /* Alternating Card Colors */
 .salas-card:nth-child(1) {
-  background-color: #ffff00; /* Amarillo brillante */
+  background-color: #ff6f6ffb; /* Amarillo brillante */
 }
 
 .salas-card:nth-child(2) {
@@ -73,13 +77,13 @@
   cursor: pointer;
 }
 
-/* Visibility Animation
+/* Visibility Animation */
 .salas-card.visible {
-  transform: translateY(0) rotate(0deg);
   opacity: 1;
-} */
+  transform: translateY(0) rotate(0deg);
+}
 
-/* Movement Effect on Scroll */
+/* Float Animation on Hover */
 @keyframes float {
   0% {
     transform: translateY(0) rotate(-1deg);
@@ -96,160 +100,15 @@
   animation: float 2s infinite ease-in-out; /* Movimiento continuo al hacer hover */
 }
 
-/* Room Card Title */
-.salas-card h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Room Card Info */
-.salas-card p {
-  font-size: 14px;
-  line-height: 1.4;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Room Section */
-.salas-section {
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
-  padding: 50px 20px;
-  text-align: center;
-  position: relative;
-  margin-top: 50px;
-}
-
-.salas-section-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
-  margin-bottom: 30px;
-}
-
-/* Room Cards Container */
-.salas-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-/* Room Cards */
-.salas-card {
-  width: 300px;
-  height: 240px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ffff00; /* Color amarillo inicial */
-  color: #000; /* Texto negro */
-}
-
-/* Alternating Card Colors */
-.salas-card:nth-child(1) {
-  background-color: #ffff00;
-}
-.salas-card:nth-child(2) {
-  background-color: #90ee90;
-}
-.salas-card:nth-child(3) {
-  background-color: #add8e6;
-}
-
-/* Room Card Title */
-.salas-card h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Room Card Info */
-.salas-card p {
-  font-size: 14px;
-  line-height: 1.4;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Room Section */
-.salas-section {
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
-  padding: 50px 20px;
-  text-align: center;
-  position: relative;
-  margin-top: 50px;
-}
-
-.salas-section-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
-  margin-bottom: 30px;
-}
-
-/* Room Cards Container */
-.salas-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-/* Room Cards */
-.salas-card {
-  width: 300px;
-  height: auto; /* Ajuste automático para contenido */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffff00; /* Color amarillo inicial */
-  color: #000; /* Texto negro */
-}
-
-/* Alternating Card Colors */
-.salas-card:nth-child(1) {
-  background-color: #ffff00;
-}
-.salas-card:nth-child(2) {
-  background-color: #90ee90;
-}
-.salas-card:nth-child(3) {
-  background-color: #add8e6;
-}
-
-/* Room Card Title and Icon Container */
+/* Header with Name and Map Icon */
 .salas-header {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
   margin-bottom: 10px;
+  gap: 10px; /* Espaciado entre el nombre y el ícono */
 }
 
-/* Room Card Title */
-.salas-card h3 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #242424; /* Texto oscuro */
-  margin: 0;
-}
-
-/* SVG Icon Container */
 .salas-map-icon {
   display: flex;
   justify-content: center;
@@ -261,7 +120,6 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Icon Hover Effect */
 .salas-map-icon:hover {
   background-color: #4ecca3; /* Verde azulado para hover */
   transform: scale(1.1); /* Zoom leve en hover */
@@ -273,14 +131,7 @@
   fill: #ffffff; /* Blanco puro para el icono */
 }
 
-/* Room Card Info */
-.salas-card p {
-  font-size: 14px;
-  line-height: 1.4;
-  color: #242424; /* Texto oscuro */
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
   .salas-cards {
     flex-direction: column;
@@ -290,5 +141,10 @@
 
   .salas-card {
     width: 90%;
+  }
+
+  .salas-header {
+    flex-direction: column;
+    align-items: center;
   }
 }
