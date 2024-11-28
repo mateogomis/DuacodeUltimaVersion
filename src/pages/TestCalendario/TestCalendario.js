@@ -1,52 +1,31 @@
-// MyCalendar.js
 import React, { useState, useEffect } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar'; // Asegúrate de importar Calendar
+import { Calendar, momentLocalizer } from 'react-big-calendar'; 
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import './TestCalendario.css'
+import './TestCalendario.css';
+import './loader.css';
+
 const TestCalendario = () => {
   const [events, setEvents] = useState([]); // Estado para los eventos del calendario
   const [loading, setLoading] = useState(true); // Estado para la carga de datos
 
-  // Ejemplo de datos de citas (pueden ser de una API)
-  const data = [
-    {
-      "id": 1,
-      "sala": 6,
-      "reservado_por": "Alejandro Blanco Robinson",
-      "fecha": "2024-11-28",
-      "hora_inicio": "11:00:00",
-      "hora_fin": "12:00:00",
-      "empleados_asistentes": [
-        {
-          "id": 96,
-          "nombre": "Ines",
-          "apellido_1": "Olsrud",
-          "apellido_2": "Austin",
-          "email": "ines.olsrud@example.com"
-        },
-        {
-          "id": 134,
-          "nombre": "Lison",
-          "apellido_1": "Henry",
-          "apellido_2": "Campbell",
-          "email": "lison.henry@example.com"
-        }
-      ]
-    }
-  ];
-
   // Función para convertir los datos al formato de react-big-calendar
-  const formatData = (data) => {
-    return data.map(event => {
+  const formatData = (reservas) => {
+    return reservas.map(event => {
       const startDate = new Date(`${event.fecha}T${event.hora_inicio}`);
       const endDate = new Date(`${event.fecha}T${event.hora_fin}`);
+
+      // Asegurarse de que los empleados sean una cadena separada por comas
+      const empleadosAsistentes = event.empleados_asistentes
+        .map(empleado => `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`)
+        .join(', ');
 
       return {
         start: startDate,
         end: endDate,
-        title: `Reservado por: ${event.reservado_por}`,
-        resource: event.empleados_asistentes, // Puedes usar esto para mostrar información adicional
+        title: `Reserva: ${event.reservado_por}`, // Mostrar nombre del que reserva
+        empleados: empleadosAsistentes, // Añadir empleados asistentes para usarlos en la vista
+        motivo: event.motivo, // Añadir motivo de la reserva
         allDay: false,
       };
     });
@@ -54,14 +33,29 @@ const TestCalendario = () => {
 
   // Cargar los eventos cuando el componente se monta
   useEffect(() => {
-    const formattedEvents = formatData(data); // Formatear los datos
-    setEvents(formattedEvents); // Guardar los eventos en el estado
-    setLoading(false); // Cambiar el estado de carga
-  }, [data]);
+    // Realizar la solicitud a la API para obtener los datos de la sala
+    fetch('http://localhost:8000/api/sedes/salas/1/')
+      .then(response => response.json())
+      .then(data => {
+        // Formatear las reservas para el calendario
+        const formattedEvents = formatData(data.reservas);
+        console.log(data)
+        setEvents(formattedEvents); // Guardar los eventos en el estado
+        setLoading(false); // Cambiar el estado de carga
+      })
+      .catch(error => {
+        console.error('Error al cargar las reservas:', error);
+        setLoading(false);
+      });
+  }, []); // Dependencias vacías, solo se ejecuta al montar el componente
 
-  // Mostrar el mensaje de carga si aún no se han cargado los eventos
+  // Carga animacion de carga mientras consulta a la bbdd
   if (loading) {
-    return <div>Cargando el calendario...</div>;
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
@@ -73,6 +67,22 @@ const TestCalendario = () => {
         localizer={momentLocalizer(moment)} // Localizador con moment.js
         step={30} // Intervalo de 30 minutos por slot
         timeslots={1} // Cantidad de intervalos de tiempo por día
+        components={{
+          event: ({ event }) => (
+            <div>
+              <div style={{ color: 'orange', fontWeight: 'bold' }}>
+                {event.title} {/* Nombre del que hace la reserva en naranja */}
+              </div>
+              <div style={{ fontSize: '0.9em', color: 'white' }}>
+                <strong>Asistentes:</strong><br />
+                {event.empleados} {/* Mostrar los asistentes debajo en blanco */}
+                <br />
+                <strong>Motivo:</strong><br />
+                <em>{event.motivo}</em> {/* Mostrar el motivo de la reserva */}
+              </div>
+            </div>
+          ),
+        }}
       />
     </div>
   );
