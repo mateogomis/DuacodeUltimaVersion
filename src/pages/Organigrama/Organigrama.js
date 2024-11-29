@@ -74,6 +74,7 @@ const Organigrama = () => {
       title: data.rol.nombre, // Título o cargo del empleado
       foto: data.foto, // URL de la foto
       children: data.children ? data.children.map(transformData) : [], // Procesar recursivamente los hijos
+      collapsed : true
     };
   };
 
