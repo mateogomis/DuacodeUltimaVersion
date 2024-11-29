@@ -47,21 +47,33 @@ const Organigrama = () => {
               `<img src="http://localhost:8000${data.foto}" class="node-photo" alt="${data.name}" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 5px;" />`
             );
           }
+
+
         },
         render: function () {
-          // Aseguramos que todos los nodos estén cerrados inicialmente
+          // Aseguramos que todos los nodos hijos del primer nodo estén colapsados inicialmente
           container.find('.children').hide(); // Ocultar todos los nodos hijos
 
           // Configuración de clic para abrir/cerrar los nodos
           container.find('.node').click(function (event) {
             const $node = $(this);
             const $children = $node.find('.children');
+            const $icon = $node.find('.expand-collapse-icon');
+
             if ($children.length > 0) {
               // Alternar la visibilidad de los hijos al hacer clic
               $children.toggle(); // Esto abrirá o cerrará los nodos hijos
+
+              // Cambiar el ícono de la flecha (expandir/colapsar)
+              if ($children.is(':visible')) {
+                $icon.text('-'); // Cambia a un "-" si el nodo está expandido
+              }
             }
             event.stopPropagation(); // Evitar la propagación del clic a otros nodos
           });
+
+          // Si es el primer nodo, asegurarse de que todos sus hijos estén colapsados
+          container.find('.node').first().find('.children').hide();
         },
       });
     }
@@ -74,7 +86,7 @@ const Organigrama = () => {
       title: data.rol.nombre, // Título o cargo del empleado
       foto: data.foto, // URL de la foto
       children: data.children ? data.children.map(transformData) : [], // Procesar recursivamente los hijos
-      collapsed : true
+      collapsed: true, // Aseguramos que todos los nodos estén colapsados inicialmente
     };
   };
 
@@ -88,7 +100,6 @@ const Organigrama = () => {
       }}
     >
       {!datasource &&   // Carga animacion de carga mientras consulta a la bbdd
-
       <div className="loader-container">
         <div className="loader"></div>
       </div>
