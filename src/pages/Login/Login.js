@@ -65,54 +65,58 @@ const Login = () => {
     }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+const handleLogin = async (e, qrUsername = null, qrPassword = null) => {
+  if (e) e.preventDefault(); // Manejo del evento solo si se llama desde el formulario
+
+  const usernameToUse = qrUsername || emailOrUser; // Usa los valores del QR o del formulario
+  const passwordToUse = qrPassword || password;
+
+  try {
+    const response = await fetch("http://localhost:8000/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: usernameToUse, password: passwordToUse }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Inicio de sesión exitoso", data);
+      localStorage.setItem("access_token", data.access);
+      localStorage.setItem("refresh_token", data.refresh);
+      setErrorMessage("");
+      setQrOverlayVisible(false); // Cierra el overlay del QR si estaba activo
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.detail || "Error en las credenciales");
+    }
+  } catch (err) {
+    console.error("Error al iniciar sesión", err);
+    setErrorMessage("No se pudo conectar con el servidor");
+  }
+};
+
+
+const handleQrScan = (imageData) => {
+  const code = jsQR(imageData.data, imageData.width, imageData.height);
+  if (code) {
+    console.log("Código QR leído:", code.data);
+
     try {
-      const response = await fetch("http://localhost:8000/auth/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: emailOrUser, password }),
-      });
+      const employeeData = JSON.parse(code.data);
+      const Username = `${employeeData.nombre}.${employeeData.apellido_1}`.toLowerCase();
+      const Password = employeeData.contraseña;
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Inicio de sesión exitoso", data);
-        localStorage.setItem("access_token", data.access);
-        localStorage.setItem("refresh_token", data.refresh);
-        setErrorMessage("");
-      } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.detail || "Error en las credenciales");
-      }
-    } catch (err) {
-      console.error("Error al iniciar sesión", err);
-      setErrorMessage("No se pudo conectar con el servidor");
+      alert(`Código QR leído correctamente para ${employeeData.nombre}`);
+      handleLogin(null, Username, Password); // Llama a handleLogin con los datos del QR
+    } catch (error) {
+      console.error("Error al leer los datos del QR", error);
+      alert("Formato de QR inválido");
     }
-  };
+  }
+};
 
-  const handleQrScan = (imageData) => {
-    const code = jsQR(imageData.data, imageData.width, imageData.height);
-    if (code) {
-      console.log("Código QR leído:", code.data);
-
-      try {
-        const employeeData = JSON.parse(code.data);
-        const newUsername = `${employeeData.nombre}.${employeeData.apellido_1}`;
-        const newPassword = employeeData.contraseña;
-
-        setUsername(newUsername);
-        setPassword(newPassword);
-        setQrOverlayVisible(false);
-
-        alert("Código QR leído correctamente");
-      } catch (error) {
-        console.error("Error al leer los datos del QR", error);
-        alert("Formato de QR inválido");
-      }
-    }
-  };
 
   const handleActivateCamera = async () => {
     console.log("Intentando activar la cámara...");
@@ -157,7 +161,7 @@ const Login = () => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: new URLSearchParams({
-        username: username,
+        username: username.toLowerCase(),
         password: password,
       }),
       credentials: "include",
