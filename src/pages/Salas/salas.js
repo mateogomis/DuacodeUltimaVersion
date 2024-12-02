@@ -7,6 +7,8 @@ const Salas = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"; // Sustituye con tu propia API Key de Google Maps
+
   useEffect(() => {
     const fetchSalas = async () => {
       try {
@@ -34,6 +36,33 @@ const Salas = () => {
     }
   }, [loading, salas]);
 
+  // Función para obtener las coordenadas de Google Maps usando la API de geocodificación
+  const getCoordinates = async (direccion) => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(direccion)}&key=${API_KEY}`
+      );
+      const data = response.data;
+      if (data.status === "OK") {
+        const location = data.results[0].geometry.location;
+        return `${location.lat},${location.lng}`; // Devuelve latitud y longitud
+      }
+      return null;
+    } catch (error) {
+      console.error("Error al obtener coordenadas:", error);
+      return null;
+    }
+  };
+
+  // Generar el enlace de Google Maps
+  const generateMapsUrl = (direccion) => {
+    const coordinates = getCoordinates(direccion); 
+    if (coordinates) {
+      return `https://www.google.com/maps?q=${coordinates}`;
+    }
+    return `https://www.google.com/maps?q=${encodeURIComponent(direccion)}`;
+  };
+
   if (loading) return <p>Cargando salas...</p>;
   if (error) return <p>{error}</p>;
 
@@ -45,8 +74,9 @@ const Salas = () => {
           <div className="salas-card" key={sala.id}>
             <div className="salas-header">
               <h3 className="salas-name">{sala.nombre}</h3>
+              {/* El enlace ahora usa la URL generada por generateMapsUrl */}
               <a
-                href={salas.locationUrl}
+                href={generateMapsUrl(sala.sede.direccion)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="salas-map-icon"
