@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserMultiFormatReader } from "@zxing/library";
 import Webcam from "react-webcam";
+import jsQR from "jsqr";
 import "./Login.css";
 
 const slides = [
@@ -10,7 +10,7 @@ const slides = [
   },
   {
     title: "UX",
-    description: "Profesionales en hacértelo más fácil ;)",
+    description: "Profesionales en hacértelo más fácil ;) ",
   },
   {
     title: "Equipo Rookie </>",
@@ -22,10 +22,14 @@ const Login = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTextHidden, setIsTextHidden] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-  const [qrActive, setQrActive] = useState(false);
+  const [emailOrUser, setEmailOrUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [qrOverlayVisible, setQrOverlayVisible] = useState(false);
+  const webcamRef = useRef(null);
   const [scannedResult, setScannedResult] = useState(null);
   const [socialPopup, setSocialPopup] = useState({ visible: false, type: "" });
-  const webcamRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,32 +41,17 @@ const Login = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleQrScan = async () => {
-    const codeReader = new BrowserMultiFormatReader();
-    const video = webcamRef.current.video;
-
-    try {
-      const result = await codeReader.decodeOnceFromVideoElement(video);
-      setScannedResult(result.text);
-      setQrActive(false);
-    } catch (err) {
-      console.error("Error al escanear el código QR", err);
-    }
-  };
-
-  const handleActivateCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      if (stream) {
-        setQrActive(true);
-      }
-    } catch (err) {
-      alert("No se pudo activar la cámara. Por favor, verifica tus permisos.");
-    }
-  };
+  useEffect(() => {
+    // Detener la webcam al desmontar el componente
+    return () => {
+        if (webcamRef.current) {
+            const videoTracks = webcamRef.current?.stream?.getTracks();
+            if (videoTracks) {
+                videoTracks.forEach(track => track.stop()); // Detiene cada track de video
+            }
+        }
+    };
+}, []);
 
   const handleSocialLogin = (platform) => {
     if (platform === "Google") {
@@ -76,9 +65,117 @@ const Login = () => {
     }
   };
 
-  const closeSocialPopup = () => {
-    setSocialPopup({ visible: false, type: "" });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8000/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: emailOrUser, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Inicio de sesión exitoso", data);
+        localStorage.setItem("access_token", data.access);
+        localStorage.setItem("refresh_token", data.refresh);
+        setErrorMessage("");
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.detail || "Error en las credenciales");
+      }
+    } catch (err) {
+      console.error("Error al iniciar sesión", err);
+      setErrorMessage("No se pudo conectar con el servidor");
+    }
   };
+
+  const handleQrScan = (imageData) => {
+    const code = jsQR(imageData.data, imageData.width, imageData.height);
+    if (code) {
+      console.log("Código QR leído:", code.data);
+
+      try {
+        const employeeData = JSON.parse(code.data);
+        const newUsername = `${employeeData.nombre}.${employeeData.apellido_1}`;
+        const newPassword = employeeData.contraseña;
+
+        setUsername(newUsername);
+        setPassword(newPassword);
+        setQrOverlayVisible(false);
+
+        alert("Código QR leído correctamente");
+      } catch (error) {
+        console.error("Error al leer los datos del QR", error);
+        alert("Formato de QR inválido");
+      }
+    }
+  };
+
+  const handleActivateCamera = async () => {
+    console.log("Intentando activar la cámara...");
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (stream) {
+        console.log("Cámara activada correctamente");
+        setQrOverlayVisible(true);
+
+        const interval = setInterval(() => {
+          if (webcamRef.current && webcamRef.current.video) {
+            const video = webcamRef.current.video;
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            handleQrScan(imageData);
+          }
+        }, 500); // Revisar cada 500 ms por QR
+        return () => clearInterval(interval);
+      }
+    } catch (err) {
+      console.error("No se pudo activar la cámara", err);
+      alert("No se pudo activar la cámara. Por favor, verifica tus permisos.");
+    }
+  };
+  // Cierrre de webcam
+  const closeScanner = () => {
+    setQrOverlayVisible(false); // Cierra el overlay
+    setScannedResult(null); // Opcional: Limpiar el resultado escaneado
+
+  };
+  const handleSubmit = async () => {
+    const response = await fetch("http://localhost:8000/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        username: username,
+        password: password,
+      }),
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+    } else {
+      const errorData = await response.json();
+    }
+  };
+
+  useEffect(() => {
+    if (username && password) {
+      handleSubmit();
+    }
+  }, [username, password]);
 
   return (
     <div className="login-container">
@@ -107,22 +204,29 @@ const Login = () => {
         </div>
         <div className="form-content">
           {isLogin ? (
-            <form className="form">
+            <form className="form" onSubmit={handleLogin}>
               <input
                 type="text"
                 placeholder="Correo o Usuario"
                 className="form-input"
+                value={emailOrUser}
+                onChange={(e) => setEmailOrUser(e.target.value)}
               />
               <input
                 type="password"
                 placeholder="Contraseña"
                 className="form-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className="form-remember">
                 <input type="checkbox" id="remember" />
                 <label htmlFor="remember">Recuérdame</label>
               </div>
-              <button className="form-button">Iniciar sesión</button>
+              {errorMessage && <p className="form-error">{errorMessage}</p>}
+              <button type="submit" className="form-button">
+                Iniciar sesión
+              </button>
               <button
                 type="button"
                 className="form-button qr-button"
@@ -162,58 +266,14 @@ const Login = () => {
             </form>
           ) : (
             <form className="form">
-              <input
-                type="email"
-                placeholder="Correo"
-                className="form-input"
-              />
-              <input
-                type="text"
-                placeholder="Nombre de usuario"
-                className="form-input"
-              />
-              <input
-                type="password"
-                placeholder="Contraseña"
-                className="form-input"
-              />
-              <button className="form-button">Registrarse</button>
-              <div className="social-login">
-                <button
-                  type="button"
-                  className="social-button google-button"
-                  onClick={() => handleSocialLogin("Google")}
-                >
-                  <img
-                    src="/iconoGoogle.png"
-                    alt="Google Icon"
-                    className="social-icon"
-                  />
-                  Registrarse con Google
-                </button>
-                <button
-                  type="button"
-                  className="social-button github-button"
-                  onClick={() => handleSocialLogin("GitHub")}
-                >
-                  <img
-                    src="/iconoGit.png"
-                    alt="GitHub Icon"
-                    className="social-icon"
-                  />
-                  Registrarse con GitHub
-                </button>
-              </div>
-              <p className="form-terms">
-                Al registrarte, aceptas nuestros{" "}
-                <a href="#terms">Términos de servicio</a>
-              </p>
+              {/* Registro */}
             </form>
           )}
         </div>
       </div>
-      {qrActive && (
-        <div className="qr-overlay">
+
+      {qrOverlayVisible && (
+               <div className="qr-overlay">
           <div className="qr-scanner-container">
             <Webcam
               ref={webcamRef}
@@ -222,7 +282,8 @@ const Login = () => {
               screenshotFormat="image/jpeg"
               style={{ width: "100%", height: "auto" }}
             />
-            <button className="form-button" onClick={() => setQrActive(false)}>
+            {/* <button className="form-button" onClick={() => setQrActive(false)}> */}
+            <button className="form-button" onClick={closeScanner}>
               Cerrar escáner
             </button>
             {scannedResult && (
@@ -233,13 +294,10 @@ const Login = () => {
           </div>
         </div>
       )}
+
       {socialPopup.visible && (
         <div className="social-popup">
-          <div className="popup-content">
-            <h3>Iniciar sesión con {socialPopup.type}</h3>
-            <p>Selecciona tu cuenta para continuar o añade una nueva.</p>
-            <button onClick={closeSocialPopup}>Cerrar</button>
-          </div>
+          <p>{`Login con ${socialPopup.type} no disponible en esta demo.`}</p>
         </div>
       )}
     </div>
