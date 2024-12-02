@@ -76,6 +76,9 @@ const Salas = () => {
             <p className="salas-info">
               <strong>Sede:</strong> {sala.sede.nombre}
             </p>
+            <p className="salas-info">
+              <strong>Ubicación:</strong> {sala.sede.direccion}
+            </p>
           </div>
         ))}
       </div>
