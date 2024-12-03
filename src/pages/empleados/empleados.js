@@ -7,6 +7,8 @@ import "./Empleados.css";
 
 const Empleados = () => {
   const [empleados, setEmpleados] = useState([]);
+  const [filteredEmpleados, setFilteredEmpleados] = useState([]); // Lista filtrada
+  const [searchQuery, setSearchQuery] = useState(""); // Estado para la barra de búsqueda
   const [expandedCards, setExpandedCards] = useState({}); // Controla qué tarjetas están expandidas
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +18,7 @@ const Empleados = () => {
       try {
         const response = await axios.get("http://localhost:8000/api/empleados/");
         setEmpleados(response.data);
-        console.log(response.data);
+        setFilteredEmpleados(response.data); // Inicialmente, todos los empleados se muestran
       } catch (error) {
         setError("Error al obtener los empleados");
       } finally {
@@ -25,6 +27,15 @@ const Empleados = () => {
     };
     fetchEmpleados();
   }, []);
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    const filtered = empleados.filter((empleado) =>
+      empleado.nombre.toLowerCase().includes(query)
+    );
+    setFilteredEmpleados(filtered);
+  };
 
   const toggleInfo = (id) => {
     setExpandedCards((prevState) => ({
@@ -35,7 +46,7 @@ const Empleados = () => {
 
   const carouselSettings = {
     dots: false,
-    infinite: true,
+    infinite: false, // Cambiado a false para evitar problemas con duplicados
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -61,13 +72,20 @@ const Empleados = () => {
   return (
     <section className="employee-section">
       <h2 className="employee-section-title">Conoce a Nuestro Equipo</h2>
+      <input
+        type="text"
+        placeholder="Buscar empleado por nombre..."
+        value={searchQuery}
+        onChange={handleSearch}
+        className="employee-search-bar"
+      />
       <Slider {...carouselSettings} className="employee-carousel">
-        {empleados.map((empleado) => (
+        {filteredEmpleados.map((empleado) => (
           <div className="employee-card" key={empleado.id}>
             <div className="employee-image-container">
               <img
                 src={empleado.foto}
-                alt={empleado.name}
+                alt={empleado.nombre}
                 className="employee-image"
               />
             </div>

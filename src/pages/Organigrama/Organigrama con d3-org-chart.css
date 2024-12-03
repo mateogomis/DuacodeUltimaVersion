@@ -2,8 +2,81 @@ div {
   font-family: Arial, sans-serif;
 }
 
-.org-chart-node {
-  background-color: #f9f9f9;
+#chart-container {
+  width: 100%;
+  height: auto;
+  background-color: #1C1E26;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+  text-align: center;
+}
+
+.orgchart .lines {
+  border-color: #4ECCA3 !important;
+}
+
+.orgchart .topEdge,
+.orgchart .bottomEdge,
+.orgchart .rightEdge,
+.orgchart .leftEdge {
+  border-color: #4ECCA3 !important;
+  background-color: #4ECCA3 !important;
+}
+
+path {
+  stroke: #4ECCA3 !important;
+}
+
+.orgchart .node {
+  border-color: #4ECCA3 !important;
+}
+
+.orgchart .node:hover {
+  border-color: #37A088 !important;
+  background-color: #4ECCA3 !important;
+  color: #1C1E26 !important;
+}
+
+.org-chart-node {
+  background-color: #2D2F36;
+  color: #F5F5F5;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.org-chart-node:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: #4ECCA3;
+  color: #1C1E26;
+}
+
+/* Loader */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #4ECCA3;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

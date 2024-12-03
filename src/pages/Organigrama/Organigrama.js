@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import $ from 'jquery'; // Importa jQuery
-import axios from 'axios'; // Importa axios para la solicitud a la API
-import '../TestCalendario/loader.css';
+import $ from 'jquery';
+import axios from 'axios';
+import './Organigrama.css';
+import 'orgchart/dist/css/jquery.orgchart.css';
 
 const Organigrama = () => {
-  const [datasource, setDatasource] = useState(null); // Estado para los datos del organigrama
+  const [datasource, setDatasource] = useState(null);
 
   useEffect(() => {
-    // Cargar datos desde la API
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/organigrama'); // Cambia la URL según tu endpoint
+        const response = await axios.get('http://localhost:8000/api/organigrama');
         console.log('Datos originales desde la API:', response.data);
 
-        // Trabajamos solo con el primer objeto del array (CEO)
         const rootData = response.data[0];
         console.log('Datos seleccionados (root):', rootData);
 
-        // Transformamos los datos al formato esperado
         const formattedData = transformData(rootData);
         console.log('Datos transformados para orgchart:', formattedData);
 
-        setDatasource(formattedData); // Asigna los datos transformados al estado
+        setDatasource(formattedData);
       } catch (error) {
         console.error('Error al cargar el organigrama:', error);
       }
@@ -31,79 +29,113 @@ const Organigrama = () => {
   }, []);
 
   useEffect(() => {
-    // Verifica que jQuery y orgchart.js estén cargados y que datasource esté disponible
     if (datasource && typeof $ !== 'undefined' && typeof $.fn.orgchart !== 'undefined') {
       const container = $('#chart-container');
-      container.empty(); // Limpia el contenedor antes de inicializar
+      container.empty();
 
-      // Inicializa orgchart con los datos transformados
+      const adjustZoom = () => {
+        const width = window.innerWidth;
+        let zoomLevel = 1;
+
+        if (width <= 480) {
+          zoomLevel = 0.6; // Pantallas pequeñas (móviles)
+        } else if (width <= 768) {
+          zoomLevel = 0.8; // Tablets
+        } else if (width <= 1024) {
+          zoomLevel = 0.9; // Pantallas medianas
+        } else {
+          zoomLevel = 1; // Pantallas grandes
+        }
+
+        container.css('zoom', zoomLevel);
+      };
+
+      // Ajustar zoom al cargar y al redimensionar la ventana
+      adjustZoom();
+      window.addEventListener('resize', adjustZoom);
+
       container.orgchart({
         data: datasource,
-        nodeContent: 'title', // Usamos "title" para el cargo del empleado
+        nodeContent: 'title',
         createNode: function ($node, data) {
-          // Agregar foto al nodo si está disponible
+          $node.addClass('org-chart-node');
+          $node.css({
+            borderColor: '#4ECCA3',
+            backgroundColor: '#2D2F36',
+            color: '#F5F5F5',
+          });
+          $node.hover(
+            function () {
+              $(this).css({
+                backgroundColor: '#4ECCA3',
+                color: '#1C1E26',
+              });
+            },
+            function () {
+              $(this).css({
+                backgroundColor: '#2D2F36',
+                color: '#F5F5F5',
+              });
+            }
+          );
+
           if (data.foto) {
             $node.prepend(
               `<img src="http://localhost:8000${data.foto}" class="node-photo" alt="${data.name}" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 5px;" />`
             );
           }
-
-
         },
         render: function () {
-          // Aseguramos que todos los nodos hijos del primer nodo estén colapsados inicialmente
-          container.find('.children').hide(); // Ocultar todos los nodos hijos
+          $('.orgchart .lines').css('border-color', '#4ECCA3');
+          $('.orgchart .topEdge, .orgchart .bottomEdge, .orgchart .rightEdge, .orgchart .leftEdge').css({
+            borderColor: '#4ECCA3',
+            backgroundColor: '#4ECCA3',
+          });
+          $('path').css('stroke', '#4ECCA3');
 
-          // Configuración de clic para abrir/cerrar los nodos
+          container.find('.children').hide();
           container.find('.node').click(function (event) {
             const $node = $(this);
             const $children = $node.find('.children');
             const $icon = $node.find('.expand-collapse-icon');
 
             if ($children.length > 0) {
-              // Alternar la visibilidad de los hijos al hacer clic
-              $children.toggle(); // Esto abrirá o cerrará los nodos hijos
-
-              // Cambiar el ícono de la flecha (expandir/colapsar)
+              $children.toggle();
               if ($children.is(':visible')) {
-                $icon.text('-'); // Cambia a un "-" si el nodo está expandido
+                $icon.text('-');
               }
             }
-            event.stopPropagation(); // Evitar la propagación del clic a otros nodos
+            event.stopPropagation();
           });
 
-          // Si es el primer nodo, asegurarse de que todos sus hijos estén colapsados
           container.find('.node').first().find('.children').hide();
         },
       });
-    }
-  }, [datasource]); // Se ejecuta cuando cambia datasource
 
-  // Función para transformar los datos al formato esperado por orgchart
+      // Limpiar event listener al desmontar
+      return () => {
+        window.removeEventListener('resize', adjustZoom);
+      };
+    }
+  }, [datasource]);
+
   const transformData = (data) => {
     return {
-      name: `${data.nombre} ${data.apellido_1} ${data.apellido_2}`, // Nombre completo
-      title: data.rol.nombre, // Título o cargo del empleado
-      foto: data.foto, // URL de la foto
-      children: data.children ? data.children.map(transformData) : [], // Procesar recursivamente los hijos
-      collapsed: true, // Aseguramos que todos los nodos estén colapsados inicialmente
+      name: `${data.nombre} ${data.apellido_1} ${data.apellido_2}`,
+      title: data.rol.nombre,
+      foto: data.foto,
+      children: data.children ? data.children.map(transformData) : [],
+      collapsed: true,
     };
   };
 
   return (
-    <div
-      id="chart-container"
-      style={{
-        width: '100%',
-        height: '600px',
-        border: '1px solid #ddd',
-      }}
-    >
-      {!datasource &&   // Carga animacion de carga mientras consulta a la bbdd
-      <div className="loader-container">
-        <div className="loader"></div>
-      </div>
-    }
+    <div id="chart-container" className="org-chart-container">
+      {!datasource && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
     </div>
   );
 };

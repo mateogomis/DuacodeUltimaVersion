@@ -67,14 +67,26 @@
 }
 
 .salas-card:nth-child(5) {
-  background-color: #87ceeb; /* Celeste */
+  background-color: #98eb87; /* Celeste */
 }
 
 /* Hover Effect */
 .salas-card:hover {
-  transform: translateY(-10px) rotate(1deg);
-  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
+  animation: floatingCard 2s infinite ease-in-out; /* Animación de flotación */
   cursor: pointer;
+}
+
+/* Animación de flotación */
+@keyframes floatingCard {
+  0% {
+    transform: translateY(0px); /* Posición inicial */
+  }
+  50% {
+    transform: translateY(-10px); /* Se eleva ligeramente */
+  }
+  100% {
+    transform: translateY(0px); /* Vuelve a la posición inicial */
+  }
 }
 
 /* Visibility Animation */

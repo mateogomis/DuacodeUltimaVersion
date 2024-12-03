@@ -33,14 +33,21 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="header-logo">DUACODE</div>
+        <div className="header-logo"></div>
         <nav className="header-nav">
-          <a href="/Proyectos">Proyectos</a>
-          <a href="#protocolos">Protocolos</a>
-          <a href="/Salas">Salas</a>
-          <a href="/Organigrama">Organigrama</a>
-          <a href="#eventos">Eventos</a>
-          <a href="#nuestroEquipo">Nuestro equipo</a>
+          <button onClick={() => (window.location.href = "/Proyectos")}>
+            Proyectos
+          </button>
+          <button onClick={() => (window.location.href = "/Protocolos")}>
+            Protocolos
+          </button>
+          <button onClick={() => (window.location.href = "/Salas")}>
+            Salas
+          </button>
+          <button onClick={() => (window.location.href = "/Organigrama")}>
+            Organigrama
+          </button>
+          
         </nav>
       </header>
 
@@ -58,9 +65,8 @@ const Home = () => {
 
         {/* Contenido superpuesto */}
         <div className="home-content">
-          <h1 className="home-title">Bienvenido a duacode</h1>
+          <h1 className="home-title">Bienvenido a Duacode</h1>
           <a href="/login" className="home-button">
-            {" "}
             Iniciar sesión
           </a>
         </div>
@@ -83,81 +89,27 @@ const Home = () => {
 
       <section className="organigrama-section">
         <h2 className="organigrama-title">Organigrama de la Empresa</h2>
-        <div className="organigrama-container">
-          {/* Nivel 1 */}
-          <div className="organigrama-node">
-            <div className="organigrama-image-container">
+        <div className="organigrama-link-container">
+          <div className="organigrama-preview">
+            <p className="organigrama-preview-text">
+              Explora cómo nuestra empresa está estructurada y conoce a nuestros líderes clave.
+            </p>
+            <div className="organigrama-preview-image">
               <img
-                src="/assets/images/mark-davis.jpg"
-                alt="Mark Davis"
+                src="/Organigrama.jpg"
+                alt="Organigrama Preview"
                 className="organigrama-image"
               />
             </div>
-            <h3 className="organigrama-name">Mark Davis</h3>
-            <p className="organigrama-position">Director General</p>
-            <p className="organigrama-description">
-              Lidera la estrategia y dirección global.
-            </p>
           </div>
-
-          {/* Nivel 2 */}
-          <div className="organigrama-level">
-            <div className="organigrama-node">
-              <div className="organigrama-image-container">
-                <img
-                  src="/assets/images/tony-adams.jpg"
-                  alt="Tony Adams"
-                  className="organigrama-image"
-                />
-              </div>
-              <h3 className="organigrama-name">Tony Adams</h3>
-              <p className="organigrama-position">Director Técnico</p>
-              <p className="organigrama-description">
-                Supervisa el desarrollo tecnológico.
-              </p>
-            </div>
-
-            <div className="organigrama-node">
-              <div className="organigrama-image-container">
-                <img
-                  src="/assets/images/anne-parker.jpg"
-                  alt="Anne Parker"
-                  className="organigrama-image"
-                />
-              </div>
-              <h3 className="organigrama-name">Anne Parker</h3>
-              <p className="organigrama-position">Directora de Marketing</p>
-              <p className="organigrama-description">
-                Dirige las estrategias de marketing.
-              </p>
-            </div>
-          </div>
-
-          {/* Nivel 3 */}
-          <div className="organigrama-level">
-            <div className="organigrama-node">
-              <div className="organigrama-image-container">
-                <img
-                  src="/assets/images/team-member.jpg"
-                  alt="Team Member"
-                  className="organigrama-image"
-                />
-              </div>
-              <h3 className="organigrama-name">Equipo A</h3>
-              <p className="organigrama-position">Desarrollador Frontend</p>
-            </div>
-            <div className="organigrama-node">
-              <div className="organigrama-image-container">
-                <img
-                  src="/assets/images/team-member.jpg"
-                  alt="Team Member"
-                  className="organigrama-image"
-                />
-              </div>
-              <h3 className="organigrama-name">Equipo B</h3>
-              <p className="organigrama-position">Analista de Datos</p>
-            </div>
-          </div>
+          <button
+            className="organigrama-button"
+            onClick={() =>
+              (window.location.href = "http://localhost:3000/Organigrama")
+            }
+          >
+            Ver Organigrama
+          </button>
         </div>
       </section>
 

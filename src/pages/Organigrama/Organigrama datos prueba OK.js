@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import $ from 'jquery'; // Importa jQuery
 // import 'https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js'; // Asegúrate de que orgchart.js se cargue después de jQuery
 
+
 const Organigrama = () => {
   useEffect(() => {
     // Espera que jQuery y orgchart.js estén cargados

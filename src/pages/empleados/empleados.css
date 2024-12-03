@@ -37,7 +37,7 @@
 .employee-card {
     background-color: #2D2F36; /* Gris oscuro */
     color: #F5F5F5;
-    border-radius: 15px;
+    border-radius: 15px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     padding: 140px;
     flex: 1 1 calc(25% - 5px); /* Asegura que las tarjetas ocupen más espacio, reduciendo el gap */
@@ -155,7 +155,35 @@
 .slick-dots li.slick-active button:before {
     color: #4ECCA3; /* Verde azulado para el punto activo */
 }
+/* Barra de búsqueda */
+.employee-search-bar {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 16px; /* Aumenta el espacio interno para mayor comodidad */
+    margin: 20px auto;
+    border: 2px solid transparent; /* Borde inicial invisible */
+    border-radius: 25px; /* Bordes completamente redondeados */
+    font-size: 1rem;
+    background-color: #2D2F36; /* Gris oscuro */
+    color: #F5F5F5; /* Blanco */
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    transition: all 0.3s ease; /* Transición suave */
+}
 
+.employee-search-bar::placeholder {
+    color: #aaa; /* Gris claro */
+    font-style: italic; /* Estilo más distintivo */
+}
+
+.employee-search-bar:focus {
+    border-color: #4ECCA3; /* Verde azulado */
+    background-color: #1C1E26; /* Fondo más oscuro al enfocar */
+    box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4); /* Sombra más pronunciada */
+    color: #FFFFFF; /* Blanco más brillante para el texto */
+}
+
+  
 /* Ajustes responsivos */
 @media (max-width: 1024px) {
     .employee-card {

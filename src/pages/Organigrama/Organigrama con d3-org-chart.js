@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import { OrgChart } from 'd3-org-chart';
 
+
 const Organigrama = () => {
   const [data, setData] = useState([]); // Estado para almacenar los datos del organigrama
   const chartContainer = useRef(null); // Referencia al contenedor del gráfico

@@ -9,6 +9,12 @@ const Salas = () => {
 
   const API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"; // Sustituye con tu propia API Key de Google Maps
 
+  // Lista de colores únicos para las cartas
+  const colors = [
+    "#ff6f6ffb", "#90ee90", "#add8e6", "#F7CAC9", "#be87eb",
+    "#ffb6c1", "#87ceeb", "#87ebb9", "#98eb87", "#EFC050",
+  ];
+
   useEffect(() => {
     const fetchSalas = async () => {
       try {
@@ -56,11 +62,8 @@ const Salas = () => {
 
   // Generar el enlace de Google Maps
   const generateMapsUrl = (direccion) => {
-    const coordinates = getCoordinates(direccion); 
-    if (coordinates) {
-      return `https://www.google.com/maps?q=${coordinates}`;
-    }
-    return `https://www.google.com/maps?q=${encodeURIComponent(direccion)}`;
+    const encodedAddress = encodeURIComponent(direccion);
+    return `https://www.google.com/maps?q=${encodedAddress}`;
   };
 
   if (loading) return <p>Cargando salas...</p>;
@@ -70,11 +73,14 @@ const Salas = () => {
     <section className="salas-section">
       <h2 className="salas-section-title">Salas</h2>
       <div className="salas-cards">
-        {salas.map((sala) => (
-          <div className="salas-card" key={sala.id}>
+        {salas.map((sala, index) => (
+          <div
+            className="salas-card"
+            key={sala.id}
+            style={{ backgroundColor: colors[index % colors.length] }}
+          >
             <div className="salas-header">
               <h3 className="salas-name">{sala.nombre}</h3>
-              {/* El enlace ahora usa la URL generada por generateMapsUrl */}
               <a
                 href={generateMapsUrl(sala.sede.direccion)}
                 target="_blank"

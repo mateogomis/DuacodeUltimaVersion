@@ -435,6 +435,73 @@ body {
   display: inline-block; /* Mantiene estilo independiente */
   margin-top: 10px; /* Espaciado opcional si lo necesitas */
 }
+/* Botones del Header */
+.header-nav {
+  display: flex;
+  gap: 15px; /* Espacio entre botones */
+  margin-top: 20px; /* Separación del header */
+  justify-content: center; /* Centra los botones */
+}
+
+.header-nav button {
+  background: linear-gradient(145deg, #3ea68b, #4ecca3); /* Gradiente suave */
+  color: #ffffff; /* Texto blanco */
+  border: 2px solid transparent; /* Sin borde visible al inicio */
+  border-radius: 20px; /* Bordes redondeados */
+  padding: 8px 16px; /* Botones más pequeños */
+  font-size: 14px; /* Fuente más pequeña */
+  font-weight: bold; /* Resalta el texto */
+  cursor: pointer;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2), 0px 1px 3px rgba(78, 204, 163, 0.5); /* Sombras combinadas */
+  transition: all 0.3s ease-in-out; /* Transiciones suaves */
+  position: relative; /* Necesario para el efecto decorativo */
+  overflow: hidden; /* Oculta los elementos decorativos */
+  z-index: 0; /* Permite manejar efectos */
+}
+
+.header-nav button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(78, 204, 163, 0.8), rgba(255, 255, 255, 0.2));
+  z-index: -1;
+  transform: rotate(25deg);
+  transition: left 0.3s ease;
+}
+
+.header-nav button:hover::before {
+  left: 0; /* Mueve el gradiente al fondo del botón */
+}
+
+.header-nav button:hover {
+  background: linear-gradient(145deg, #37a088, #4ecca3); /* Gradiente más brillante */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3), 0px 2px 6px rgba(78, 204, 163, 0.6); /* Aumenta sombras */
+  transform: scale(1.05); /* Efecto de zoom */
+}
+
+.header-nav button:active {
+  background: #37a088; /* Color más oscuro al hacer clic */
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); /* Reduce sombras */
+  transform: translateY(2px); /* Movimiento hacia abajo */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-nav {
+    flex-wrap: wrap; /* Ajusta botones en varias filas si es necesario */
+    gap: 10px;
+  }
+
+  .header-nav button {
+    font-size: 12px; /* Tamaño reducido para pantallas pequeñas */
+    padding: 6px 12px; /* Ajusta espacio interno */
+  }
+}
+
+
 
 /* Responsive */
 @media (max-width: 768px) {
