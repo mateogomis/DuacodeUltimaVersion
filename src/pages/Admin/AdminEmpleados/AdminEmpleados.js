@@ -219,106 +219,108 @@ const AdminEmpleados = () => {
                 <td>{empleado.teletrabajo ? "Sí" : "No"}</td>
                 <td>{empleado.vacaciones ? "Sí" : "No"}</td>
                 <td>
-                  {empleado.foto && <img src={`http://localhost:8000${empleado.foto}`} alt="Foto" width="50" />}
+                  {empleado.foto && <img src={`http://localhost:8000/media/${empleado.foto}`} alt="Foto" width="50" />}
                 </td>
                 <td>
-                  {empleado.qr_code && <img src={`http://localhost:8000${empleado.qr_code}`} alt="QR Code" width="50" />}
+                  {empleado.qr_code && <img src={`http://localhost:8000/media/${empleado.qr_code}`} alt="QR" width="50" />}
                 </td>
                 <td>
                   <Button variant="warning" onClick={() => handleEdit(empleado)}>
-                    <FontAwesomeIcon icon={faEdit} /> Editar
-                  </Button>
-                  <Button variant="danger" className="ms-2" onClick={() => handleDelete(empleado.id)}>
-                    <FontAwesomeIcon icon={faTrash} /> Eliminar
+                    <FontAwesomeIcon icon={faEdit} />
+                  </Button>{" "}
+                  <Button variant="danger" onClick={() => handleDelete(empleado.id)}>
+                    <FontAwesomeIcon icon={faTrash} />
                   </Button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="13" className="text-center">No se encontraron empleados.</td>
+              <td colSpan="14" className="text-center">No hay empleados disponibles.</td>
             </tr>
           )}
         </tbody>
       </Table>
-      {/* Pagina numbers */}
-      <div className="d-flex justify-content-center mt-3">
-        <Button variant="link" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+
+      {/* Paginación */}
+      <div className="d-flex justify-content-center">
+        <Button
+          variant="secondary"
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           Anterior
         </Button>
-        <Button variant="link" onClick={() => paginate(currentPage + 1)} disabled={currentPage * employeesPerPage >= filteredEmpleados.length}>
+        <Button
+          variant="secondary"
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === Math.ceil(filteredEmpleados.length / employeesPerPage)}
+        >
           Siguiente
         </Button>
       </div>
 
-      {/* Modal para editar empleado */}
-      <Modal show={showModal} onHide={closeModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar Empleado</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formNombre">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentEmployee?.nombre || ''}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, nombre: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formApellido1">
-              <Form.Label>Primer Apellido</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentEmployee?.apellido_1 || ''}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formApellido2">
-              <Form.Label>Segundo Apellido</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentEmployee?.apellido_2 || ''}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, apellido_2: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={currentEmployee?.email || ''}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formTelefono">
-              <Form.Label>Teléfono</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentEmployee?.telefono || ''}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, telefono: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formFoto">
-              <Form.Label>Foto</Form.Label>
-              <Form.Control
-                type="file"
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, foto: e.target.files[0] })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formQrCode">
-              <Form.Label>Código QR</Form.Label>
-              <Form.Control
-                type="file"
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, qr_code: e.target.files[0] })}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>Cerrar</Button>
-          <Button variant="primary" onClick={handleSave}>Guardar Cambios</Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Modal de Edición de Empleado */}
+      {showModal && currentEmployee && (
+        <Modal show={showModal} onHide={closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Editar Empleado</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {/* Aquí van los campos del formulario para editar el empleado */}
+            <Form>
+              <Form.Group controlId="formNombre">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={currentEmployee.nombre}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, nombre: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group controlId="formApellido1">
+                <Form.Label>Apellido 1</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={currentEmployee.apellido_1}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group controlId="formApellido2">
+                <Form.Label>Apellido 2</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={currentEmployee.apellido_2}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, apellido_2: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={currentEmployee.email}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group controlId="formTelefono">
+                <Form.Label>Teléfono</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={currentEmployee.telefono}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, telefono: e.target.value })}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModal}>
+              Cerrar
+            </Button>
+            <Button variant="primary" onClick={handleSave}>
+              Guardar cambios
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </Container>
   );
 };
