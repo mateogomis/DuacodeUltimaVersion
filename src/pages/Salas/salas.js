@@ -74,7 +74,6 @@ const Salas = () => {
           <div className="salas-card" key={sala.id}>
             <div className="salas-header">
               <h3 className="salas-name">{sala.nombre}</h3>
-              {/* El enlace ahora usa la URL generada por generateMapsUrl */}
               <a
                 href={generateMapsUrl(sala.sede.direccion)}
                 target="_blank"
