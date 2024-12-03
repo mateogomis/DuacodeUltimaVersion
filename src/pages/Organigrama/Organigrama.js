@@ -81,7 +81,7 @@ const Organigrama = () => {
 
           if (data.foto) {
             $node.prepend(
-              `<img src="http://localhost:8000${data.foto}" class="node-photo" alt="${data.name}" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 5px;" />`
+              `<img src="http://localhost:8000${data.foto}" class="node-photo" alt="${data.name}" style="width: 70px; height: 70px; border-radius: 50%; margin-bottom: 5px;" />`
             );
           }
         },

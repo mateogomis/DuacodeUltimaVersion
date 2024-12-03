@@ -17,24 +17,6 @@ const Footer = () => {
           <h3>DUACODE</h3>
         </div>
         <div className="footer-section">
-          <h4>Recibe Actualizaciones Mensuales</h4>
-          <form className="footer-form">
-            <input
-              type="email"
-              placeholder="Introduce tu correo"
-              className="footer-input"
-              required
-            />
-            <div className="footer-checkbox">
-              <input type="checkbox" id="newsletter" />
-              <label htmlFor="newsletter">
-                Sí, suscríbeme a tu boletín.
-              </label>
-            </div>
-            <button type="submit" className="footer-button">Suscribirse</button>
-          </form>
-        </div>
-        <div className="footer-section">
           <h4>Legal</h4>
           <ul className="footer-links">
             <li><a href="#faq">Preguntas Frecuentes</a></li>
@@ -43,14 +25,14 @@ const Footer = () => {
             <li><a href="#accessibility">Declaración de Accesibilidad</a></li>
           </ul>
         </div>
-        <div className="footer-section">
-          <h4>Menú</h4>
+        {/*<div className="footer-section">
+           <h4>Menú</h4>
           <ul className="footer-links">
             <li><a href="#home">Inicio</a></li>
             <li><a href="#explore">Explorar</a></li>
             <li><a href="#community">Comunidad</a></li>
-          </ul>
-        </div>
+          </ul> 
+        </div>*/}
         <div className="footer-section">
           <h4>Contáctanos</h4>
           <ul className="footer-contact">
@@ -63,10 +45,9 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Redes Sociales</h4>
           <ul className="footer-links">
-            <li><a href="#instagram">Instagram</a></li>
-            <li><a href="#facebook">Facebook</a></li>
-            <li><a href="#tiktok">TikTok</a></li>
-            <li><a href="#linkedin">LinkedIn</a></li>
+            <a href="https://www.instagram.com"><img src="/IconoInsta.png"/></a>
+            <a href="https://www.facebook.com"><img src="/IconoFace.png"/></a>
+            <a href="https://www.linkedin.com"><img src="/IconoLink.png"/></a>
           </ul>
         </div>
       </div>

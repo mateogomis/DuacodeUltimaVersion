@@ -1,8 +1,12 @@
 .footer {
-  background: linear-gradient(to bottom, #1c1e26, #2d2f36); /* Fondo oscuro con degradado */
+  background: linear-gradient(
+    to bottom,
+    #1c1e26,
+    #2d2f36
+  ); /* Fondo oscuro con degradado */
   color: #ffffff; /* Texto blanco */
   padding: 40px 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .footer-container {
@@ -14,7 +18,7 @@
 }
 
 .footer-brand h3 {
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   font-size: 24px;
   font-weight: bold;
   color: #4ecca3; /* Verde azulado */
@@ -77,7 +81,11 @@
   list-style: none;
   padding: 0;
 }
-
+.footer-links a img {
+  width: 30px;
+  margin: auto 10px;
+  height: 30px;
+}
 .footer-links li a {
   text-decoration: none;
   color: #ffffff; /* Texto blanco */
