@@ -7,6 +7,14 @@ const Salas = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"; // Sustituye con tu propia API Key de Google Maps
+
+  // Lista de colores únicos para las cartas
+  const colors = [
+    "#ff6f6ffb", "#90ee90", "#add8e6", "#F7CAC9", "#be87eb",
+    "#ffb6c1", "#87ceeb", "#87ebb9", "#98eb87", "#EFC050",
+  ];
+
   useEffect(() => {
     const fetchSalas = async () => {
       try {
@@ -34,6 +42,30 @@ const Salas = () => {
     }
   }, [loading, salas]);
 
+  // Función para obtener las coordenadas de Google Maps usando la API de geocodificación
+  const getCoordinates = async (direccion) => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(direccion)}&key=${API_KEY}`
+      );
+      const data = response.data;
+      if (data.status === "OK") {
+        const location = data.results[0].geometry.location;
+        return `${location.lat},${location.lng}`; // Devuelve latitud y longitud
+      }
+      return null;
+    } catch (error) {
+      console.error("Error al obtener coordenadas:", error);
+      return null;
+    }
+  };
+
+  // Generar el enlace de Google Maps
+  const generateMapsUrl = (direccion) => {
+    const encodedAddress = encodeURIComponent(direccion);
+    return `https://www.google.com/maps?q=${encodedAddress}`;
+  };
+
   if (loading) return <p>Cargando salas...</p>;
   if (error) return <p>{error}</p>;
 
@@ -41,12 +73,16 @@ const Salas = () => {
     <section className="salas-section">
       <h2 className="salas-section-title">Salas</h2>
       <div className="salas-cards">
-        {salas.map((sala) => (
-          <div className="salas-card" key={sala.id}>
+        {salas.map((sala, index) => (
+          <div
+            className="salas-card"
+            key={sala.id}
+            style={{ backgroundColor: colors[index % colors.length] }}
+          >
             <div className="salas-header">
               <h3 className="salas-name">{sala.nombre}</h3>
               <a
-                href={salas.locationUrl}
+                href={generateMapsUrl(sala.sede.direccion)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="salas-map-icon"
@@ -75,6 +111,9 @@ const Salas = () => {
             </p>
             <p className="salas-info">
               <strong>Sede:</strong> {sala.sede.nombre}
+            </p>
+            <p className="salas-info">
+              <strong>Ubicación:</strong> {sala.sede.direccion}
             </p>
           </div>
         ))}

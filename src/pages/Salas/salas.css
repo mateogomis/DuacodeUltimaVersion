@@ -67,14 +67,52 @@
 }
 
 .salas-card:nth-child(5) {
-  background-color: #87ceeb; /* Celeste */
+  background-color: #98eb87; /* Celeste */
+}
+.salas-card:nth-child(5n + 1) {
+  background-color: #ff6f6f;
 }
 
+.salas-card:nth-child(5n + 2) {
+  background-color: #90ee90;
+}
+
+.salas-card:nth-child(5n + 3) {
+  background-color: #add8e6;
+}
+
+.salas-card:nth-child(5n + 4) {
+  background-color: #ffb6c1;
+}
+
+.salas-card:nth-child(5n + 5) {
+  background-color: #87ceeb;
+}
+
+.salas-card:nth-child(5n + 6) {
+  background-color: #ffeb3b;
+}
+
+.salas-card:nth-child(5n + 7) {
+  background-color: #8e44ad;
+}
 /* Hover Effect */
 .salas-card:hover {
-  transform: translateY(-10px) rotate(1deg);
-  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
+  animation: floatingCard 2s infinite ease-in-out; /* Animación de flotación */
   cursor: pointer;
+}
+
+/* Animación de flotación */
+@keyframes floatingCard {
+  0% {
+    transform: translateY(0px); /* Posición inicial */
+  }
+  50% {
+    transform: translateY(-10px); /* Se eleva ligeramente */
+  }
+  100% {
+    transform: translateY(0px); /* Vuelve a la posición inicial */
+  }
 }
 
 /* Visibility Animation */

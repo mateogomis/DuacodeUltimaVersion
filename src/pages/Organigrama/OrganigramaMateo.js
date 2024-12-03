@@ -14,7 +14,7 @@ const OrganigramaMateo = () => {
     return {
       name: data.nombre || 'Sin nombre',
       title: data.rol?.nombre || 'Sin rol',
-      children: data.children?.map(formatDataForOrgChart) || []
+      children: data.children?.map(formatDataForOrgChart) || [],
     };
   };
 
@@ -35,10 +35,12 @@ const OrganigramaMateo = () => {
         $(chartRef.current).orgchart({
           data: formattedData,
           nodeContent: 'title',
-          compact: (nodeData) => nodeData?.children?.length >= 10,
-          createNode: (node, data) => {
-            console.log('Nodo creado:', data);
-          }
+          nodeTemplate: (data) => `
+            <div class="org-chart-node">
+              <div class="title">${data.name}</div>
+              <div class="content">${data.title}</div>
+            </div>
+          `,
         });
 
         setLoading(false);
