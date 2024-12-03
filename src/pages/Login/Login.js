@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import jsQR from "jsqr";
 import "./Login.css";
-
+import {useNavigate} from "react-router-dom"
 const slides = [
   {
     title: "DUACODE",
@@ -19,6 +19,7 @@ const slides = [
 ];
 
 const Login = () => {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTextHidden, setIsTextHidden] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
@@ -87,6 +88,7 @@ const handleLogin = async (e, qrUsername = null, qrPassword = null) => {
       localStorage.setItem("refresh_token", data.refresh);
       setErrorMessage("");
       setQrOverlayVisible(false); // Cierra el overlay del QR si estaba activo
+      navigate("/admin/")
     } else {
       const errorData = await response.json();
       setErrorMessage(errorData.detail || "Error en las credenciales");

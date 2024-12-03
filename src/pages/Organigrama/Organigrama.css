@@ -4,8 +4,8 @@ div {
 
 /* Estilo para la imagen del nodo */
 .node-photo {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     /* border-radius: 50%; */
 }
 #chart-container {
