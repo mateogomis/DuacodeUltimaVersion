@@ -213,24 +213,24 @@ const filtered = empleados.filter((empleado) => {
             <th>Acciones</th>
           </tr>
         </thead>
-      <tbody>
+<tbody>
   {currentEmployees.length > 0 ? (
     currentEmployees.map((empleado) => (
       <tr key={empleado.id}>
-        <td>{empleado.id}</td>
-        <td>{empleado.nombre}</td>
-        <td style={{ whiteSpace: "nowrap" }}>
+        <td className="align-middle">{empleado.id}</td>
+        <td className="align-middle">{empleado.nombre}</td>
+        <td className="align-middle" style={{ whiteSpace: "nowrap" }}>
           {empleado.apellido_1} {empleado.apellido_2}
         </td>
-        <td>{empleado.email}</td>
-        <td>{empleado.telefono}</td>
-        <td>{empleado.rol?.nombre || "Sin rol"}</td>
-        <td>{empleado.sede}</td>
-        <td className="text-center">{empleado.baja ? "Sí" : "No"}</td>
-        <td className="text-center">{empleado.excedencia ? "Sí" : "No"}</td>
-        <td className="text-center">{empleado.teletrabajo ? "Sí" : "No"}</td>
-        <td className="text-center">{empleado.vacaciones ? "Sí" : "No"}</td>
-        <td className="text-center">
+        <td className="align-middle">{empleado.email}</td>
+        <td className="align-middle">{empleado.telefono}</td>
+        <td className="align-middle">{empleado.rol?.nombre || "Sin rol"}</td>
+        <td className="align-middle">{empleado.sede}</td>
+        <td className="align-middle text-center">{empleado.baja ? "Sí" : "No"}</td>
+        <td className="align-middle text-center">{empleado.excedencia ? "Sí" : "No"}</td>
+        <td className="align-middle text-center">{empleado.teletrabajo ? "Sí" : "No"}</td>
+        <td className="align-middle text-center">{empleado.vacaciones ? "Sí" : "No"}</td>
+        <td className="align-middle text-center">
           {empleado.foto && (
             <img
               src={`http://localhost:8000/media/${empleado.foto}`}
@@ -239,7 +239,7 @@ const filtered = empleados.filter((empleado) => {
             />
           )}
         </td>
-        <td className="text-center">
+        <td className="align-middle text-center">
           {empleado.qr_code && (
             <img
               src={`http://localhost:8000/media/${empleado.qr_code}`}
@@ -248,7 +248,7 @@ const filtered = empleados.filter((empleado) => {
             />
           )}
         </td>
-        <td>
+        <td className="align-middle">
           <div className="d-flex">
             <Button
               variant="warning"
