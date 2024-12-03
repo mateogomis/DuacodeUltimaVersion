@@ -3,6 +3,7 @@ import { Container, Table, Button, Row, Col, Form, Modal } from 'react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+// import './AdminEmpleados.css'
 
 const AdminEmpleados = () => {
   const navigate = useNavigate();
@@ -26,14 +27,19 @@ const AdminEmpleados = () => {
       .catch((error) => console.error("Error al obtener los empleados:", error));
   }, []);
 
-  useEffect(() => {
-    const filtered = empleados.filter((empleado) =>
-      `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    );
+useEffect(() => {
+  // Verificar si hay un término de búsqueda
+  if (searchTerm.trim() === "") {
+    setFilteredEmpleados(empleados); // Si no hay término de búsqueda, mostrar todos los empleados
+  } else {
+const filtered = empleados.filter((empleado) => {
+  const fullName = `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`.toLowerCase();
+  console.log(fullName); // Ver qué nombre completo se está procesando
+  return fullName.includes(searchTerm.toLowerCase());
+});
     setFilteredEmpleados(filtered);
-  }, [searchTerm, empleados]);
+  }
+}, [searchTerm, empleados]);
 
   const handleEdit = (empleado) => {
     setCurrentEmployee(empleado);  // Establecer el empleado que se va a editar
@@ -213,7 +219,7 @@ const AdminEmpleados = () => {
                 <td>{empleado.email}</td>
                 <td>{empleado.telefono}</td>
                 <td>{empleado.rol?.nombre || "Sin rol"}</td>
-                <td>{empleado.sede?.nombre || "Sin sede"}</td>
+                <td>{empleado.sede}</td>
                 <td>{empleado.baja ? "Sí" : "No"}</td>
                 <td>{empleado.excedencia ? "Sí" : "No"}</td>
                 <td>{empleado.teletrabajo ? "Sí" : "No"}</td>
@@ -225,12 +231,14 @@ const AdminEmpleados = () => {
                   {empleado.qr_code && <img src={`http://localhost:8000/media/${empleado.qr_code}`} alt="QR" width="50" />}
                 </td>
                 <td>
-                  <Button variant="warning" onClick={() => handleEdit(empleado)}>
-                    <FontAwesomeIcon icon={faEdit} />
-                  </Button>{" "}
-                  <Button variant="danger" onClick={() => handleDelete(empleado.id)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                  </Button>
+<div className="d-flex">
+  <Button variant="warning" onClick={() => handleEdit(empleado)} className="me-2">
+    <FontAwesomeIcon icon={faEdit} />
+  </Button>
+  <Button variant="danger" onClick={() => handleDelete(empleado.id)}>
+    <FontAwesomeIcon icon={faTrash} />
+  </Button>
+</div>
                 </td>
               </tr>
             ))
@@ -243,21 +251,22 @@ const AdminEmpleados = () => {
       </Table>
 
       {/* Paginación */}
-      <div className="d-flex justify-content-center">
-        <Button
-          variant="secondary"
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Anterior
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === Math.ceil(filteredEmpleados.length / employeesPerPage)}
-        >
-          Siguiente
-        </Button>
+      <div className="d-flex justify-content-center mb-3">
+<Button
+  variant="secondary"
+  onClick={() => paginate(currentPage - 1)}
+  disabled={currentPage === 1}
+  className="me-3" // Añadir margen a la derecha
+>
+  Anterior
+</Button>
+<Button
+  variant="secondary"
+  onClick={() => paginate(currentPage + 1)}
+  disabled={currentPage === Math.ceil(filteredEmpleados.length / employeesPerPage)}
+>
+  Siguiente
+</Button>
       </div>
 
       {/* Modal de Edición de Empleado */}
