@@ -80,68 +80,75 @@ const AdminEmpleados = () => {
     }
   };
 
-  // Función para cerrar la modal
   const closeModal = () => {
     setShowModal(false);
     setCurrentEmployee(null); // Limpiar los datos del empleado
   };
 
-  // Función para guardar los cambios
-const handleSave = () => {
-  // Verifica que el id del empleado esté presente
-  if (!currentEmployee.id) {
-    alert("El ID del empleado no es válido.");
-    return;
-  }
+  const handleSave = () => {
+    // Verifica que el id del empleado esté presente
+    if (!currentEmployee.id) {
+      alert("El ID del empleado no es válido.");
+      return;
+    }
 
-  const updatedEmployee = {
-    nombre: currentEmployee.nombre,
-    apellido_1: currentEmployee.apellido_1,
-    apellido_2: currentEmployee.apellido_2,
-    email: currentEmployee.email,
-    telefono: currentEmployee.telefono,
-    rol: currentEmployee.rol,
-    sede: currentEmployee.sede,
-    baja: currentEmployee.baja,
-    excedencia: currentEmployee.excedencia,
-    teletrabajo: currentEmployee.teletrabajo,
-    vacaciones: currentEmployee.vacaciones,
-    foto: currentEmployee.foto,
-    qr_code: currentEmployee.qr_code,
-  };
+    // Crear un objeto FormData
+    const formData = new FormData();
+    formData.append("nombre", currentEmployee.nombre);
+    formData.append("apellido_1", currentEmployee.apellido_1);
+    formData.append("apellido_2", currentEmployee.apellido_2);
+    formData.append("email", currentEmployee.email);
+    formData.append("telefono", currentEmployee.telefono);
+    formData.append("rol", JSON.stringify({ id: currentEmployee.rol.id }));
+    formData.append("sede", 1);
+    formData.append("baja", currentEmployee.baja);
+    formData.append("excedencia", currentEmployee.excedencia);
+    formData.append("teletrabajo", currentEmployee.teletrabajo);
+    formData.append("vacaciones", currentEmployee.vacaciones);
 
-  const accessToken = localStorage.getItem('access_token');
+    // Asegurarse de agregar las fotos solo si están presentes
+    if (currentEmployee.foto) {
+      const fotoFile = currentEmployee.foto;
+      formData.append("foto", fotoFile);
+    }
 
-  if (!accessToken) {
-    alert("No se encontró un token de acceso válido.");
-    return;
-  }
+    if (currentEmployee.qr_code) {
+      const qrCodeFile = currentEmployee.qr_code;
+      formData.append("qr_code", qrCodeFile);
+    }
 
-  fetch(`http://localhost:8000/api/empleados/${currentEmployee.id}/`, {
-    method: "PUT",
-    headers: {
-      "Authorization": `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedEmployee),
-  })
-    .then((response) => {
-      if (response.ok) {
-        setEmpleados((prev) =>
-          prev.map((emp) =>
-            emp.id === currentEmployee.id ? updatedEmployee : emp
-          )
-        );
-        closeModal();
-      } else {
-        return response.json().then((data) => {
-          alert(`Error: ${data.detail || "Hubo un error al actualizar el empleado."}`);
-        });
-      }
+    // Obtener el token de acceso
+    const accessToken = localStorage.getItem('access_token');
+
+    if (!accessToken) {
+      alert("No se encontró un token de acceso válido.");
+      return;
+    }
+
+    // Enviar los datos actualizados al backend
+    fetch(`http://localhost:8000/api/empleados/${currentEmployee.id}/`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
+      body: formData, // Enviar como FormData
     })
-    .catch((error) => console.error("Error al actualizar el empleado:", error));
-};
-
+      .then((response) => {
+        if (response.ok) {
+          setEmpleados((prev) =>
+            prev.map((emp) =>
+              emp.id === currentEmployee.id ? { ...emp, ...currentEmployee } : emp
+            )
+          );
+          closeModal();
+        } else {
+          return response.json().then((data) => {
+            alert(`Error: ${data.detail || "Hubo un error al actualizar el empleado."}`);
+          });
+        }
+      })
+      .catch((error) => console.error("Error al actualizar el empleado:", error));
+  };
 
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
@@ -212,136 +219,104 @@ const handleSave = () => {
                 <td>{empleado.teletrabajo ? "Sí" : "No"}</td>
                 <td>{empleado.vacaciones ? "Sí" : "No"}</td>
                 <td>
-                  <img
-                    src={empleado.foto}
-                    alt={`Foto de ${empleado.nombre}`}
-                    style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "50%" }}
-                  />
+                  {empleado.foto && <img src={`http://localhost:8000${empleado.foto}`} alt="Foto" width="50" />}
                 </td>
                 <td>
-                  <img
-                    src={empleado.qr_code}
-                    alt={`QR de ${empleado.nombre}`}
-                    style={{ width: "50px", height: "50px" }}
-                  />
+                  {empleado.qr_code && <img src={`http://localhost:8000${empleado.qr_code}`} alt="QR Code" width="50" />}
                 </td>
                 <td>
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    className="me-2"
-                    onClick={() => handleEdit(empleado)}
-                  >
-                    <FontAwesomeIcon icon={faEdit} />
+                  <Button variant="warning" onClick={() => handleEdit(empleado)}>
+                    <FontAwesomeIcon icon={faEdit} /> Editar
                   </Button>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleDelete(empleado.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
+                  <Button variant="danger" className="ms-2" onClick={() => handleDelete(empleado.id)}>
+                    <FontAwesomeIcon icon={faTrash} /> Eliminar
                   </Button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="14" className="text-center">
-                No hay empleados que coincidan con la búsqueda.
-              </td>
+              <td colSpan="13" className="text-center">No se encontraron empleados.</td>
             </tr>
           )}
         </tbody>
       </Table>
-
-      {/* Paginación */}
-      <div className="d-flex justify-content-center mt-4">
-        <Button
-          variant="secondary"
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="me-2"
-        >
+      {/* Pagina numbers */}
+      <div className="d-flex justify-content-center mt-3">
+        <Button variant="link" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
           Anterior
         </Button>
-        <Button
-          variant="secondary"
-          onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastEmployee >= filteredEmpleados.length}
-        >
+        <Button variant="link" onClick={() => paginate(currentPage + 1)} disabled={currentPage * employeesPerPage >= filteredEmpleados.length}>
           Siguiente
         </Button>
       </div>
 
-      {/* Modal de edición */}
+      {/* Modal para editar empleado */}
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Editar Empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {currentEmployee && (
-            <Form>
-              <Form.Group controlId="formNombre">
-                <Form.Label>Nombre</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={currentEmployee.nombre}
-                  onChange={(e) =>
-                    setCurrentEmployee({ ...currentEmployee, nombre: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group controlId="formApellido1">
-                <Form.Label>Primer Apellido</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={currentEmployee.apellido_1}
-                  onChange={(e) =>
-                    setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group controlId="formApellido2">
-                <Form.Label>Segundo Apellido</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={currentEmployee.apellido_2}
-                  onChange={(e) =>
-                    setCurrentEmployee({ ...currentEmployee, apellido_2: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={currentEmployee.email}
-                  onChange={(e) =>
-                    setCurrentEmployee({ ...currentEmployee, email: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group controlId="formTelefono">
-                <Form.Label>Teléfono</Form.Label>
-                <Form.Control
-                  type="tel"
-                  value={currentEmployee.telefono}
-                  onChange={(e) =>
-                    setCurrentEmployee({ ...currentEmployee, telefono: e.target.value })
-                  }
-                />
-              </Form.Group>
-              {/* Agrega más campos según sea necesario */}
-            </Form>
-          )}
+          <Form>
+            <Form.Group controlId="formNombre">
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentEmployee?.nombre || ''}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, nombre: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formApellido1">
+              <Form.Label>Primer Apellido</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentEmployee?.apellido_1 || ''}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formApellido2">
+              <Form.Label>Segundo Apellido</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentEmployee?.apellido_2 || ''}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, apellido_2: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={currentEmployee?.email || ''}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formTelefono">
+              <Form.Label>Teléfono</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentEmployee?.telefono || ''}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, telefono: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formFoto">
+              <Form.Label>Foto</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, foto: e.target.files[0] })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formQrCode">
+              <Form.Label>Código QR</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, qr_code: e.target.files[0] })}
+              />
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Guardar Cambios
-          </Button>
+          <Button variant="secondary" onClick={closeModal}>Cerrar</Button>
+          <Button variant="primary" onClick={handleSave}>Guardar Cambios</Button>
         </Modal.Footer>
       </Modal>
     </Container>
