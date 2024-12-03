@@ -3,7 +3,6 @@ import { Container, Table, Button, Row, Col, Form, Modal } from 'react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import './AdminEmpleados.css'
 
 const AdminEmpleados = () => {
   const navigate = useNavigate();
@@ -105,7 +104,7 @@ const filtered = empleados.filter((empleado) => {
     formData.append("apellido_2", currentEmployee.apellido_2);
     formData.append("email", currentEmployee.email);
     formData.append("telefono", currentEmployee.telefono);
-    formData.append("rol", JSON.stringify({ id: currentEmployee.rol.id }));
+    formData.append("rol", JSON.stringify({ id: currentEmployee.rol }));
     formData.append("sede", currentEmployee.sede);
     formData.append("baja", currentEmployee.baja);
     formData.append("excedencia", currentEmployee.excedencia);
@@ -122,7 +121,12 @@ const filtered = empleados.filter((empleado) => {
       const qrCodeFile = currentEmployee.qr_code;
       formData.append("qr_code", qrCodeFile);
     }
-
+      // Log de lo que se va a enviar
+  const formDataEntries = [];
+  formData.forEach((value, key) => {
+    formDataEntries.push({ key, value });
+  });
+  console.log("Datos a enviar al servidor:", formDataEntries);
     // Obtener el token de acceso
     const accessToken = localStorage.getItem('access_token');
 
@@ -170,7 +174,7 @@ const filtered = empleados.filter((empleado) => {
     <Container className="mt-5 ms-5">
       <Row className="mb-3">
         <Col>
-          <h2>Administracion de Empleados</h2>
+          <h2>Administración de Empleados</h2>
         </Col>
         <Col className="text-end">
           <Form.Control
@@ -313,6 +317,16 @@ const filtered = empleados.filter((empleado) => {
                 }
               />
             </Form.Group>
+            <Form.Group controlId="formApellido2" className="mb-3">
+              <Form.Label>Apellido 2</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentEmployee.apellido_2}
+                onChange={(e) =>
+                  setCurrentEmployee({ ...currentEmployee, apellido_2: e.target.value })
+                }
+              />
+            </Form.Group>
             <Form.Group controlId="formApellido1" className="mb-3">
               <Form.Label>Apellido 1</Form.Label>
               <Form.Control
@@ -335,32 +349,47 @@ const filtered = empleados.filter((empleado) => {
             </Form.Group>
             <Form.Group controlId="formRol" className="mb-3">
               <Form.Label>Rol</Form.Label>
-              <Form.Control
-                as="select"
-                value={currentEmployee.rol.id}
-                onChange={(e) =>
-                  setCurrentEmployee({
-                    ...currentEmployee,
-                    rol: { ...currentEmployee.rol, id: parseInt(e.target.value) },
-                  })
-                }
-              >
-                <option value={1}>Administrador</option>
-                <option value={2}>Empleado</option>
-                <option value={3}>Supervisor</option>
-              </Form.Control>
+<Form.Control
+  as="select"
+  value={currentEmployee.rol || ""} // Mantén el ID del rol como el valor actual
+  onChange={(e) =>
+    setCurrentEmployee({
+      ...currentEmployee,
+      rol: parseInt(e.target.value), // Actualiza el ID del rol como número
+    })
+  }
+>
+  <option value={0}>CEO</option>
+  <option value={1}>CTO</option>
+  <option value={2}>CFO</option>
+  <option value={3}>Líder de Equipo de Desarrollo</option>
+  <option value={4}>Ingeniero de Frontend</option>
+  <option value={5}>Ingeniero de Backend</option>
+  <option value={6}>Líder de QA</option>
+  <option value={7}>Ingeniero de QA</option>
+  <option value={8}>Gerente de Proyecto</option>
+  <option value={9}>Coordinador de Proyecto</option>
+  <option value={10}>Gerente de Producto</option>
+  <option value={11}>Propietario de Producto</option>
+  <option value={12}>Gerente de Marketing</option>
+  <option value={13}>Especialista en Marketing Digital</option>
+  <option value={14}>Gerente de Ventas</option>
+  <option value={15}>Representante de Ventas</option>
+  <option value={16}>Gerente de Soporte</option>
+  <option value={17}>Especialista en Soporte al Cliente</option>
+</Form.Control>
             </Form.Group>
           </Col>
 
           {/* Segunda columna */}
           <Col md={6}>
-            <Form.Group controlId="formApellido2" className="mb-3">
-              <Form.Label>Apellido 2</Form.Label>
+            <Form.Group controlId="formApellido1" className="mb-3">
+              <Form.Label>Apellido 1</Form.Label>
               <Form.Control
                 type="text"
-                value={currentEmployee.apellido_2}
+                value={currentEmployee.apellido_1}
                 onChange={(e) =>
-                  setCurrentEmployee({ ...currentEmployee, apellido_2: e.target.value })
+                  setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })
                 }
               />
             </Form.Group>
