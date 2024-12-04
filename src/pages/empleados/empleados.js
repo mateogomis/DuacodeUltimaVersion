@@ -86,7 +86,7 @@ const Empleados = () => {
           <div className="employee-card" key={empleado.id}>
             <div className="employee-image-container">
               <img
-                src={empleado.foto}
+                src={`http://localhost:8000/media/${empleado.foto}`}
                 alt={empleado.nombre}
                 className="employee-image"
               />
@@ -150,7 +150,7 @@ const Empleados = () => {
                   <strong>Supervisor:</strong> {empleado.supervisor}
                 </p>
                 <p>
-                  <strong>Puesto:</strong> {empleado.rol.nombre}
+                  <strong>Puesto:</strong> {empleado.rol.rol_display}
                 </p>
                 <p>
                   <strong>Vacaciones: </strong>
