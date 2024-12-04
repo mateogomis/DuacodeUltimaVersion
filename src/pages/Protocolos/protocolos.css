@@ -88,7 +88,7 @@
   
   .protocol-circle:hover .protocol-description {
     opacity: 1;
-    transform: translateX(-50%) translateY(0); /* Aparece suavemente */
+    transform: translateX(-50%) translateY(40px); /* Aparece suavemente */
   }
   
   /* Responsividad */

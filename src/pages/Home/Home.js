@@ -73,7 +73,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Eventos />
+      <Proyectos limite={3} />
 
       <section className="nature-section">
         <h2 className="nature-title">

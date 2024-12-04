@@ -1,10 +1,15 @@
+
 .proyecto-section {
-    background-color: #1c1e266c;
-    color: #F5F5F5;
+    background-color: #1C1E26;
+    color: white;
     padding: 50px 20px;
     text-align: center;
 }
-
+.proyecto-titulo{
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #4ECCA3; 
+}
 .proyecto-nombre {
     font-size: 2.5rem;
     margin-bottom: 30px;
