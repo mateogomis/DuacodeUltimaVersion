@@ -121,7 +121,6 @@ const Home = () => {
           <span className="basket-author">— Michael Jordan</span>
         </h2>
       </section>
-
       <Protocolos />
     </div>
   );

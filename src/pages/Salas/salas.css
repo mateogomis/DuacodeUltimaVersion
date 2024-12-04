@@ -1,11 +1,10 @@
 /* General Room Section Styles */
 .salas-section {
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
+  background-color: #2d2f36;
+  color: white;
   padding: 50px 20px;
   text-align: center;
   position: relative;
-  margin-top: 50px;
 }
 
 .salas-section-title {

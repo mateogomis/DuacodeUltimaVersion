@@ -3,10 +3,10 @@ import './Footer.css';
 
 const Footer = () => {
   const scrollToTop = () => {
-    // Función para desplazarse al inicio de la página
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // Desplazamiento suave
+      left:0,
+      behavior: 'smooth',
     });
   };
 
@@ -25,14 +25,6 @@ const Footer = () => {
             <li><a href="#accessibility">Declaración de Accesibilidad</a></li>
           </ul>
         </div>
-        {/*<div className="footer-section">
-           <h4>Menú</h4>
-          <ul className="footer-links">
-            <li><a href="#home">Inicio</a></li>
-            <li><a href="#explore">Explorar</a></li>
-            <li><a href="#community">Comunidad</a></li>
-          </ul> 
-        </div>*/}
         <div className="footer-section">
           <h4>Contáctanos</h4>
           <ul className="footer-contact">
