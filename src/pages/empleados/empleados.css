@@ -1,211 +1,208 @@
-/* 
+/*Prueba para ver los items*/
+/*
 * {
-
      outline: 1px solid red; 
   }
    */
-  .employee-section {
-    background-color: #1c1e26; /* Fondo gris oscuro */
-    color: #f5f5f5; /* Blanco puro */
-    padding: 50px 20px;
-    text-align: center;
-  }
-  
-  .employee-section-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #4ecca3; /* Verde azulado */
-  }
-  
-  /* Centrar el carrusel y ajustar su estilo */
-  .employee-carousel-container {
-    max-width: 1200px; /* Limita el ancho máximo del carrusel */
-    margin: 0 auto; /* Centra el carrusel horizontalmente */
-    padding: 0 20px; /* Añade separación en los laterales */
-    position: relative;
-  }
-  
-  .slick-slider, 
-  .employee-carousel, 
-  .slick-initialized {
-    overflow: visible; /* Permite que las tarjetas se expandan fuera del carrusel */
-  }
-  
-  .slick-prev, 
-  .slick-next {
-    width: 40px;
-    height: 40px;
-    z-index: 10;
-  }
-  
-  .slick-prev:before, 
-  .slick-next:before {
-    font-size: 2rem; /* Ajusta el tamaño de las flechas */
-    color: #4ecca3; /* Color de las flechas */
-  }
-  
-  /* Dots de navegación */
-  .slick-dots {
-    bottom: -20px; /* Ajusta la posición vertical de los dots */
-    text-align: center;
-  }
-  
-  .slick-dots li button:before {
-    color: #aaa; /* Color base */
-    font-size: 1rem; /* Tamaño de los puntos */
-  }
-  
-  .slick-dots li.slick-active button:before {
-    color: #4ecca3; /* Verde azulado para el punto activo */
-  }
-  
-  /* Tarjetas del empleado */
+/* Sección general de empleados */
+.employee-section {
+  background-color: #1c1e26;
+  color: #f5f5f5;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+/* Estilo del título */
+.employee-section-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #4ecca3;
+}
+
+/* Contenedor del carrusel */
+.employee-carousel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.slick-slider,
+.employee-carousel,
+.slick-initialized {
+  overflow: visible;
+}
+
+.slick-prev,
+.slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 2rem;
+  color: #4ecca3;
+}
+
+/* Puntos de navegación */
+.slick-dots {
+  bottom: -20px;
+  text-align: center;
+}
+
+.slick-dots li button:before {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #4ecca3;
+}
+
+/* Tarjeta del empleado */
+.employee-card {
+  background-color: #2d2f36;
+  color: #f5f5f5;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 280px;
+  margin: 5px auto;
+  text-align: center;
+  border: 2px solid transparent;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.employee-card:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  border-color: #4ecca3;
+}
+
+/* Contenedor de la imagen */
+.employee-image-container {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid #4ecca3;
+  transition: border-color 0.3s ease;
+}
+
+.employee-card:hover .employee-image-container {
+  border-color: #37a088;
+}
+
+.employee-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Nombre y detalles del empleado */
+.employee-name {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.employee-info {
+  font-size: 0.9rem;
+  margin: 5px 0;
+  color: #d3d3d3;
+}
+
+/* Botón de expansión */
+.expand-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.3s ease;
+}
+
+.expand-button:hover {
+  transform: scale(1.2);
+}
+
+.expand-button svg {
+  fill: #4ecca3;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+.expand-button:hover svg {
+  fill: #37a088;
+}
+
+.employee-card.expanded .expand-button svg {
+  fill: #ffffff;
+  transform: rotate(45deg);
+}
+
+/* Barra de búsqueda */
+.employee-search-bar {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  margin: 20px auto;
+  border: 2px solid transparent;
+  border-radius: 25px;
+  font-size: 1rem;
+  background-color: #2d2f36;
+  color: #f5f5f5;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.employee-search-bar::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.employee-search-bar:focus {
+  border-color: #4ecca3;
+  background-color: #1c1e26;
+  box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4);
+  color: #ffffff;
+}
+
+/* Consultas para dispositivos más pequeños */
+@media (max-width: 1024px) {
   .employee-card {
-    background-color: #2d2f36; /* Gris medio oscuro */
-    color: #f5f5f5; /* Blanco puro */
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    width: 280px;
-    margin:5px auto; 
-    gap: 30px;
-    text-align: center;
-    border: 2px solid transparent;
-    position: relative; /* Asegura que las transformaciones no se recorten */
-    overflow: visible;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    width: 250px;
   }
-  
-  .employee-card:hover {
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    border-color: #4ecca3; /* Verde azulado */
+
+  .slick-prev,
+  .slick-next {
+    width: 35px;
+    height: 35px;
   }
-  
-  /* Imagen del empleado */
-  .employee-image-container {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 3px solid #4ecca3; /* Verde azulado */
-    transition: border-color 0.3s ease;
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 1.8rem;
   }
-  
-  .employee-card:hover .employee-image-container {
-    border-color: #37a088; /* Verde más oscuro */
+}
+
+@media (max-width: 768px) {
+  .employee-card {
+    width: 90%;
+    margin: 0 auto;
   }
-  
-  .employee-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+
+  .slick-prev,
+  .slick-next {
+    display: none;
   }
-  
-  /* Nombre y detalles del empleado */
-  .employee-name {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+
+  .slick-dots {
+    bottom: -15px;
   }
-  
-  .employee-info {
-    font-size: 0.9rem;
-    margin: 5px 0;
-    color: #d3d3d3; /* Color gris claro para información secundaria */
-  }
-  
-  /* Responsivo */
-  @media (max-width: 1024px) {
-    .employee-card {
-      width: 250px; /* Ajusta el ancho en pantallas medianas */
-    }
-  
-    .slick-prev,
-    .slick-next {
-      width: 35px;
-      height: 35px;
-    }
-  
-    .slick-prev:before,
-    .slick-next:before {
-      font-size: 1.8rem; /* Ajusta el tamaño de las flechas */
-    }
-  }
-  
-  /* Estilo del botón contenedor del icono */
-  .expand-button {
-    background-color: transparent; /* Fondo transparente */
-    border: none; /* Sin bordes */
-    cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
-    margin-top: 10px; /* Separación superior del botón */
-    transition: transform 0.3s ease; /* Animación suave para escalar */
-  }
-  
-  .expand-button:hover {
-    transform: scale(1.2); /* Aumenta el tamaño ligeramente al pasar el mouse */
-  }
-  
-  /* Estilo del SVG (icono) */
-  .expand-button svg {
-    fill: #4ecca3; /* Color verde azulado para el icono */
-    width: 30px; /* Ancho del icono */
-    height: 30px; /* Altura del icono */
-    margin-bottom: 10px;
-    transition: fill 0.3s ease, transform 0.3s ease; /* Animación para cambios de color y tamaño */
-  }
-  
-  .expand-button:hover svg {
-    fill: #37a088; /* Verde más oscuro al pasar el mouse */
-  }
-  
-  /* Opcional: estilo para la tarjeta expandida */
-  .employee-card.expanded .expand-button svg {
-    fill: #ffffff; /* Cambia el color del icono cuando la tarjeta está expandida */
-    transform: rotate(45deg); /* Opcional: rota el icono para indicar el estado de expansión */
-  }
-  
-  /* Barra de búsqueda */
-  .employee-search-bar {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px 16px; /* Aumenta el espacio interno para mayor comodidad */
-    margin: 20px auto;
-    border: 2px solid transparent; /* Borde inicial invisible */
-    border-radius: 25px; /* Bordes completamente redondeados */
-    font-size: 1rem;
-    background-color: #2d2f36; /* Gris oscuro */
-    color: #f5f5f5; /* Blanco */
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
-    transition: all 0.3s ease; /* Transición suave */
-  }
-  
-  .employee-search-bar::placeholder {
-    color: #aaa; /* Gris claro */
-    font-style: italic; /* Estilo más distintivo */
-  }
-  
-  .employee-search-bar:focus {
-    border-color: #4ecca3; /* Verde azulado */
-    background-color: #1c1e26; /* Fondo más oscuro al enfocar */
-    box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4); /* Sombra más pronunciada */
-    color: #ffffff; /* Blanco más brillante para el texto */
-  }
-  
-  @media (max-width: 768px) {
-    .employee-card {
-      width: 90%; /* Ocupa casi todo el ancho en pantallas pequeñas */
-      margin: 0 auto; /* Centrado */
-    }
-  
-    .slick-prev,
-    .slick-next {
-      display: none; /* Oculta las flechas en pantallas pequeñas */
-    }
-  
-    .slick-dots {
-      bottom: -15px; /* Ajusta los puntos en móviles */
-    }
-  }
-  
+}

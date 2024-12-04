@@ -112,7 +112,7 @@ const Protocolos = () => {
     const fetchProtocolos = async () => {
       try {
         // Solicita la lista de archivos desde el backend
-        const response = await axios.get("http://localhost:8000/media/");
+        const response = await axios.get('http://localhost:8000/media/');
         setProtocolos(response.data); // Guarda los datos de los archivos
       } catch (error) {
         setError("Error al obtener los protocolos");
@@ -147,9 +147,9 @@ const Protocolos = () => {
                     <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
                   </svg>
                 </span>
-                <h3 className="protocol-name">{protocolo.nombre}</h3> {/* Nombre del archivo */}
+                <h3 className="protocol-name">{protocolo.nombre}</h3>
               </div>
-              <p className="protocol-description">{protocolo.descripcion}</p> {/* Descripción del archivo */}
+              <p className="protocol-description">{protocolo.descripcion}</p>
             </div>
           ))
         ) : (

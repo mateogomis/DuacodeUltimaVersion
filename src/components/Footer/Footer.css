@@ -1,18 +1,13 @@
 .footer {
-  background: linear-gradient(
-    to bottom,
-    #1c1e26,
-    #2d2f36
-  ); /* Fondo oscuro con degradado */
-  color: #ffffff; /* Texto blanco */
+  background: linear-gradient(to bottom, #1c1e26, #2d2f36);
+  color: #ffffff;
   padding: 40px 20px;
   font-family: "Arial", sans-serif;
 }
 
 .footer-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columnas */
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -21,14 +16,14 @@
   font-family: "Georgia", serif;
   font-size: 24px;
   font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3;
 }
 
 .footer-section h4 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3;
 }
 
 .footer-form {
@@ -39,11 +34,11 @@
 
 .footer-input {
   padding: 10px;
-  border: 1px solid #4ecca3; /* Verde azulado */
+  border: 1px solid #4ecca3;
   border-radius: 20px;
   outline: none;
-  background-color: #2d2f36; /* Fondo oscuro */
-  color: #ffffff; /* Texto blanco */
+  background-color: #2d2f36;
+  color: #ffffff;
 }
 
 .footer-checkbox {
@@ -57,7 +52,7 @@
 }
 
 .footer-checkbox label {
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff;
 }
 
 .footer-button {
@@ -72,8 +67,8 @@
 }
 
 .footer-button:hover {
-  background-color: #4ecca3; /* Fondo verde azulado */
-  color: #1c1e26; /* Texto oscuro */
+  background-color: #4ecca3;
+  color: #1c1e26;
 }
 
 .footer-links,
@@ -88,23 +83,23 @@
 }
 .footer-links li a {
   text-decoration: none;
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff;
   transition: color 0.3s ease;
 }
 
 .footer-links li a:hover {
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3;
 }
 
 .footer-contact li {
   font-size: 14px;
   margin-bottom: 5px;
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff;
 }
 
 .footer-bottom {
   margin-top: 20px;
-  border-top: 1px solid #4ecca3; /* Línea divisoria verde azulado */
+  border-top: 1px solid #4ecca3;
   padding-top: 10px;
   text-align: center;
   font-size: 14px;
@@ -116,11 +111,11 @@
 }
 
 .footer-bottom a:hover {
-  color: #37a088; /* Verde más oscuro */
+  color: #37a088;
 }
 .back-to-top {
   background-color: transparent;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3;
   border: 1px solid #4ecca3;
   padding: 8px 16px;
   border-radius: 20px;
@@ -132,8 +127,8 @@
 
 .back-to-top:hover {
   background-color: #4ecca3;
-  color: #1c1e26; /* Oscuro */
-  border-color: #37a088; /* Verde más oscuro */
+  color: #1c1e26;
+  border-color: #37a088;
 }
 
 /* Responsividad */

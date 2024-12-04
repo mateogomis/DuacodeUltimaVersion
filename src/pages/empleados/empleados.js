@@ -7,9 +7,9 @@ import "./Empleados.css";
 
 const Empleados = () => {
   const [empleados, setEmpleados] = useState([]);
-  const [filteredEmpleados, setFilteredEmpleados] = useState([]); // Lista filtrada
-  const [searchQuery, setSearchQuery] = useState(""); // Estado para la barra de búsqueda
-  const [expandedCards, setExpandedCards] = useState({}); // Controla qué tarjetas están expandidas
+  const [filteredEmpleados, setFilteredEmpleados] = useState([]); 
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const [expandedCards, setExpandedCards] = useState({}); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,7 +20,7 @@ const Empleados = () => {
           "http://localhost:8000/api/empleados/"
         );
         setEmpleados(response.data);
-        setFilteredEmpleados(response.data); // Inicialmente, todos los empleados se muestran
+        setFilteredEmpleados(response.data); 
       } catch (error) {
         setError("Error al obtener los empleados");
       } finally {
@@ -48,7 +48,7 @@ const Empleados = () => {
 
   const carouselSettings = {
     dots: false,
-    infinite: false, // Cambiado a false para evitar problemas con duplicados
+    infinite: false, 
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,

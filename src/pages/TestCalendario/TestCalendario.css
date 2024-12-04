@@ -1,7 +1,7 @@
 /* Estilos generales para el calendario */
 .rbc-calendar {
-    background-color:#ffff; /* Fondo gris oscuro */
-    color: #f5f5f5; /* Texto blanco */
+    background-color:#ffff;
+    color: #f5f5f5; 
     font-family: 'Arial', sans-serif;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -11,27 +11,19 @@
     max-width: 1200px;
 }
 .rbc-show-more {
-    /* background-color: #4ecca3; */
-    /* Fondo verde azulado */
     color: #ffffff;
-    /* Texto blanco */
     border: none;
-    /* Sin bordes */
     border-radius: 5px;
-    /* Bordes redondeados */
     padding: 5px 10px;
-    /* Espaciado interno */
     font-size: 14px;
-    /* Tamaño de fuente */
     cursor: pointer;
-    /* Cambia el cursor a pointer */
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 /* Cabecera del calendario */
 .rbc-header {
-    background-color: #4ecca3; /* Verde azulado */
-    color: #1c1e26; /* Texto gris oscuro */
+    background-color: #4ecca3; 
+    color: #1c1e26; 
     text-align: center;
     font-weight: bold;
     padding: 10px;
@@ -40,13 +32,13 @@
 }
 
 .rbc-header:hover {
-    background-color: #37a088; /* Verde azulado más oscuro */
+    background-color: #37a088; 
 }
 
 /* Botones del calendario */
 .rbc-toolbar button {
-    background-color: #4ecca3; /* Verde azulado */
-    color: #1c1e26; /* Gris oscuro */
+    background-color: #4ecca3;
+    color: #1c1e26; 
     border: none;
     padding: 8px 12px;
     margin: 5px;
@@ -56,19 +48,18 @@
 }
 
 .rbc-toolbar button:hover {
-    background-color: #37a088; /* Verde más oscuro */
-    transform: scale(1.05); /* Efecto zoom */
+    background-color: #37a088; 
+    transform: scale(1.05); 
 }
 .rbc-toolbar-label {
     color: #000;
-    /* Texto negro */
 }
 
 /* Eventos del calendario */
 .rbc-event {
-    background-color: #2d2f36; /* Fondo gris medio oscuro */
-    color: #ffffff; /* Texto verde azulado */
-    border: 1px solid #4ecca3; /* Borde verde */
+    background-color: #2d2f36; 
+    color: #ffffff; 
+    border: 1px solid #4ecca3; 
     border-radius: 5px;
     padding: 5px;
     text-align: center;
@@ -77,44 +68,44 @@
 }
 
 .rbc-event:hover {
-    transform: scale(1.05); /* Efecto de zoom */
-    box-shadow: 0 4px 10px rgba(78, 204, 163, 0.5); /* Sombra */
+    transform: scale(1.05); 
+    box-shadow: 0 4px 10px rgba(78, 204, 163, 0.5); 
 }
 
 /* Días del calendario */
 .rbc-day-bg {
-    background-color: #2d2f36; /* Gris oscuro */
-    border: 1px solid #1c1e26; /* Bordes suaves */
+    background-color: #2d2f36; 
+    border: 1px solid #1c1e26; 
 }
 
 .rbc-day-bg:hover {
-    background-color: #292b34; /* Gris más oscuro */
+    background-color: #292b34;
 }
 
 /* Día actual */
 .rbc-today {
-    background-color: #383a42; /* Gris oscuro destacado */
-    border: 1px solid #4ecca3; /* Borde verde */
+    background-color: #383a42;
+    border: 1px solid #4ecca3; 
 }
 
 /* Vista mensual */
 .rbc-month-view {
-    background-color: #1c1e26; /* Fondo gris oscuro */
+    background-color: #1c1e26; 
 }
 
 /* Texto de los días */
 .rbc-date-cell {
-    color: #f5f5f5; /* Texto blanco */
+    color: #f5f5f5; 
     font-weight: bold;
 }
 
 /* Fin de semana */
 .rbc-off-range-bg {
-    background-color: #292b34; /* Gris oscuro más claro */
-    color: #828282; /* Gris claro */
+    background-color: #292b34; 
+    color: #828282; 
 }
 
-/* Responsive Design */
+/*Diseño Responsive  */
 @media (max-width: 768px) {
     .rbc-calendar {
         padding: 10px;
