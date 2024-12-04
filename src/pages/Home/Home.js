@@ -73,7 +73,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Eventos />
+      <Proyectos limite={3} />
 
       <section className="nature-section">
         <h2 className="nature-title">
@@ -121,7 +121,6 @@ const Home = () => {
           <span className="basket-author">— Michael Jordan</span>
         </h2>
       </section>
-
       <Protocolos />
     </div>
   );

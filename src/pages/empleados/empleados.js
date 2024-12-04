@@ -16,7 +16,9 @@ const Empleados = () => {
   useEffect(() => {
     const fetchEmpleados = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/empleados/");
+        const response = await axios.get(
+          "http://localhost:8000/api/empleados/"
+        );
         setEmpleados(response.data);
         setFilteredEmpleados(response.data); // Inicialmente, todos los empleados se muestran
       } catch (error) {
@@ -113,13 +115,22 @@ const Empleados = () => {
               <div className="employee-info-expanded">
                 <p>
                   <strong>Estado: </strong>
-                  {empleado.baja === false &&
-                  empleado.excedencia === false &&
-                  empleado.vacaciones === false &&
-                  empleado.teletrabajo === false
-                    ? "Está trabajando"
-                    : "No está trabajando"}
+                  {(() => {
+                    if (
+                      empleado.baja === false &&
+                      empleado.excedencia === false &&
+                      empleado.vacaciones === false &&
+                      empleado.teletrabajo === false
+                    ) {
+                      return "Está trabajando";
+                    } else if (empleado.teletrabajo === true) {
+                      return "Está teletrabajando";
+                    } else {
+                      return "No está trabajando";
+                    }
+                  })()}
                 </p>
+
                 <p>
                   <strong>Cumpleaños:</strong> {empleado.cumpleanos}
                 </p>

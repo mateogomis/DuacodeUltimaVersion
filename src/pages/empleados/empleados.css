@@ -1,162 +1,172 @@
-/* Employee Section */
-.employee-section {
-    background-color: #1C1E26; /* Fondo gris oscuro */
-    color: #F5F5F5; /* Blanco puro */
+
+* {
+
+     outline: 1px solid red; 
+  }
+  
+  .employee-section {
+    background-color: #1c1e26; /* Fondo gris oscuro */
+    color: #f5f5f5; /* Blanco puro */
     padding: 50px 20px;
     text-align: center;
-
-}
-
-.employee-section-title {
+  }
+  
+  .employee-section-title {
     font-size: 2.5rem;
     margin-bottom: 30px;
-    color: #4ECCA3; /* Verde azulado */
-}
-
-/* Contenedor del carrusel */
-.employee-carousel-container {
-    max-width: 1200px; /* Limita el ancho del carrusel */
+    color: #4ecca3; /* Verde azulado */
+  }
+  
+  /* Centrar el carrusel y ajustar su estilo */
+  .employee-carousel-container {
+    max-width: 1200px; /* Limita el ancho máximo del carrusel */
     margin: 0 auto; /* Centra el carrusel horizontalmente */
     padding: 0 20px; /* Añade separación en los laterales */
-    position: relative; /* Necesario para centrar las flechas */
-    overflow: hidden; /* Evita desbordamientos */
-}
-
-/* Contenedor de tarjetas con Flexbox */
-.employee-card-container {
-    display: flex;
-    flex-wrap: wrap; /* Las tarjetas se ajustan a nuevas filas */
-    justify-content: center; /* Centra las tarjetas horizontalmente */
-    gap: 5px; /* Menos espacio entre tarjetas */
-    margin: 0 auto; /* Centrado global */
-    max-width: 100%; /* Se adapta al ancho disponible */
-    padding: 0; /* Elimina cualquier relleno adicional */
-}
-
-/* Tarjetas del empleado */
-.employee-card {
-    background-color: #2D2F36; /* Gris oscuro */
-    color: #F5F5F5;
-    border-radius: 15px; 
+    position: relative;
+  }
+  
+  .slick-slider, 
+  .employee-carousel, 
+  .slick-initialized {
+    overflow: visible; /* Permite que las tarjetas se expandan fuera del carrusel */
+  }
+  
+  .slick-prev, 
+  .slick-next {
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+  }
+  
+  .slick-prev:before, 
+  .slick-next:before {
+    font-size: 2rem; /* Ajusta el tamaño de las flechas */
+    color: #4ecca3; /* Color de las flechas */
+  }
+  
+  /* Dots de navegación */
+  .slick-dots {
+    bottom: -20px; /* Ajusta la posición vertical de los dots */
+    text-align: center;
+  }
+  
+  .slick-dots li button:before {
+    color: #aaa; /* Color base */
+    font-size: 1rem; /* Tamaño de los puntos */
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #4ecca3; /* Verde azulado para el punto activo */
+  }
+  
+  /* Tarjetas del empleado */
+  .employee-card {
+    background-color: #2d2f36; /* Gris medio oscuro */
+    color: #f5f5f5; /* Blanco puro */
+    border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    padding: 140px;
-    flex: 1 1 calc(25% - 5px); /* Asegura que las tarjetas ocupen más espacio, reduciendo el gap */
-    max-width: 280px; /* Tamaño máximo */
-    min-width: 240px; /* Tamaño mínimo ajustado */
+    padding: 20px;
+    width: 280px;
+    margin:5px auto; 
+    gap: 30px;
     text-align: center;
     border: 2px solid transparent;
+    position: relative; /* Asegura que las transformaciones no se recorten */
+    overflow: visible;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-
-
-.employee-card:hover {
-    transform: scale(1.05);
+  }
+  
+  .employee-card:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-    border-color: #4ECCA3;
-}
-
-/* Imagen del empleado */
-.employee-image-container {
+    z-index: 10;
+    border-color: #4ecca3; /* Verde azulado */
+  }
+  
+  /* Imagen del empleado */
+  .employee-image-container {
     width: 100px;
     height: 100px;
-    margin: 0 auto 10px;
+    margin: 0 auto 15px;
     overflow: hidden;
     border-radius: 50%;
-    border: 3px solid #4ECCA3; /* Verde azulado */
+    border: 3px solid #4ecca3; /* Verde azulado */
     transition: border-color 0.3s ease;
-}
-
-.employee-card:hover .employee-image-container {
-    border-color: #37A088; /* Verde oscuro */
-}
-
-.employee-image {
+  }
+  
+  .employee-card:hover .employee-image-container {
+    border-color: #37a088; /* Verde más oscuro */
+  }
+  
+  .employee-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* Nombre y detalles del empleado */
-.employee-name {
+  }
+  
+  /* Nombre y detalles del empleado */
+  .employee-name {
     font-size: 1.5rem;
     margin-bottom: 10px;
-}
-
-.employee-info {
+  }
+  
+  .employee-info {
     font-size: 0.9rem;
     margin: 5px 0;
-    color: #D3D3D3; /* Gris claro */
-}
-
-/* Botón expandible */
-.expand-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: transform 0.3s ease;
-}
-
-.expand-button:hover {
-    transform: scale(1.2);
-}
-
-.expand-button svg {
-    fill: #4ECCA3;
-    width: 30px;
-    height: 30px;
-    transition: fill 0.3s ease, transform 0.3s ease;
-}
-
-.expand-button:hover svg {
-    fill: #37A088;
-}
-
-/* Ajustes para flechas del carrusel */
-.slick-prev,
-.slick-next {
-    position: absolute;
-    top: 50%; /* Centrado vertical */
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 35px; /* Tamaño ajustado */
-    height: 35px;
-}
-
-/* Flecha izquierda */
-.slick-prev {
-    left: 10px; /* Más cerca del borde izquierdo */
-}
-
-/* Flecha derecha */
-.slick-next {
-    right: 10px; /* Más cerca del borde derecho */
-}
-
-/* Estilo de los iconos de las flechas */
-.slick-prev:before,
-.slick-next:before {
-    font-size: 1.5rem; /* Tamaño ajustado */
-    color: #4ECCA3; /* Verde azulado */
-}
-
-/* Dots del carrusel */
-.slick-dots {
-    bottom: -20px; /* Ajusta la posición vertical */
-    text-align: center;
-}
-
-.slick-dots li button:before {
-    color: #aaa; /* Color base */
-    font-size: 1rem; /* Tamaño de los puntos */
-}
-
-.slick-dots li.slick-active button:before {
-    color: #4ECCA3; /* Verde azulado para el punto activo */
-}
-/* Barra de búsqueda */
-.employee-search-bar {
+    color: #d3d3d3; /* Color gris claro para información secundaria */
+  }
+  
+  /* Responsivo */
+  @media (max-width: 1024px) {
+    .employee-card {
+      width: 250px; /* Ajusta el ancho en pantallas medianas */
+    }
+  
+    .slick-prev,
+    .slick-next {
+      width: 35px;
+      height: 35px;
+    }
+  
+    .slick-prev:before,
+    .slick-next:before {
+      font-size: 1.8rem; /* Ajusta el tamaño de las flechas */
+    }
+  }
+  
+  /* Estilo del botón contenedor del icono */
+  .expand-button {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin bordes */
+    cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
+    margin-top: 10px; /* Separación superior del botón */
+    transition: transform 0.3s ease; /* Animación suave para escalar */
+  }
+  
+  .expand-button:hover {
+    transform: scale(1.2); /* Aumenta el tamaño ligeramente al pasar el mouse */
+  }
+  
+  /* Estilo del SVG (icono) */
+  .expand-button svg {
+    fill: #4ecca3; /* Color verde azulado para el icono */
+    width: 30px; /* Ancho del icono */
+    height: 30px; /* Altura del icono */
+    margin-bottom: 10px;
+    transition: fill 0.3s ease, transform 0.3s ease; /* Animación para cambios de color y tamaño */
+  }
+  
+  .expand-button:hover svg {
+    fill: #37a088; /* Verde más oscuro al pasar el mouse */
+  }
+  
+  /* Opcional: estilo para la tarjeta expandida */
+  .employee-card.expanded .expand-button svg {
+    fill: #ffffff; /* Cambia el color del icono cuando la tarjeta está expandida */
+    transform: rotate(45deg); /* Opcional: rota el icono para indicar el estado de expansión */
+  }
+  
+  /* Barra de búsqueda */
+  .employee-search-bar {
     width: 100%;
     max-width: 400px;
     padding: 12px 16px; /* Aumenta el espacio interno para mayor comodidad */
@@ -164,46 +174,38 @@
     border: 2px solid transparent; /* Borde inicial invisible */
     border-radius: 25px; /* Bordes completamente redondeados */
     font-size: 1rem;
-    background-color: #2D2F36; /* Gris oscuro */
-    color: #F5F5F5; /* Blanco */
+    background-color: #2d2f36; /* Gris oscuro */
+    color: #f5f5f5; /* Blanco */
     outline: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
     transition: all 0.3s ease; /* Transición suave */
-}
-
-.employee-search-bar::placeholder {
+  }
+  
+  .employee-search-bar::placeholder {
     color: #aaa; /* Gris claro */
     font-style: italic; /* Estilo más distintivo */
-}
-
-.employee-search-bar:focus {
-    border-color: #4ECCA3; /* Verde azulado */
-    background-color: #1C1E26; /* Fondo más oscuro al enfocar */
-    box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4); /* Sombra más pronunciada */
-    color: #FFFFFF; /* Blanco más brillante para el texto */
-}
-
+  }
   
-/* Ajustes responsivos */
-@media (max-width: 1024px) {
+  .employee-search-bar:focus {
+    border-color: #4ecca3; /* Verde azulado */
+    background-color: #1c1e26; /* Fondo más oscuro al enfocar */
+    box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4); /* Sombra más pronunciada */
+    color: #ffffff; /* Blanco más brillante para el texto */
+  }
+  
+  @media (max-width: 768px) {
     .employee-card {
-        flex: 1 1 calc(33.33% - 10px); /* Ajusta a 3 tarjetas por fila */
+      width: 90%; /* Ocupa casi todo el ancho en pantallas pequeñas */
+      margin: 0 auto; /* Centrado */
     }
-}
-
-@media (max-width: 768px) {
-    .employee-card {
-        flex: 1 1 calc(50% - 10px); /* Ajusta a 2 tarjetas por fila */
-    }
-
+  
     .slick-prev,
     .slick-next {
-        display: none; /* Oculta las flechas en pantallas pequeñas */
+      display: none; /* Oculta las flechas en pantallas pequeñas */
     }
-}
-
-@media (max-width: 480px) {
-    .employee-card {
-        flex: 1 1 100%; /* Una tarjeta por fila */
+  
+    .slick-dots {
+      bottom: -15px; /* Ajusta los puntos en móviles */
     }
-}
+  }
+  

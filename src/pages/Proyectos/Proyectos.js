@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Proyectos.css";
-const Proyectos = () => {
+
+const Proyectos = ({ limite }) => {
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchProyectos = async () => {
       try {
@@ -20,13 +22,17 @@ const Proyectos = () => {
     };
     fetchProyectos();
   }, []);
+
   if (loading) return <p>Cargando proyectos...</p>;
   if (error) return <p>{error}</p>;
 
+  const proyectosAMostrar = limite ? proyectos.slice(0, limite) : proyectos;
+
   return (
     <section className="proyecto-section">
+      <h2 className="proyecto-titulo">Proyectos de la Empresa</h2>
       <div className="proyecto-cards">
-        {proyectos.map((proyecto) => (
+        {proyectosAMostrar.map((proyecto) => (
           <div className="proyecto-card" key={proyecto.id}>
             <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
             <p>
@@ -44,4 +50,5 @@ const Proyectos = () => {
     </section>
   );
 };
+
 export default Proyectos;
