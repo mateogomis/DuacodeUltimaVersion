@@ -3,7 +3,7 @@ import { Container, Table, Button, Row, Col, Form, Modal } from 'react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-
+import './AdminEmpleados.css'
 const AdminEmpleados = () => {
   const navigate = useNavigate();
   const [empleados, setEmpleados] = useState([]);
@@ -13,7 +13,7 @@ const AdminEmpleados = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);  // Estado para mostrar la modal
   const [currentEmployee, setCurrentEmployee] = useState(null); // Estado para almacenar los datos del empleado a editar
-  const employeesPerPage = 10;
+  const employeesPerPage = 5;
 
   useEffect(() => {
     fetch("http://localhost:8000/api/empleados/")
@@ -202,14 +202,14 @@ const filtered = empleados.filter((empleado) => {
             <th>Apellidos</th>
             <th>Email</th>
             <th>Teléfono</th>
-            <th>Rol</th>
+            <th>Cargo</th>
             <th>Sede</th>
             <th>Baja</th>
             <th>Excedencia</th>
             <th>Teletrabajo</th>
             <th>Vacaciones</th>
             <th>Foto</th>
-            <th style={{ whiteSpace: "nowrap" }}>Código QR</th>
+            <th>QR</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -224,7 +224,7 @@ const filtered = empleados.filter((empleado) => {
         </td>
         <td className="align-middle">{empleado.email}</td>
         <td className="align-middle">{empleado.telefono}</td>
-        <td className="align-middle">{empleado.rol?.nombre || "Sin rol"}</td>
+        <td className="align-middle" style={{ whiteSpace: "nowrap" }}>{empleado.rol?.rol_display ||  empleado.rol_text} </td>
         <td className="align-middle">{empleado.sede}</td>
         <td className="align-middle text-center">{empleado.baja ? "Sí" : "No"}</td>
         <td className="align-middle text-center">{empleado.excedencia ? "Sí" : "No"}</td>
@@ -272,9 +272,7 @@ const filtered = empleados.filter((empleado) => {
     </tr>
   )}
 </tbody>
-
-
-      </Table>
+  </Table>
 
       {/* Paginación */}
       <div className="d-flex justify-content-center mb-3">
@@ -297,16 +295,45 @@ const filtered = empleados.filter((empleado) => {
 
 {/* Modal de Edición de Empleado */}
 {showModal && currentEmployee && (
-  <Modal show={showModal} onHide={closeModal}>
+  <Modal show={showModal} onHide={closeModal} size="lg">
     <Modal.Header closeButton>
       <Modal.Title>Editar Empleado</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       {/* Formulario para editar el empleado */}
       <Form>
-        <Row>
-          {/* Primera columna */}
-          <Col md={6}>
+        <Row className="g-4"> {/* Añadido espacio entre las columnas */}
+          {/* Primera columna (Foto) */}
+          <Col md={2}>
+            <Form.Group controlId="formFoto" className="mb-3">
+              <Form.Label>Foto</Form.Label>
+              <div className="text-center">
+                {currentEmployee.foto && (
+                  <img
+                    src={`http://localhost:8000/media/${currentEmployee.foto}`}
+                    alt="Foto"
+                    style={{
+                      width: '120px',
+                      height: '120px',
+                      borderRadius: '5px',
+                      objectFit: 'cover',
+                      border: '2px solid #ccc',
+                      marginTop: '10px',
+                    }}
+                  />
+                )}
+              </div>
+              <Form.Control
+                type="file"
+                onChange={(e) =>
+                  setCurrentEmployee({ ...currentEmployee, foto: e.target.files[0] })
+                }
+              />
+            </Form.Group>
+          </Col>
+
+          {/* Segunda columna (Nombre y Apellidos) */}
+          <Col md={2}>
             <Form.Group controlId="formNombre" className="mb-3">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
@@ -314,6 +341,16 @@ const filtered = empleados.filter((empleado) => {
                 value={currentEmployee.nombre}
                 onChange={(e) =>
                   setCurrentEmployee({ ...currentEmployee, nombre: e.target.value })
+                }
+              />
+            </Form.Group>
+            <Form.Group controlId="formApellido1" className="mb-3">
+              <Form.Label>Apellido 1</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentEmployee.apellido_1}
+                onChange={(e) =>
+                  setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })
                 }
               />
             </Form.Group>
@@ -327,16 +364,10 @@ const filtered = empleados.filter((empleado) => {
                 }
               />
             </Form.Group>
-            <Form.Group controlId="formApellido1" className="mb-3">
-              <Form.Label>Apellido 1</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentEmployee.apellido_1}
-                onChange={(e) =>
-                  setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })
-                }
-              />
-            </Form.Group>
+          </Col>
+
+          {/* Tercera columna (Email y Teléfono) */}
+          <Col md={2}>
             <Form.Group controlId="formEmail" className="mb-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -344,52 +375,6 @@ const filtered = empleados.filter((empleado) => {
                 value={currentEmployee.email}
                 onChange={(e) =>
                   setCurrentEmployee({ ...currentEmployee, email: e.target.value })
-                }
-              />
-            </Form.Group>
-            <Form.Group controlId="formRol" className="mb-3">
-              <Form.Label>Rol</Form.Label>
-<Form.Control
-  as="select"
-  value={currentEmployee.rol || ""} // Mantén el ID del rol como el valor actual
-  onChange={(e) =>
-    setCurrentEmployee({
-      ...currentEmployee,
-      rol: parseInt(e.target.value), // Actualiza el ID del rol como número
-    })
-  }
->
-  <option value={0}>CEO</option>
-  <option value={1}>CTO</option>
-  <option value={2}>CFO</option>
-  <option value={3}>Líder de Equipo de Desarrollo</option>
-  <option value={4}>Ingeniero de Frontend</option>
-  <option value={5}>Ingeniero de Backend</option>
-  <option value={6}>Líder de QA</option>
-  <option value={7}>Ingeniero de QA</option>
-  <option value={8}>Gerente de Proyecto</option>
-  <option value={9}>Coordinador de Proyecto</option>
-  <option value={10}>Gerente de Producto</option>
-  <option value={11}>Propietario de Producto</option>
-  <option value={12}>Gerente de Marketing</option>
-  <option value={13}>Especialista en Marketing Digital</option>
-  <option value={14}>Gerente de Ventas</option>
-  <option value={15}>Representante de Ventas</option>
-  <option value={16}>Gerente de Soporte</option>
-  <option value={17}>Especialista en Soporte al Cliente</option>
-</Form.Control>
-            </Form.Group>
-          </Col>
-
-          {/* Segunda columna */}
-          <Col md={6}>
-            <Form.Group controlId="formApellido1" className="mb-3">
-              <Form.Label>Apellido 1</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentEmployee.apellido_1}
-                onChange={(e) =>
-                  setCurrentEmployee({ ...currentEmployee, apellido_1: e.target.value })
                 }
               />
             </Form.Group>
@@ -403,6 +388,10 @@ const filtered = empleados.filter((empleado) => {
                 }
               />
             </Form.Group>
+          </Col>
+
+          {/* Cuarta columna (Sede y Rol) */}
+          <Col md={2}>
             <Form.Group controlId="formSede" className="mb-3">
               <Form.Label>Sede</Form.Label>
               <Form.Control
@@ -421,12 +410,45 @@ const filtered = empleados.filter((empleado) => {
                 <option value={3}>Sede Internacional</option>
               </Form.Control>
             </Form.Group>
+<Form.Group controlId="formRol" className="mb-3">
+  <Form.Label>Rol</Form.Label>
+  <Form.Control
+    as="select"
+    value={currentEmployee.rol || ""}
+    onChange={(e) => {
+      const selectedRoleId = parseInt(e.target.value);
+      const selectedRoleText = e.target.options[e.target.selectedIndex].text;
+      setCurrentEmployee({
+        ...currentEmployee,
+        rol: selectedRoleId,  // Solo el ID
+        rol_text: selectedRoleText,  // El texto del rol (si necesitas almacenarlo también)
+      });
+    }}
+  >
+    <option value="0">CEO</option>
+    <option value="1">CTO</option>
+    <option value="2">CFO</option>
+    <option value="3">Líder de Equipo de Desarrollo</option>
+    <option value="4">Ingeniero de Frontend</option>
+    <option value="5">Ingeniero de Backend</option>
+    <option value="6">Líder de QA</option>
+    <option value="7">Ingeniero de QA</option>
+    <option value="8">Gerente de Proyecto</option>
+    <option value="9">Coordinador de Proyecto</option>
+    <option value="10">Gerente de Producto</option>
+    <option value="11">Propietario de Producto</option>
+    <option value="12">Gerente de Marketing</option>
+    <option value="13">Especialista en Marketing Digital</option>
+    <option value="14">Gerente de Ventas</option>
+    <option value="15">Representante de Ventas</option>
+    <option value="16">Gerente de Soporte</option>
+    <option value="17">Especialista en Soporte al Cliente</option>
+  </Form.Control>
+</Form.Group>
           </Col>
-        </Row>
 
-        <Row>
-          {/* Opciones de estado */}
-          <Col md={6}>
+          {/* Quinta columna (Estado: Baja, Excedencia, Teletrabajo, Vacaciones) */}
+          <Col md={2}>
             <Form.Check
               type="checkbox"
               label="Baja"
@@ -445,8 +467,6 @@ const filtered = empleados.filter((empleado) => {
                 setCurrentEmployee({ ...currentEmployee, excedencia: e.target.checked })
               }
             />
-          </Col>
-          <Col md={6}>
             <Form.Check
               type="checkbox"
               label="Teletrabajo"
@@ -466,22 +486,9 @@ const filtered = empleados.filter((empleado) => {
               }
             />
           </Col>
-        </Row>
 
-        <Row>
-          {/* Archivos */}
-          <Col md={6}>
-            <Form.Group controlId="formFoto" className="mb-3">
-              <Form.Label>Foto</Form.Label>
-              <Form.Control
-                type="file"
-                onChange={(e) =>
-                  setCurrentEmployee({ ...currentEmployee, foto: e.target.files[0] })
-                }
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
+          {/* Sexta columna (Código QR) */}
+          <Col md={2}>
             <Form.Group controlId="formQrCode" className="mb-3">
               <Form.Label>Código QR</Form.Label>
               <Form.Control
@@ -505,6 +512,10 @@ const filtered = empleados.filter((empleado) => {
     </Modal.Footer>
   </Modal>
 )}
+
+
+
+
 
 
 

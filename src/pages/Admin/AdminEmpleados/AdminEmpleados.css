@@ -1,4 +1,30 @@
-/* .table {
-  table-layout: fixed;
-  width: 100%; /* o ajusta el ancho de la tabla si lo necesitas */
-}  */
+/* Asegura que todas las celdas tengan el mismo alto */
+table,
+th,
+td {
+  border: 1px solid #dee2e6;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  height: 50px;
+  /* Ajusta según el tamaño que desees */
+  width: 150px;
+  /* Ajusta el ancho según sea necesario */
+  /* text-align: center; */
+  vertical-align: middle;
+}
+
+/* Opcional: Si quieres que las imágenes también tengan un tamaño fijo */
+td img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  /* Asegura que la imagen mantenga el mismo tamaño sin distorsionarse */
+}
+
+/* Evita que el texto se rompa en varias líneas */
+td {
+  white-space: nowrap;
+}
