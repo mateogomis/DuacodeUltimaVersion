@@ -77,7 +77,7 @@ const Proyectos = ({ limite }) => {
                           />
                           <div>
                             <p>
-                              <strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong>
+                            <u><strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong></u>
                             </p>
                             <p>
                               <strong>Rol:</strong> {empleado.rol.rol_display}

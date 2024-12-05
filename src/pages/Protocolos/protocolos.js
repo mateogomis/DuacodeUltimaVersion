@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Protocolos.css";
 import axios from "axios";
+import FileUpload from "../../components/FileUpload"
 
 const Protocolos = () => {
   const [protocolos, setProtocolos] = useState([]);
@@ -47,7 +48,16 @@ const Protocolos = () => {
 
   if (loading) return <p>Cargando protocolos...</p>;
   if (error) return <p>{error}</p>;
-
+  // const handleFileUploadSuccess = (newFile) => {
+  //   setProtocolos((prevProtocolos) => [
+  //     ...prevProtocolos,
+  //     {
+  //       titulo: newFile.name,
+  //       descripcion: newFile.descripcion || '',
+  //       enlace: newFile.url || '', 
+  //     }
+  //   ]);
+  // };
   return (
     <section className="protocols-section">
       <h2 className="protocols-title">Protocolos de la Empresa</h2>
@@ -79,6 +89,7 @@ const Protocolos = () => {
           <p>No se encontraron protocolos.</p>
         )}
       </div>
+      {/* <FileUpload onFileUploadSuccess={handleFileUploadSuccess} /> */}
     </section>
   );
 };

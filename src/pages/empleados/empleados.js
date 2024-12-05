@@ -115,7 +115,7 @@ const Empleados = () => {
             {expandedCards[empleado.id] && (
               <div className="employee-info-expanded">
                 <p>
-                  <strong>Estado: </strong>
+                  <strong >Estado: </strong>
                   {(() => {
                     if (
                       empleado.baja === false &&

@@ -68,17 +68,21 @@
 
 /* Tarjeta del empleado */
 .employee-card {
-    background-color: #2D2F36; /* Gris oscuro */
-    color: #F5F5F5;
-    border-radius: 15px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    padding: 20px; /* Espaciado interno reducido */
-    flex: 1 1 calc(33.33% - 20px); /* Ajusta para 3 tarjetas por fila */
-    max-width: 300px; /* Tamaño máximo */
-    min-width: 240px; /* Tamaño mínimo ajustado */
-    text-align: center;
-    border: 2px solid transparent;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background-color: #2D2F36; /* Gris oscuro */
+  color: #F5F5F5;
+  border-radius: 15px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px; /* Espaciado interno */
+  flex: 1 1 calc(25% - 20px); /* Ajusta para 4 tarjetas por fila */
+  max-width: 300px; /* Tamaño máximo */
+  min-width: 240px; /* Tamaño mínimo ajustado */
+  text-align: center;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+strong,u {
+  color: #4ecca3;
 }
 
 .employee-card:hover {

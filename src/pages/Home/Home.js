@@ -59,7 +59,6 @@ const Home = () => {
             Tu navegador no soporta vídeos HTML5.
           </video>
         </div>
-
         {/* Contenido superpuesto */}
         <div className="home-content">
           <h1 className="home-title">Bienvenido a Duacode</h1>
