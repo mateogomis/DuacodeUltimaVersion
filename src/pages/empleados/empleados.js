@@ -20,6 +20,7 @@ const Empleados = () => {
           "http://localhost:8000/api/empleados/"
         );
         setEmpleados(response.data);
+        console.log(response.data);
         setFilteredEmpleados(response.data);
       } catch (error) {
         setError("Error al obtener los empleados");

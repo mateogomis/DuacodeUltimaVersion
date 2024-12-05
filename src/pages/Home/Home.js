@@ -4,9 +4,7 @@ import "./Home.css";
 import Empleados from "../Empleados/Empleados";
 import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
-import Eventos from "../Eventos/Eventos";
 import Calendario from "../TestCalendario/TestCalendario";
-import Organigrama from "../Organigrama/Organigrama";
 import Proyectos from "../Proyectos/Proyectos";
 
 const Home = () => {
@@ -47,7 +45,6 @@ const Home = () => {
           <button onClick={() => (window.location.href = "/Organigrama")}>
             Organigrama
           </button>
-          
         </nav>
       </header>
 
@@ -92,7 +89,8 @@ const Home = () => {
         <div className="organigrama-link-container">
           <div className="organigrama-preview">
             <p className="organigrama-preview-text">
-              Explora cómo nuestra empresa está estructurada y conoce a nuestros líderes clave.
+              Explora cómo nuestra empresa está estructurada y conoce a nuestros
+              líderes clave.
             </p>
             <div className="organigrama-preview-image">
               <img
