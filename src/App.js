@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
-// import About from "./pages/About/About";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
@@ -13,7 +12,7 @@ import OrganigramaMateo from './pages/Organigrama/OrganigramaMateo';
 
 // App component
 const App = () => {
-  const location = useLocation(); // Obtén la ruta actual
+  const location = useLocation(); 
 
   return (
     <div className="app-container">
@@ -35,7 +34,6 @@ const App = () => {
   );
 };
 
-// AppWrapper for Router
 const AppWrapper = () => {
   return (
     <Router>

@@ -7,18 +7,20 @@ import "./Empleados.css";
 
 const Empleados = () => {
   const [empleados, setEmpleados] = useState([]);
-  const [filteredEmpleados, setFilteredEmpleados] = useState([]); // Lista filtrada
-  const [searchQuery, setSearchQuery] = useState(""); // Estado para la barra de búsqueda
-  const [expandedCards, setExpandedCards] = useState({}); // Controla qué tarjetas están expandidas
+  const [filteredEmpleados, setFilteredEmpleados] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [expandedCards, setExpandedCards] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchEmpleados = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/empleados/");
+        const response = await axios.get(
+          "http://localhost:8000/api/empleados/"
+        );
         setEmpleados(response.data);
-        setFilteredEmpleados(response.data); // Inicialmente, todos los empleados se muestran
+        setFilteredEmpleados(response.data);
       } catch (error) {
         setError("Error al obtener los empleados");
       } finally {
@@ -46,7 +48,7 @@ const Empleados = () => {
 
   const carouselSettings = {
     dots: false,
-    infinite: false, // Cambiado a false para evitar problemas con duplicados
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -84,7 +86,7 @@ const Empleados = () => {
           <div className="employee-card" key={empleado.id}>
             <div className="employee-image-container">
               <img
-                src={empleado.foto}
+                src={`http://localhost:8000/media/${empleado.foto}`}
                 alt={empleado.nombre}
                 className="employee-image"
               />
@@ -113,12 +115,20 @@ const Empleados = () => {
               <div className="employee-info-expanded">
                 <p>
                   <strong>Estado: </strong>
-                  {empleado.baja === false &&
-                  empleado.excedencia === false &&
-                  empleado.vacaciones === false &&
-                  empleado.teletrabajo === false
-                    ? "Está trabajando"
-                    : "No está trabajando"}
+                  {(() => {
+                    if (
+                      empleado.baja === false &&
+                      empleado.excedencia === false &&
+                      empleado.vacaciones === false &&
+                      empleado.teletrabajo === false
+                    ) {
+                      return "Está trabajando";
+                    } else if (empleado.teletrabajo === true) {
+                      return "Está teletrabajando";
+                    } else {
+                      return "No está trabajando";
+                    }
+                  })()}
                 </p>
                 <p>
                   <strong>Cumpleaños:</strong> {empleado.cumpleanos}
@@ -133,13 +143,16 @@ const Empleados = () => {
                   <strong>Teléfono:</strong> {empleado.telefono}
                 </p>
                 <p>
-                  <strong>Oficina:</strong> {empleado.sede}
+                  <strong>Oficina:</strong> {empleado.sede.nombre || "No asignada"}
+                </p>
+                <p>
+                  <strong>Dirección:</strong> {empleado.sede.direccion || "No disponible"}
                 </p>
                 <p>
                   <strong>Supervisor:</strong> {empleado.supervisor}
                 </p>
                 <p>
-                  <strong>Puesto:</strong> {empleado.rol.nombre}
+                  <strong>Puesto:</strong> {empleado.rol.rol_display}
                 </p>
                 <p>
                   <strong>Vacaciones: </strong>

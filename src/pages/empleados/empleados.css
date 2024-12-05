@@ -1,25 +1,30 @@
-/* Employee Section */
+/*Prueba para ver los items*/
+/*
+* {
+     outline: 1px solid red; 
+  }
+   */
+/* Sección general de empleados */
 .employee-section {
-    background-color: #1C1E26; /* Fondo gris oscuro */
-    color: #F5F5F5; /* Blanco puro */
-    padding: 50px 20px;
-    text-align: center;
-
+  background-color: #1c1e26;
+  color: #f5f5f5;
+  padding: 50px 20px;
+  text-align: center;
 }
 
+/* Estilo del título */
 .employee-section-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #4ECCA3; /* Verde azulado */
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #4ecca3;
 }
 
 /* Contenedor del carrusel */
 .employee-carousel-container {
-    max-width: 1200px; /* Limita el ancho del carrusel */
-    margin: 0 auto; /* Centra el carrusel horizontalmente */
-    padding: 0 20px; /* Añade separación en los laterales */
-    position: relative; /* Necesario para centrar las flechas */
-    overflow: hidden; /* Evita desbordamientos */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
 }
 
 /* Contenedor de tarjetas con Flexbox */
@@ -33,7 +38,35 @@
     padding: 20px; /* Añade algo de espacio alrededor */
 }
 
-/* Tarjetas del empleado */
+.slick-prev,
+.slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 2rem;
+  color: #4ecca3;
+}
+
+/* Puntos de navegación */
+.slick-dots {
+  bottom: -20px;
+  text-align: center;
+}
+
+.slick-dots li button:before {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #4ecca3;
+}
+
+/* Tarjeta del empleado */
 .employee-card {
     background-color: #2D2F36; /* Gris oscuro */
     color: #F5F5F5;
@@ -49,9 +82,9 @@
 }
 
 .employee-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-    border-color: #4ECCA3;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  border-color: #4ecca3;
 }
 @media (max-width: 1024px) {
     .employee-card {
@@ -66,154 +99,127 @@
 }
 
 
-/* Imagen del empleado */
+/* Contenedor de la imagen */
 .employee-image-container {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 10px;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 3px solid #4ECCA3; /* Verde azulado */
-    transition: border-color 0.3s ease;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid #4ecca3;
+  transition: border-color 0.3s ease;
 }
 
 .employee-card:hover .employee-image-container {
-    border-color: #37A088; /* Verde oscuro */
+  border-color: #37a088;
 }
 
 .employee-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Nombre y detalles del empleado */
 .employee-name {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .employee-info {
-    font-size: 0.9rem;
-    margin: 5px 0;
-    color: #D3D3D3; /* Gris claro */
+  font-size: 0.9rem;
+  margin: 5px 0;
+  color: #d3d3d3;
 }
 
-/* Botón expandible */
+/* Botón de expansión */
 .expand-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: transform 0.3s ease;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.3s ease;
 }
 
 .expand-button:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .expand-button svg {
-    fill: #4ECCA3;
-    width: 30px;
-    height: 30px;
-    transition: fill 0.3s ease, transform 0.3s ease;
+  fill: #4ecca3;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  transition: fill 0.3s ease, transform 0.3s ease;
 }
 
 .expand-button:hover svg {
-    fill: #37A088;
+  fill: #37a088;
 }
 
-/* Ajustes para flechas del carrusel */
-.slick-prev,
-.slick-next {
-    position: absolute;
-    top: 50%; /* Centrado vertical */
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 35px; /* Tamaño ajustado */
-    height: 35px;
+.employee-card.expanded .expand-button svg {
+  fill: #ffffff;
+  transform: rotate(45deg);
 }
 
-/* Flecha izquierda */
-.slick-prev {
-    left: 10px; /* Más cerca del borde izquierdo */
-}
-
-/* Flecha derecha */
-.slick-next {
-    right: 10px; /* Más cerca del borde derecho */
-}
-
-/* Estilo de los iconos de las flechas */
-.slick-prev:before,
-.slick-next:before {
-    font-size: 1.5rem; /* Tamaño ajustado */
-    color: #4ECCA3; /* Verde azulado */
-}
-
-/* Dots del carrusel */
-.slick-dots {
-    bottom: -20px; /* Ajusta la posición vertical */
-    text-align: center;
-}
-
-.slick-dots li button:before {
-    color: #aaa; /* Color base */
-    font-size: 1rem; /* Tamaño de los puntos */
-}
-
-.slick-dots li.slick-active button:before {
-    color: #4ECCA3; /* Verde azulado para el punto activo */
-}
 /* Barra de búsqueda */
 .employee-search-bar {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px 16px; /* Aumenta el espacio interno para mayor comodidad */
-    margin: 20px auto;
-    border: 2px solid transparent; /* Borde inicial invisible */
-    border-radius: 25px; /* Bordes completamente redondeados */
-    font-size: 1rem;
-    background-color: #2D2F36; /* Gris oscuro */
-    color: #F5F5F5; /* Blanco */
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
-    transition: all 0.3s ease; /* Transición suave */
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  margin: 20px auto;
+  border: 2px solid transparent;
+  border-radius: 25px;
+  font-size: 1rem;
+  background-color: #2d2f36;
+  color: #f5f5f5;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .employee-search-bar::placeholder {
-    color: #aaa; /* Gris claro */
-    font-style: italic; /* Estilo más distintivo */
+  color: #aaa;
+  font-style: italic;
 }
 
 .employee-search-bar:focus {
-    border-color: #4ECCA3; /* Verde azulado */
-    background-color: #1C1E26; /* Fondo más oscuro al enfocar */
-    box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4); /* Sombra más pronunciada */
-    color: #FFFFFF; /* Blanco más brillante para el texto */
+  border-color: #4ecca3;
+  background-color: #1c1e26;
+  box-shadow: 0 6px 12px rgba(78, 204, 163, 0.4);
+  color: #ffffff;
 }
 
-  
-/* Ajustes responsivos */
+/* Consultas para dispositivos más pequeños */
 @media (max-width: 1024px) {
-    .employee-card {
-        flex: 1 1 calc(33.33% - 10px); /* Ajusta a 3 tarjetas por fila */
-    }
+  .employee-card {
+    width: 250px;
+  }
+
+  .slick-prev,
+  .slick-next {
+    width: 35px;
+    height: 35px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 1.8rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .employee-card {
-        flex: 1 1 calc(50% - 10px); /* Ajusta a 2 tarjetas por fila */
-    }
+  .employee-card {
+    width: 90%;
+    margin: 0 auto;
+  }
 
-    .slick-prev,
-    .slick-next {
-        display: none; /* Oculta las flechas en pantallas pequeñas */
-    }
-}
+  .slick-prev,
+  .slick-next {
+    display: none;
+  }
 
-@media (max-width: 480px) {
-    .employee-card {
-        flex: 1 1 100%; /* Una tarjeta por fila */
-    }
+  .slick-dots {
+    bottom: -15px;
+  }
 }

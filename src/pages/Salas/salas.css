@@ -1,33 +1,32 @@
-/* General Room Section Styles */
+/* Estilos generales de la sección de salas */
 .salas-section {
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
+  background-color: #2d2f36;
+  color: white;
   padding: 50px 20px;
   text-align: center;
   position: relative;
-  margin-top: 50px;
 }
 
 .salas-section-title {
   font-size: 36px;
   font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3; 
   margin-bottom: 30px;
 }
 
-/* Room Cards Container */
+/* Contenedor de las tarjetas de salas */
 .salas-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-  perspective: 1000px; /* Añade perspectiva */
+  perspective: 1000px; 
 }
 
-/* Room Card Styles */
+/* Estilos de la tarjeta de sala */
 .salas-card {
   width: 300px;
-  height: auto; /* Ajuste automático para contenido */
+  height: auto; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
@@ -38,37 +37,38 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #7cffbd; /* Color amarillo inicial */
-  color: #000; /* Texto negro */
-  transform: translateY(150px) rotate(-5deg); /* Posición inicial */
+  background-color: #7cffbd; 
+  color: #000; 
+  transform: translateY(150px) rotate(-5deg); 
   opacity: 0;
 }
 
 .salas-name {
   text-align: center;
-  margin-right: 10px; /* Espaciado entre el nombre y el ícono */
+  margin-right: 10px; 
 }
 
-/* Alternating Card Colors */
+/* Colores alternos de las tarjetas */
 .salas-card:nth-child(1) {
-  background-color: #ff6f6ffb; /* Amarillo brillante */
+  background-color: #ff6f6ffb; 
 }
 
 .salas-card:nth-child(2) {
-  background-color: #90ee90; /* Verde claro */
+  background-color: #90ee90; 
 }
 
 .salas-card:nth-child(3) {
-  background-color: #add8e6; /* Azul claro */
+  background-color: #add8e6; 
 }
 
 .salas-card:nth-child(4) {
-  background-color: #ffb6c1; /* Rosa claro */
+  background-color: #ffb6c1;
 }
 
 .salas-card:nth-child(5) {
-  background-color: #98eb87; /* Celeste */
+  background-color: #98eb87; 
 }
+
 .salas-card:nth-child(5n + 1) {
   background-color: #ff6f6f;
 }
@@ -96,60 +96,61 @@
 .salas-card:nth-child(5n + 7) {
   background-color: #8e44ad;
 }
-/* Hover Effect */
+
+/* Efecto hover */
 .salas-card:hover {
-  animation: floatingCard 2s infinite ease-in-out; /* Animación de flotación */
+  animation: floatingCard 2s infinite ease-in-out; 
   cursor: pointer;
 }
 
 /* Animación de flotación */
 @keyframes floatingCard {
   0% {
-    transform: translateY(0px); /* Posición inicial */
+    transform: translateY(0px); 
   }
   50% {
-    transform: translateY(-10px); /* Se eleva ligeramente */
+    transform: translateY(-10px); 
   }
   100% {
-    transform: translateY(0px); /* Vuelve a la posición inicial */
+    transform: translateY(0px); 
   }
 }
 
-/* Visibility Animation */
+/* Animación de visibilidad */
 .salas-card.visible {
   opacity: 1;
   transform: translateY(0) rotate(0deg);
 }
 
-/* Image Container Styles */
+/* Estilos para el contenedor de imágenes */
 .salas-image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px; /* Ancho fijo del círculo */
-  height: 120px; /* Altura fija del círculo */
-  border-radius: 50%; /* Hace que el contenedor sea circular */
-  overflow: hidden; /* Recorta el contenido que sobresale */
-  border: 3px solid #e0e0e0; /* Borde elegante */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Sombra para resaltar */
-  margin: 0 auto 15px auto; /* Centrado horizontal y espaciado inferior */
-  background-color: #f8f8f8; /* Fondo claro para imágenes que no cargan */
+  width: 120px; 
+  height: 120px; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  border: 3px solid #e0e0e0; 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); 
+  margin: 0 auto 15px auto; 
+  background-color: #f8f8f8; 
 }
 
 /* Estilo para las imágenes */
 .salas-image {
-  width: 100%; /* Asegura que la imagen ocupa todo el ancho del contenedor */
-  height: 100%; /* Asegura que la imagen ocupa toda la altura */
-  object-fit: cover; /* Mantiene proporciones y recorta si es necesario */
-  transition: transform 0.3s ease; /* Transición suave para hover */
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  transition: transform 0.3s ease; 
 }
 
-/* Hover en imágenes */
+/* Hover en las imágenes */
 .salas-image-container:hover .salas-image {
-  transform: scale(1.1); /* Efecto de zoom suave al hacer hover */
+  transform: scale(1.1); 
 }
 
-/* Responsive Design */
+/* Diseño responsivo */
 @media (max-width: 768px) {
   .salas-cards {
     flex-direction: column;
@@ -166,33 +167,34 @@
     align-items: center;
   }
 }
-/* Header with Name and Map Icon */
+
+/* Cabecera con nombre y icono de mapa */
 .salas-header {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-  gap: 10px; /* Espaciado entre el nombre y el ícono */
+  gap: 10px; 
 }
 
 .salas-map-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px; /* Aumentado el ancho */
-  height: 40px; /* Aumentado el alto */
+  width: 40px; 
+  height: 40px; 
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .salas-map-icon:hover {
-  background-color: #4ecca3; /* Verde azulado para hover */
-  transform: scale(1.1); /* Zoom leve en hover */
+  background-color: #4ecca3; 
+  transform: scale(1.1); 
 }
 
 .salas-map-icon svg {
-  width: 25px; /* Tamaño del SVG (ícono) */
-  height: 25px; /* Tamaño del SVG (ícono) */
-  fill: #ffffff; /* Blanco puro para el icono */
+  width: 25px; 
+  height: 25px; 
+  fill: #ffffff; 
 }

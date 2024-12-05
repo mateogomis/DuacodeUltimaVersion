@@ -5,7 +5,7 @@ import Empleados from "../Empleados/Empleados";
 import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
 import Eventos from "../Eventos/Eventos";
-import Calendario from "../Calendario/Calendario";
+import Calendario from "../TestCalendario/TestCalendario";
 import Organigrama from "../Organigrama/Organigrama";
 import Proyectos from "../Proyectos/Proyectos";
 
@@ -73,7 +73,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Eventos />
+      <Proyectos limite={3} />
 
       <section className="nature-section">
         <h2 className="nature-title">
@@ -121,7 +121,6 @@ const Home = () => {
           <span className="basket-author">— Michael Jordan</span>
         </h2>
       </section>
-
       <Protocolos />
     </div>
   );
