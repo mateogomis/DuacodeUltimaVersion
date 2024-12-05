@@ -27,10 +27,10 @@
     display: flex;
     flex-wrap: wrap; /* Las tarjetas se ajustan a nuevas filas */
     justify-content: center; /* Centra las tarjetas horizontalmente */
-    gap: 5px; /* Menos espacio entre tarjetas */
+    gap: 20px; /* Mayor espacio entre tarjetas */
     margin: 0 auto; /* Centrado global */
-    max-width: 100%; /* Se adapta al ancho disponible */
-    padding: 0; /* Elimina cualquier relleno adicional */
+    max-width: 1200px; /* Limita el ancho total */
+    padding: 20px; /* Añade algo de espacio alrededor */
 }
 
 /* Tarjetas del empleado */
@@ -39,22 +39,32 @@
     color: #F5F5F5;
     border-radius: 15px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    padding: 140px;
-    flex: 1 1 calc(25% - 5px); /* Asegura que las tarjetas ocupen más espacio, reduciendo el gap */
-    max-width: 280px; /* Tamaño máximo */
+    padding: 20px; /* Espaciado interno reducido */
+    flex: 1 1 calc(33.33% - 20px); /* Ajusta para 3 tarjetas por fila */
+    max-width: 300px; /* Tamaño máximo */
     min-width: 240px; /* Tamaño mínimo ajustado */
     text-align: center;
     border: 2px solid transparent;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-
-
 .employee-card:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
     border-color: #4ECCA3;
 }
+@media (max-width: 1024px) {
+    .employee-card {
+        flex: 1 1 calc(50% - 20px); /* 2 tarjetas por fila */
+    }
+}
+
+@media (max-width: 768px) {
+    .employee-card {
+        flex: 1 1 calc(100% - 20px); /* 1 tarjeta por fila */
+    }
+}
+
 
 /* Imagen del empleado */
 .employee-image-container {
