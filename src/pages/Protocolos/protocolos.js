@@ -11,17 +11,14 @@ const Protocolos = () => {
   useEffect(() => {
     const fetchProtocolos = async () => {
       try {
-        // Solicita la lista de archivos desde el backend como HTML
         const response = await axios.get("http://localhost:8000/upload/", {
           responseType: "text",
         });
-
-        // Procesa el HTML con DOMParser
+  
         const parser = new DOMParser();
         const doc = parser.parseFromString(response.data, "text/html");
         const items = [...doc.querySelectorAll("ul li")];
-
-        // Extrae los datos de los elementos HTML
+  
         const data = items.map((item) => {
           const nombre = item
             .querySelector("strong:nth-of-type(1)")
@@ -32,10 +29,10 @@ const Protocolos = () => {
           const fecha = item
             .querySelector("strong:nth-of-type(3)")
             ?.nextSibling?.textContent?.trim();
-
+  
           return { nombre, descripcion, fecha };
         });
-
+  
         setProtocolos(data);
       } catch (error) {
         setError("Error al obtener los protocolos");
@@ -45,6 +42,7 @@ const Protocolos = () => {
     };
     fetchProtocolos();
   }, []);
+  
 
   if (loading) return <p>Cargando protocolos...</p>;
   if (error) return <p>{error}</p>;

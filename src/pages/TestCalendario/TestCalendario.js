@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';  
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Reserva from '../Reserva/Reserva';
 import './TestCalendario.css';
 import './loader.css';
 
@@ -9,6 +10,7 @@ const TestCalendario = () => {
   const [events, setEvents] = useState([]); // Estado para los eventos del calendario
   const [loading, setLoading] = useState(true); // Estado para la carga de datos
   const [selectedEvent, setSelectedEvent] = useState(null); // Evento seleccionado
+  const [showReservaModal, setShowReservaModal] = useState(false); // Mostrar modal de reserva
 
   // Función para convertir los datos al formato de react-big-calendar
   const formatData = (reservas) => {
@@ -33,18 +35,19 @@ const TestCalendario = () => {
 
   // Cargar los eventos cuando el componente se monta
   useEffect(() => {
-    fetch('http://localhost:8000/api/sedes/salas/1/')
-      .then(response => response.json())
-      .then(data => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/sedes/salas/1/');
+        const data = await response.json();
         const formattedEvents = formatData(data.reservas);
-        console.log(data);
         setEvents(formattedEvents);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error al cargar las reservas:', error);
         setLoading(false);
-      });
+      }
+    };
+    fetchEvents();
   }, []);
 
   // Carga animación de carga mientras consulta a la base de datos
@@ -98,6 +101,23 @@ const TestCalendario = () => {
           </div>
         </div>
       )}
+
+      {/* Modal para hacer una nueva reserva */}
+      {showReservaModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowReservaModal(false)}>&times;</span>
+            <Reserva />
+          </div>
+        </div>
+      )}
+
+      {/* Botón de hacer reserva debajo del calendario */}
+      <div className="reserva-footer">
+        <button className="open-reserva-modal" onClick={() => setShowReservaModal(true)}>
+          Hacer Reserva
+        </button>
+      </div>
     </div>
   );
 };

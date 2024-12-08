@@ -121,7 +121,9 @@
   opacity: 1;
   transform: translateY(0) rotate(0deg);
 }
-
+.salas-info strong{
+  color: black;
+}
 /* Estilos para el contenedor de imágenes */
 .salas-image-container {
   display: flex;
