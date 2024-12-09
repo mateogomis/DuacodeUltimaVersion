@@ -14,7 +14,7 @@ const slides = [
   },
   {
     title: "Equipo Rookie </>",
-    description: "Martin Ois, Adrian Contreras, Mateo Picatoste",
+    description: "Martin Ois, Adrian Contreras, Mateo Gomis",
   },
 ];
 
@@ -30,7 +30,6 @@ const Login = () => {
   const [qrOverlayVisible, setQrOverlayVisible] = useState(false);
   const webcamRef = useRef(null);
   const [scannedResult, setScannedResult] = useState(null);
-  const [socialPopup, setSocialPopup] = useState({ visible: false, type: "" });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,19 +52,6 @@ const Login = () => {
         }
     };
 }, []);
-
-  const handleSocialLogin = (platform) => {
-    if (platform === "Google") {
-      window.location.href =
-        "https://accounts.google.com/o/oauth2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email profile";
-    } else if (platform === "GitHub") {
-      window.location.href =
-        "https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user";
-    } else {
-      setSocialPopup({ visible: true, type: platform });
-    }
-  };
-
 const handleLogin = async (e, qrUsername = null, qrPassword = null) => {
   if (e) e.preventDefault(); // Manejo del evento solo si se llama desde el formulario
 
@@ -200,13 +186,7 @@ const handleQrScan = (imageData) => {
             onClick={() => setIsLogin(true)}
           >
             Iniciar sesión
-          </h3>
-          <h3
-            className={`tab ${!isLogin ? "active" : ""}`}
-            onClick={() => setIsLogin(false)}
-          >
-            Registrarse
-          </h3>
+          </h3>    
         </div>
         <div className="form-content">
           {isLogin ? (
@@ -236,35 +216,6 @@ const handleQrScan = (imageData) => {
               >
                 Iniciar sesión con QR
               </button>
-              <div className="social-login">
-                <button
-                  type="button"
-                  className="social-button google-button"
-                  onClick={() => handleSocialLogin("Google")}
-                >
-                  <img
-                    src="/iconoGoogle.png"
-                    alt="Google Icon"
-                    className="social-icon"
-                  />
-                  Iniciar sesión con Google
-                </button>
-                <button
-                  type="button"
-                  className="social-button github-button"
-                  onClick={() => handleSocialLogin("GitHub")}
-                >
-                  <img
-                    src="/iconoGit.png"
-                    alt="GitHub Icon"
-                    className="social-icon"
-                  />
-                  Iniciar sesión con GitHub
-                </button>
-              </div>
-              <p className="form-forgot">
-                <a href="#forgot">¿Olvidaste tu contraseña?</a>
-              </p>
             </form>
           ) : (
             <form className="form">
@@ -297,11 +248,6 @@ const handleQrScan = (imageData) => {
         </div>
       )}
 
-      {socialPopup.visible && (
-        <div className="social-popup">
-          <p>{`Login con ${socialPopup.type} no disponible en esta demo.`}</p>
-        </div>
-      )}
     </div>
   );
 };

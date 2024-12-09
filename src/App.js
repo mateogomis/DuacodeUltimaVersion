@@ -12,7 +12,6 @@ import Organigrama from "./pages/Organigrama/Organigrama";
 import Proyectos from "./pages/Proyectos/Proyectos";
 import TestCalendario from "./pages/TestCalendario/TestCalendario";
 import Salas from "./pages/Salas/Salas";
-import OrganigramaMateo from './pages/Organigrama/OrganigramaMateo';
 // Componentes panel de administración
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from  './pages/Admin/Admin'
@@ -36,7 +35,6 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/salas" element={<Salas />} />
-          <Route path="/organigramaMateo" element={<OrganigramaMateo />} />
 
           {/*  Rutas panel de administración PROTEGIDAS*/}
         <Route
