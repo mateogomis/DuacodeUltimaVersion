@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';  
+import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -13,37 +13,36 @@ const TestCalendario = () => {
   const [showReservaModal, setShowReservaModal] = useState(false); // Mostrar modal de reserva
 
   // Función para convertir los datos al formato de react-big-calendar
-  const formatData = (reservas) => {
-    return reservas.map(event => {
-      const startDate = new Date(`${event.fecha}T${event.hora_inicio}`);
-      const endDate = new Date(`${event.fecha}T${event.hora_fin}`);
+  const formatData = (reservas) => reservas.map(event => {
+    const startDate = new Date(`${event.fecha}T${event.hora_inicio}`);
+    const endDate = new Date(`${event.fecha}T${event.hora_fin}`);
+    const empleadosAsistentes = event.empleados_asistentes
+      .map(empleado => `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`)
+      .join(', ');
 
-      const empleadosAsistentes = event.empleados_asistentes
-        .map(empleado => `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`)
-        .join(', ');
-
-      return {
-        start: startDate,
-        end: endDate,
-        title:event.reservado_por,
-        empleados: empleadosAsistentes,
-        motivo: event.motivo,
-        allDay: false,
-      };
-    });
-  };
+    return {
+      start: startDate,
+      end: endDate,
+      title: event.reservado_por,
+      empleados: empleadosAsistentes,
+      motivo: event.motivo,
+      allDay: false,
+    };
+  });
 
   // Cargar los eventos cuando el componente se monta
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/sedes/salas/1/');
+        if (!response.ok) {
+          throw new Error('Error al cargar las reservas');
+        }
         const data = await response.json();
-        const formattedEvents = formatData(data.reservas);
-        setEvents(formattedEvents);
-        setLoading(false);
+        setEvents(formatData(data.reservas));
       } catch (error) {
-        console.error('Error al cargar las reservas:', error);
+        console.error(error);
+      } finally {
         setLoading(false);
       }
     };
@@ -59,6 +58,9 @@ const TestCalendario = () => {
     );
   }
 
+  // Mostrar información cuando se muestra el modal
+  console.log('Mostrando el modal de detalles del evento:', selectedEvent);
+
   return (
     <div style={{ height: '600px' }}>
       <Calendar
@@ -68,17 +70,14 @@ const TestCalendario = () => {
         localizer={momentLocalizer(moment)}
         step={30}
         timeslots={1}
-        onSelectEvent={(event) => setSelectedEvent(event)} // Manejar clic en evento
+        onSelectEvent={setSelectedEvent} // Manejar clic en evento
         components={{
           event: ({ event }) => (
             <div>
-              <div style={{ color: 'orange', fontWeight: 'bold' }}>
-                {event.title}
-              </div>
+              <div style={{ color: 'orange', fontWeight: 'bold' }}>{event.title}</div>
               <div style={{ fontSize: '0.9em', color: 'white' }}>
                 <strong>Asistentes:</strong><br />
-                {event.empleados}
-                <br />
+                {event.empleados}<br />
                 <strong>Motivo:</strong><br />
                 <em>{event.motivo}</em>
               </div>
@@ -92,7 +91,7 @@ const TestCalendario = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={() => setSelectedEvent(null)}>&times;</span>
-            <h2>Detalles de la Reserva</h2>
+            <h2>Detalles del Evento</h2>
             <p><strong>Reservado por:</strong> {selectedEvent.title}</p>
             <p><strong>Fecha:</strong> {selectedEvent.start.toLocaleDateString()}</p>
             <p><strong>Hora:</strong> {selectedEvent.start.toLocaleTimeString()} - {selectedEvent.end.toLocaleTimeString()}</p>

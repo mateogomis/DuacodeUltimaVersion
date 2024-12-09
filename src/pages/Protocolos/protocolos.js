@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
 import "./Protocolos.css";
 import axios from "axios";
-import FileUpload from "../../components/FileUpload"
+import FileUpload from "../../components/FileUpload";
 
 const Protocolos = () => {
   const [protocolos, setProtocolos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Nuevo estado
 
   useEffect(() => {
+    // Simula verificar si el usuario está autenticado
+    const checkAuthentication = () => {
+      const token = localStorage.getItem("authToken");
+      setIsAuthenticated(!!token); // Verifica si hay un token presente
+    };
+
     const fetchProtocolos = async () => {
       try {
         const response = await axios.get("http://localhost:8000/upload/", {
           responseType: "text",
         });
-  
+
         const parser = new DOMParser();
         const doc = parser.parseFromString(response.data, "text/html");
         const items = [...doc.querySelectorAll("ul li")];
-  
+
         const data = items.map((item) => {
           const nombre = item
             .querySelector("strong:nth-of-type(1)")
@@ -29,10 +36,10 @@ const Protocolos = () => {
           const fecha = item
             .querySelector("strong:nth-of-type(3)")
             ?.nextSibling?.textContent?.trim();
-  
+
           return { nombre, descripcion, fecha };
         });
-  
+
         setProtocolos(data);
       } catch (error) {
         setError("Error al obtener los protocolos");
@@ -40,22 +47,24 @@ const Protocolos = () => {
         setLoading(false);
       }
     };
+
+    checkAuthentication();
     fetchProtocolos();
   }, []);
-  
 
   if (loading) return <p>Cargando protocolos...</p>;
-  if (error) return <p>{error}</p>;
-  // const handleFileUploadSuccess = (newFile) => {
-  //   setProtocolos((prevProtocolos) => [
-  //     ...prevProtocolos,
-  //     {
-  //       titulo: newFile.name,
-  //       descripcion: newFile.descripcion || '',
-  //       enlace: newFile.url || '', 
-  //     }
-  //   ]);
-  // };
+  if (error) return <p className="error">{error}</p>;
+
+  const handleFileUploadSuccess = (newFile) => {
+    setProtocolos((prevProtocolos) => [
+      ...prevProtocolos,
+      {
+        titulo: newFile.name,
+        descripcion: newFile.descripcion || "",
+      },
+    ]);
+  };
+
   return (
     <section className="protocols-section">
       <h2 className="protocols-title">Protocolos de la Empresa</h2>
@@ -87,7 +96,9 @@ const Protocolos = () => {
           <p>No se encontraron protocolos.</p>
         )}
       </div>
-      {/* <FileUpload onFileUploadSuccess={handleFileUploadSuccess} /> */}
+      {isAuthenticated && (
+        <FileUpload onFileUploadSuccess={handleFileUploadSuccess} />
+      )}
     </section>
   );
 };

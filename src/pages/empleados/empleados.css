@@ -11,7 +11,9 @@
   padding: 50px 20px;
   text-align: center;
 }
-
+strong{
+  color: #37a088;
+}
 /* Estilo del título */
 .employee-section-title {
   font-size: 2.5rem;

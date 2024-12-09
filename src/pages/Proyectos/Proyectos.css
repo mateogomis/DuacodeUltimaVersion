@@ -57,6 +57,9 @@
 .proyecto-card strong {
     font-weight: bold;
 }
+.nombre{
+  color: white
+}
 /* Estilos responsives*/
 @media (max-width: 768px) {
     .proyecto-cards {

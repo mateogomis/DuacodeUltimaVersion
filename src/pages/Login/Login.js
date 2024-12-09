@@ -225,10 +225,6 @@ const handleQrScan = (imageData) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="form-remember">
-                <input type="checkbox" id="remember" />
-                <label htmlFor="remember">Recuérdame</label>
-              </div>
               {errorMessage && <p className="form-error">{errorMessage}</p>}
               <button type="submit" className="form-button">
                 Iniciar sesión
