@@ -56,8 +56,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-          {/* <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/empleados" element={<AdminEmpleados />} /> */}
+
         </Routes>
       </main>
     </div>
