@@ -25,7 +25,7 @@ const TestCalendario = () => {
       return {
         start: startDate,
         end: endDate,
-        title: `Reserva: ${event.reservado_por}`,
+        title:event.reservado_por,
         empleados: empleadosAsistentes,
         motivo: event.motivo,
         allDay: false,
