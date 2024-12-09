@@ -29,7 +29,7 @@ const App = () => {
       <Header />
       <main>
         <Routes>
-          <Route path="/protocolos" element={<Protocolos />} />
+          {/* <Route path="/protocolos" element={<Protocolos />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="/organigrama" element={<Organigrama />} />
           <Route path="/testcalendario" element={<TestCalendario />} />

@@ -1,71 +1,7 @@
-<<<<<<< HEAD
-/* 
-=======
 /*Prueba para ver los items*/
 /*
->>>>>>> f745334862410494c65ffb21942d077aa473b49b
 * {
      outline: 1px solid red; 
-<<<<<<< HEAD
-  } */
-  
-  .employee-section {
-    background-color: #1c1e26; /* Fondo gris oscuro */
-    color: #f5f5f5; /* Blanco puro */
-    padding: 50px 20px;
-    text-align: center;
-  }
-  
-  .employee-section-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #4ecca3; /* Verde azulado */
-  }
-  
-  /* Centrar el carrusel y ajustar su estilo */
-  .employee-carousel-container {
-    max-width: 1200px; /* Limita el ancho máximo del carrusel */
-    margin: 0 auto; /* Centra el carrusel horizontalmente */
-    padding: 0 20px; /* Añade separación en los laterales */
-    position: relative;
-  }
-  
-  .slick-slider, 
-  .employee-carousel, 
-  .slick-initialized {
-    overflow: visible; /* Permite que las tarjetas se expandan fuera del carrusel */
-  }
-  
-  .slick-prev, 
-  .slick-next {
-    width: 40px;
-    height: 40px;
-    z-index: 10;
-  }
-  
-  .slick-prev:before, 
-  .slick-next:before {
-    font-size: 2rem; /* Ajusta el tamaño de las flechas */
-    color: #4ecca3; /* Color de las flechas */
-  }
-  
-  /* Dots de navegación */
-  .slick-dots {
-    bottom: -20px; /* Ajusta la posición vertical de los dots */
-    text-align: center;
-  }
-  
-  .slick-dots li button:before {
-    color: #aaa; /* Color base */
-    font-size: 1rem; /* Tamaño de los puntos */
-  }
-  
-  .slick-dots li.slick-active button:before {
-    color: #4ecca3; /* Verde azulado para el punto activo */
-  }
-  
-  /* Tarjetas del empleado */
-=======
   }
    */
 /* Sección general de empleados */
@@ -91,15 +27,10 @@
   position: relative;
 }
 
-/* Contenedor de tarjetas con Flexbox */
-.employee-card-container {
-    display: flex;
-    flex-wrap: wrap; /* Las tarjetas se ajustan a nuevas filas */
-    justify-content: center; /* Centra las tarjetas horizontalmente */
-    gap: 20px; /* Mayor espacio entre tarjetas */
-    margin: 0 auto; /* Centrado global */
-    max-width: 1200px; /* Limita el ancho total */
-    padding: 20px; /* Añade algo de espacio alrededor */
+.slick-slider,
+.employee-carousel,
+.slick-initialized {
+  overflow: visible;
 }
 
 .slick-prev,
@@ -132,21 +63,17 @@
 
 /* Tarjeta del empleado */
 .employee-card {
-  background-color: #2D2F36; /* Gris oscuro */
-  color: #F5F5F5;
-  border-radius: 15px; 
+  background-color: #2d2f36;
+  color: #f5f5f5;
+  border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  padding: 20px; /* Espaciado interno */
-  flex: 1 1 calc(25% - 20px); /* Ajusta para 4 tarjetas por fila */
-  max-width: 300px; /* Tamaño máximo */
-  min-width: 240px; /* Tamaño mínimo ajustado */
+  padding: 20px;
+  width: 280px;
+  margin: 5px auto;
   text-align: center;
   border: 2px solid transparent;
+  position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-strong,u {
-  color: #4ecca3;
 }
 
 .employee-card:hover {
@@ -154,18 +81,6 @@ strong,u {
   z-index: 10;
   border-color: #4ecca3;
 }
-@media (max-width: 1024px) {
-    .employee-card {
-        flex: 1 1 calc(50% - 20px); /* 2 tarjetas por fila */
-    }
-}
-
-@media (max-width: 768px) {
-    .employee-card {
-        flex: 1 1 calc(100% - 20px); /* 1 tarjeta por fila */
-    }
-}
-
 
 /* Contenedor de la imagen */
 .employee-image-container {
@@ -260,7 +175,6 @@ strong,u {
 
 /* Consultas para dispositivos más pequeños */
 @media (max-width: 1024px) {
->>>>>>> f745334862410494c65ffb21942d077aa473b49b
   .employee-card {
     width: 250px;
   }
