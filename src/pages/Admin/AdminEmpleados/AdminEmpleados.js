@@ -3,6 +3,7 @@ import { Container, Table, Button, Row, Col, Form, Modal } from 'react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Logout from '../../Login/Logout';
 import './AdminEmpleados.css'
 const AdminEmpleados = () => {
   const navigate = useNavigate();
@@ -163,6 +164,10 @@ const filtered = empleados.filter((empleado) => {
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
   const currentEmployees = filteredEmpleados.slice(indexOfFirstEmployee, indexOfLastEmployee);
+useEffect(() => {
+  // Asegúrate de que la paginación también se actualice cuando los empleados filtrados cambian
+  setCurrentPage(1); // Reinicia la página actual a 1 al cambiar el filtro
+}, [filteredEmpleados]);  // Depende de `filteredEmpleados`, así que se actualizará cuando cambie
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -188,9 +193,10 @@ const filtered = empleados.filter((empleado) => {
           <Button variant="primary" className="me-2" onClick={() => navigate('/empleados/nuevo')}>
             Nuevo Empleado
           </Button>
-          <Button variant="secondary" onClick={() => navigate(-1)}>
+          <Button variant="secondary" className="me-2" onClick={() => navigate(-1)}>
             Volver
           </Button>
+          <Logout />
         </Col>
       </Row>
 
