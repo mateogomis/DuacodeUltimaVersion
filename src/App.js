@@ -19,7 +19,7 @@ import AdminEmpleados from './pages/Admin/AdminEmpleados/AdminEmpleados';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import AdminPanel from "./pages/Admin/Admin";
 
-// App component
+// App componente
 const App = () => {
   const location = useLocation();
 
