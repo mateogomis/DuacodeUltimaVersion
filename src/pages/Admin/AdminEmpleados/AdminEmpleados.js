@@ -3,9 +3,14 @@ import { Container, Table, Button, Row, Col, Form, Modal } from 'react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import CartaEmpleado from "./Components/CartaEmpleado"  
 import Logout from '../../Login/Logout';
 import './AdminEmpleados.css'
+import '../loader.css'
+
 const AdminEmpleados = () => {
+  const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState(null); // Estado para el empleado seleccionado
+const [mostrarCarta, setMostrarCarta] = useState(false); // Estado para mostrar u ocultar la carta
   const navigate = useNavigate();
   const [empleados, setEmpleados] = useState([]);
   const [filteredEmpleados, setFilteredEmpleados] = useState([]);
@@ -160,7 +165,15 @@ const filtered = empleados.filter((empleado) => {
       })
       .catch((error) => console.error("Error al actualizar el empleado:", error));
   };
+  const handleSeleccionEmpleado = (empleado) => {
+    setEmpleadoSeleccionado(empleado);
+    setMostrarCarta(true);
+  };
 
+  const handleCerrarCarta = () => {
+    setEmpleadoSeleccionado(null);
+    setMostrarCarta(false);
+  };
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
   const currentEmployees = filteredEmpleados.slice(indexOfFirstEmployee, indexOfLastEmployee);
@@ -171,34 +184,41 @@ useEffect(() => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  // Carga animación de carga mientras consulta a la base de datos
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
     <Container className="mt-5 ms-5">
-      <Row className="mb-3">
-        <Col>
-          <h2>Administración de Empleados</h2>
-        </Col>
-        <Col className="text-end">
-          <Form.Control
-            type="text"
-            placeholder="Buscar empleado..."
-            className="me-2"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ display: 'inline-block', width: 'auto' }}
-          />
-          <Button variant="primary" className="me-2" onClick={() => navigate('/empleados/nuevo')}>
-            Nuevo Empleado
-          </Button>
-          <Button variant="secondary" className="me-2" onClick={() => navigate(-1)}>
-            Volver
-          </Button>
-          <Logout />
-        </Col>
-      </Row>
+ <Row className="mb-3">
+    <Col>
+      <h2>Administración de Empleados</h2>
+    </Col>
+    <Col className="text-end">
+      <Form.Control
+        type="text"
+        placeholder="Buscar empleado..."
+        className="me-2"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ display: 'inline-block', width: 'auto' }}
+      />
+      <Button variant="primary" className="me-2" onClick={() => navigate('/empleados/nuevo')}>
+        Nuevo Empleado
+      </Button>
+      <Button variant="secondary" className="me-2" onClick={() => navigate(-1)}>
+        Volver
+      </Button>
+    </Col>
+    <Col className="text-end" xs="auto">
+      <Logout /> {/* El botón Logout está en su propia columna */}
+    </Col>
+  </Row>
 
       <Table striped bordered hover>
         <thead>
@@ -224,7 +244,13 @@ useEffect(() => {
     currentEmployees.map((empleado) => (
       <tr key={empleado.id}>
         <td className="align-middle">{empleado.id}</td>
-        <td className="align-middle">{empleado.nombre}</td>
+                        <td
+                  className="align-middle text-primary"
+                  style={{ cursor: "pointer", textDecoration: "underline" }}
+                  onClick={() => handleSeleccionEmpleado(empleado)}
+                >
+                  {empleado.nombre}
+                </td>
         <td className="align-middle" style={{ whiteSpace: "nowrap" }}>
           {empleado.apellido_1} {empleado.apellido_2}
         </td>
@@ -279,6 +305,14 @@ useEffect(() => {
   )}
 </tbody>
   </Table>
+        {mostrarCarta && empleadoSeleccionado && (
+  <div>
+    <CartaEmpleado 
+      empleado={empleadoSeleccionado} 
+      onClose={handleCerrarCarta} // Pasa la función onClose al componente CartaEmpleado
+    />
+  </div>
+      )}
 
       {/* Paginación */}
       <div className="d-flex justify-content-center mb-3">
