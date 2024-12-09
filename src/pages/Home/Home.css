@@ -5,9 +5,9 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow-x: hidden; /* Evitar scroll horizontal */
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
-  color: #f5f5f5; /* Blanco puro */
+  overflow-x: hidden; 
+  background-color: #2d2f36; 
+  color: #f5f5f5; 
 }
 /* Estilos para el fondo del video */
 .video-background {
@@ -17,7 +17,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1; /* Envía el video al fondo */
+    z-index: -1; 
   }
   
   .background-video {
@@ -26,27 +26,27 @@ body {
     left: 50%;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajusta para cubrir el área */
+    object-fit: cover; 
     transform: translate(-50%, -50%);
   }
   
   /* Overlay del contenido principal */
   .home-main {
     position: relative;
-    height: 100vh; /* Ajusta la altura para que el video llene la pantalla */
+    height: 100vh; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1; /* Asegura que el contenido esté encima del video */
+    z-index: 1; 
   }
   
   /* Estilos del contenido encima del video */
   .home-content {
     position: relative;
-    z-index: 2; /* Asegura que el texto esté encima del video */
+    z-index: 2; 
     text-align: center;
-    background: rgba(0, 0, 0, 0); /* Fondo semitransparente para mejor legibilidad */
+    background: rgba(0, 0, 0, 0);
     padding: 20px;
     border-radius: 15px;
   }
@@ -88,8 +88,8 @@ body {
   text-align: center;
   margin: 0;
   padding: 0;
-  min-height: 100vh; /* Asegura que siempre ocupe todo el viewport */
-  background-color: #2d2f36; /* Fondo gris medio oscuro */
+  min-height: 100vh; 
+  background-color: #2d2f36; 
   display: flex;
   flex-direction: column;
 }
@@ -100,7 +100,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  background-color: #1c1e26; /* Fondo gris oscuro */
+  background-color: #1c1e26; 
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -121,20 +121,20 @@ body {
 .header-nav a {
   margin: 0 10px;
   font-size: 16px;
-  color: #f5f5f5; /* Blanco puro */
+  color: #f5f5f5; 
   white-space: nowrap;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .header-nav a:hover {
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3; 
 }
 
 /* Login link */
 .header-login {
   font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3; 
 }
 
 /* Main section styles */
@@ -165,18 +165,18 @@ body {
   .home-title {
     font-size: 80px;
     font-weight: 700;
-    color: #f5f5f5; /* Blanco puro */
+    color: #f5f5f5; 
     margin: 20px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura */
-    animation: slideIn 1.5s ease-out; /* Animación de entrada */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+    animation: slideIn 1.5s ease-out; 
   }
   
   /* Opcional: Animación para el subtítulo */
   .home-subtitle {
     font-size: 20px;
-    color: #828282; /* Gris claro */
+    color: #828282; 
     margin: 20px 0;
-    animation: slideIn 2s ease-out; /* Animación de entrada con retraso */
+    animation: slideIn 2s ease-out; 
     animation-delay: 0.5s;
   }
   
@@ -199,65 +199,65 @@ body {
   .home-title {
     font-size: 80px;
     font-weight: 700;
-    color: #ffffff; /* Blanco puro */
+    color: #ffffff; 
     margin: 20px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más oscura */
-    animation: slideAndBounce 1.5s ease-out; /* Animación personalizada */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+    animation: slideAndBounce 1.5s ease-out; 
   }
   
   /* Opcional: Animación para el subtítulo */
   .home-subtitle {
     font-size: 20px;
-    color: #4ecca3; /* Gris claro */
+    color: #4ecca3; 
     margin: 20px 0;
-    animation: fadeIn 2s ease-out; /* Animación suave para el subtítulo */
+    animation: fadeIn 2s ease-out; 
   }
   
   .home-button {
     margin-top: 20px;
-    background-color: #4ecca3; /* Verde azulado */
-    color: #1c1e26; /* Gris oscuro */
+    background-color: #4ecca3; 
+    color: #1c1e26; 
     font-size: 18px;
     padding: 10px 20px;
     border-radius: 20px;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    text-decoration: none; /* Quita la línea subrayada */
+    text-decoration: none; 
   }
   
   .home-button:hover {
-    background-color: #37a088; /* Verde azulado más oscuro */
-    transform: scale(1.1); /* Efecto de zoom */
+    background-color: #37a088;
+    transform: scale(1.1); 
   }
   
 /* Nature Section */
 .nature-section {
   background: url("../../assets/images/nature.jpg") no-repeat center center
-    fixed; /* Cambia 'nature.jpg' por la imagen de naturaleza que desees */
-  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-  height: 100vh; /* Ocupa toda la altura del viewport */
+    fixed; 
+  background-size: cover; 
+  height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #ffffff; /* Texto blanco para buen contraste */
-  padding: 0 20px; /* Asegura que el texto no quede pegado a los bordes */
+  color: #ffffff; 
+  padding: 0 20px; 
 }
 
 .nature-title {
   font-size: 48px;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para resaltar el texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
   text-align: center;
-  line-height: 1.5; /* Espaciado cómodo entre líneas */
-  max-width: 800px; /* Limita el ancho del texto para que no sea demasiado amplio */
+  line-height: 1.5; 
+  max-width: 800px; 
 }
 
 .nature-author {
-  font-size: 18px; /* Tamaño más pequeño */
-  font-style: italic; /* Texto en cursiva */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra suave */
-  display: inline-block; /* Mantiene estilo independiente */
-  margin-top: 10px; /* Espaciado entre la frase y el autor */
+  font-size: 18px; 
+  font-style: italic; 
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+  display: inline-block; 
+  margin-top: 10px; 
 }
 
 .custom-calendar {
@@ -282,15 +282,15 @@ body {
   
 
 
-/* Organigrama Section */
+
 .organigrama-section {
   padding: 60px 30px;
   background: linear-gradient(
     to bottom,
     #1c1e26,
     #2d2f36
-  ); /* Fondo igual a protocolos */
-  color: #ffffff; /* Texto blanco */
+  ); 
+  color: #ffffff; 
   text-align: center;
 }
 
@@ -298,18 +298,18 @@ body {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 40px;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3;
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
-/* Organigrama Container */
+
 .organigrama-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  background: #2d2f36; /* Fondo oscuro */
+  background: #2d2f36;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
@@ -321,13 +321,13 @@ body {
     145deg,
     #292b34,
     #383a42
-  ); /* Gradiente 3D suave */
-  color: #ffffff; /* Texto blanco */
+  ); 
+  color: #ffffff; 
   border-radius: 15px;
   padding: 20px;
   width: 260px;
   text-align: center;
-  border: 2px solid #4ecca3; /* Verde azulado */
+  border: 2px solid #4ecca3; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease,
@@ -340,9 +340,9 @@ body {
     145deg,
     #4ecca3,
     #3a3c45
-  ); /* Gradiente brillante */
-  color: #1c1e26; /* Texto gris oscuro */
-  transform: scale(1.05); /* Efecto de zoom */
+  );
+  color: #1c1e26;
+  transform: scale(1.05); 
   box-shadow: 0 8px 15px rgba(78, 204, 163, 0.5);
 }
 
@@ -353,8 +353,8 @@ body {
   margin: 0 auto 15px;
   overflow: hidden;
   border-radius: 50%;
-  border: 3px solid #4ecca3; /* Verde azulado */
-  background-color: #ffffff; /* Fondo blanco */
+  border: 3px solid #4ecca3; 
+  background-color: #ffffff; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -369,19 +369,19 @@ body {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3; 
 }
 
 .organigrama-position {
   font-size: 1rem;
   font-weight: bold;
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff; 
   margin-bottom: 10px;
 }
 
 .organigrama-description {
   font-size: 0.9rem;
-  color: #828282; /* Texto gris claro */
+  color: #828282; 
   line-height: 1.4;
   margin-bottom: 10px;
 }
@@ -410,53 +410,53 @@ body {
 
 .basket-section {
   background: url("../../assets/images/basket2.jpg") no-repeat center center
-    fixed; /* Fondo fijo */
-  background-size: cover; /* Asegura que ocupe toda la pantalla */
-  height: 100vh; /* Ocupa toda la altura del viewport */
+    fixed; 
+  background-size: cover; 
+  height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #ffffff; /* Texto blanco para contraste */
+  color: #ffffff; 
 }
 
 .basket-title {
   font-size: 48px;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra al texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
   text-align: center;
-  line-height: 1.5; /* Espaciado más cómodo entre líneas */
+  line-height: 1.5; 
 }
 
 .basket-author {
-  font-size: 18px; /* Tamaño más pequeño */
-  font-style: italic; /* Texto en cursiva */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra suave */
-  display: inline-block; /* Mantiene estilo independiente */
-  margin-top: 10px; /* Espaciado opcional si lo necesitas */
+  font-size: 18px;
+  font-style: italic; 
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+  display: inline-block; 
+  margin-top: 10px; 
 }
 /* Botones del Header */
 .header-nav {
   display: flex;
-  gap: 15px; /* Espacio entre botones */
-  margin-top: 20px; /* Separación del header */
-  justify-content: center; /* Centra los botones */
+  gap: 15px; 
+  margin-top: 20px; 
+  justify-content: center; 
 }
 
 .header-nav button {
-  background: linear-gradient(145deg, #3ea68b, #4ecca3); /* Gradiente suave */
-  color: #ffffff; /* Texto blanco */
-  border: 2px solid transparent; /* Sin borde visible al inicio */
-  border-radius: 20px; /* Bordes redondeados */
-  padding: 8px 16px; /* Botones más pequeños */
-  font-size: 14px; /* Fuente más pequeña */
-  font-weight: bold; /* Resalta el texto */
+  background: linear-gradient(145deg, #3ea68b, #4ecca3); 
+  color: #ffffff; 
+  border: 2px solid transparent; 
+  border-radius: 20px;
+  padding: 8px 16px; 
+  font-size: 14px; 
+  font-weight: bold; 
   cursor: pointer;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2), 0px 1px 3px rgba(78, 204, 163, 0.5); /* Sombras combinadas */
-  transition: all 0.3s ease-in-out; /* Transiciones suaves */
-  position: relative; /* Necesario para el efecto decorativo */
-  overflow: hidden; /* Oculta los elementos decorativos */
-  z-index: 0; /* Permite manejar efectos */
+  transition: all 0.3s ease-in-out; 
+  position: relative; 
+  overflow: hidden; 
+  z-index: 0; 
 }
 
 .header-nav button::before {
@@ -473,31 +473,31 @@ body {
 }
 
 .header-nav button:hover::before {
-  left: 0; /* Mueve el gradiente al fondo del botón */
+  left: 0; 
 }
 
 .header-nav button:hover {
-  background: linear-gradient(145deg, #37a088, #4ecca3); /* Gradiente más brillante */
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3), 0px 2px 6px rgba(78, 204, 163, 0.6); /* Aumenta sombras */
-  transform: scale(1.05); /* Efecto de zoom */
+  background: linear-gradient(145deg, #37a088, #4ecca3);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3), 0px 2px 6px rgba(78, 204, 163, 0.6); 
+  transform: scale(1.05); 
 }
 
 .header-nav button:active {
-  background: #37a088; /* Color más oscuro al hacer clic */
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); /* Reduce sombras */
-  transform: translateY(2px); /* Movimiento hacia abajo */
+  background: #37a088; 
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); 
+  transform: translateY(2px); 
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-nav {
-    flex-wrap: wrap; /* Ajusta botones en varias filas si es necesario */
+    flex-wrap: wrap; 
     gap: 10px;
   }
 
   .header-nav button {
-    font-size: 12px; /* Tamaño reducido para pantallas pequeñas */
-    padding: 6px 12px; /* Ajusta espacio interno */
+    font-size: 12px; 
+    padding: 6px 12px; 
   }
 }
 

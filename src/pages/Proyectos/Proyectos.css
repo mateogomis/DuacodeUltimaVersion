@@ -1,3 +1,4 @@
+/* Sección general del proyecto */
 
 .proyecto-section {
     background-color: #1C1E26;
@@ -5,24 +6,26 @@
     padding: 50px 20px;
     text-align: center;
 }
+/* Estilo del título principal del proyecto */
 .proyecto-titulo{
     font-size: 2.5rem;
     margin-bottom: 30px;
     color: #4ECCA3; 
 }
+/* Estilo del nombre del proyecto */
 .proyecto-nombre {
     font-size: 2.5rem;
     margin-bottom: 30px;
     color: #4ECCA3;
 }
-
+/* Contenedor de las tarjetas del proyecto */
 .proyecto-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 }
-
+/* Estilo de cada tarjeta del proyecto */
 .proyecto-card {
     background-color: #2D2F36;
     color: #F5F5F5;
@@ -34,27 +37,27 @@
     border: 2px solid transparent;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-
+/* Efecto al pasar el mouse sobre la tarjeta */
 .proyecto-card:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
     border-color: #4ECCA3;
 }
-
+/* Estilo del título dentro de la tarjeta */
 .proyecto-card h3 {
     font-size: 1.8rem;
     margin-bottom: 15px;
 }
-
+/* Estilo de los párrafos dentro de la tarjeta */
 .proyecto-card p {
     font-size: 1rem;
     margin: 10px 0;
 }
-
+/* Estilo del texto en negrita dentro de la tarjeta */
 .proyecto-card strong {
     font-weight: bold;
 }
-
+/* Estilos responsives*/
 @media (max-width: 768px) {
     .proyecto-cards {
         flex-direction: column;
@@ -66,3 +69,42 @@
         margin: 0 auto;
     }
 }
+.empleados-lista {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .empleado-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .empleado-foto {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .empleado-info {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .empleado-info p {
+    margin: 2px 0;
+  }
+  .mostrar-empleados-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4ECCA3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .mostrar-empleados-btn:hover {
+    background-color: #00b39b;
+  }
