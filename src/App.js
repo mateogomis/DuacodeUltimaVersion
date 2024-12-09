@@ -12,9 +12,11 @@ import TestCalendario from "./pages/TestCalendario/TestCalendario"
 import Salas from "./pages/Salas/Salas";
 import OrganigramaMateo from './pages/Organigrama/OrganigramaMateo';
 // Componentes panel de administración
+import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from  './pages/Admin/Admin'
 import AdminEmpleados from './pages/Admin/AdminEmpleados/AdminEmpleados';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import AdminPanel from "./pages/Admin/Admin";
 
 // App component
 const App = () => {
@@ -32,9 +34,27 @@ const App = () => {
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/salas" element={<Salas/>}/>
           <Route path="/organigramaMateo" element={<OrganigramaMateo />} />
-          {/*  Rutas panel de adminsitración */}
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/empleados" element={<AdminEmpleados />} />
+
+          {/*  Rutas panel de administración PROTEGIDAS*/}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+                
+        <Route
+          path="/admin/empleados"
+          element={
+            <ProtectedRoute>
+              <AdminEmpleados />
+            </ProtectedRoute>
+          }
+        />
+          {/* <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/empleados" element={<AdminEmpleados />} /> */}
         </Routes>
       </main>
       {/* Renderiza el Footer solo si no estás en la página de login */}

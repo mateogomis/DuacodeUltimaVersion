@@ -225,7 +225,7 @@ const filtered = empleados.filter((empleado) => {
         <td className="align-middle">{empleado.email}</td>
         <td className="align-middle">{empleado.telefono}</td>
         <td className="align-middle" style={{ whiteSpace: "nowrap" }}>{empleado.rol?.rol_display ||  empleado.rol_text} </td>
-        <td className="align-middle">{empleado.sede}</td>
+        <td className="align-middle">{empleado.sede.nombre}</td>
         <td className="align-middle text-center">{empleado.baja ? "Sí" : "No"}</td>
         <td className="align-middle text-center">{empleado.excedencia ? "Sí" : "No"}</td>
         <td className="align-middle text-center">{empleado.teletrabajo ? "Sí" : "No"}</td>
@@ -512,13 +512,6 @@ const filtered = empleados.filter((empleado) => {
     </Modal.Footer>
   </Modal>
 )}
-
-
-
-
-
-
-
     </Container>
   );
 };
