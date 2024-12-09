@@ -144,6 +144,71 @@ div {
 .organigrama-button:hover span {
   animation: bounce 0.3s ease;
 }
+/* Contenedor principal del organigrama */
+#chart-container {
+  width: 100%;
+  height: calc(100vh - 100px); /* Resta el tamaño del header */
+  overflow: auto;
+  position: relative;
+  margin-top: 20px;
+}
+
+/* Contenedor del organigrama */
+.org-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Nodo del organigrama */
+.org-chart-node {
+  max-width: 150px;
+  text-align: center;
+  word-wrap: break-word;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Imagen dentro del nodo */
+.node-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+/* Líneas del organigrama */
+.orgchart .lines {
+  border-color: #4ecca3 !important;
+}
+
+/* Ajuste para botones de control */
+.orgchart .topEdge,
+.orgchart .bottomEdge,
+.orgchart .rightEdge,
+.orgchart .leftEdge {
+  border-color: #4ecca3 !important;
+  background-color: #4ecca3 !important;
+}
+
+/* Path de las líneas */
+path {
+  stroke: #4ecca3 !important;
+}
+
+/* Evitar solapamiento del header */
+.home-header {
+  z-index: 10;
+  position: sticky;
+  top: 0;
+}
+
+/* Asegura que el organigrama esté debajo del header */
+.home-container {
+  margin-top: 20px;
+}
 
 /* Animación del texto */
 @keyframes bounce {

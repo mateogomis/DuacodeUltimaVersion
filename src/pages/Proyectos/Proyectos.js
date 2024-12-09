@@ -6,7 +6,7 @@ const Proyectos = ({ limite }) => {
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [mostrarEmpleados, setMostrarEmpleados] = useState({}); // Estado para controlar qué empleados se muestran
+  const [mostrarEmpleadoId, setMostrarEmpleadoId] = useState(null); // Único ID expandido
 
   useEffect(() => {
     const fetchProyectos = async () => {
@@ -24,16 +24,13 @@ const Proyectos = ({ limite }) => {
     fetchProyectos();
   }, []);
 
-  if (loading) return <p>Cargando proyectos...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className="loading">Cargando proyectos...</p>;
+  if (error) return <p className="error">{error}</p>;
 
   const proyectosAMostrar = limite ? proyectos.slice(0, limite) : proyectos;
 
   const toggleEmpleados = (proyectoId) => {
-    setMostrarEmpleados((prev) => ({
-      ...prev,
-      [proyectoId]: !prev[proyectoId], // Alternar visibilidad para el proyecto específico
-    }));
+    setMostrarEmpleadoId((prevId) => (prevId === proyectoId ? null : proyectoId));
   };
 
   return (
@@ -41,9 +38,14 @@ const Proyectos = ({ limite }) => {
       <h2 className="proyecto-titulo">Proyectos de la Empresa</h2>
       <div className="proyecto-cards">
         {proyectosAMostrar.map((proyecto) => (
-          <div className="proyecto-card" key={proyecto.id}>
+          <div
+            className={`proyecto-card ${
+              mostrarEmpleadoId === proyecto.id ? "expandido" : ""
+            }`}
+            key={proyecto.id}
+          >
             <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
-            <p>
+            <p className="proyecto-descripcion">
               <strong>Descripción:</strong> {proyecto.descripcion}
             </p>
             <p>
@@ -53,42 +55,38 @@ const Proyectos = ({ limite }) => {
               <strong>Fecha de Fin:</strong> {proyecto.fecha_fin || "En curso"}
             </p>
 
-            {/* Botón para mostrar/ocultar empleados */}
             <button
               className="mostrar-empleados-btn"
               onClick={() => toggleEmpleados(proyecto.id)}
             >
-              {mostrarEmpleados[proyecto.id] ? "Ocultar Empleados" : "Mostrar Empleados"}
+              {mostrarEmpleadoId === proyecto.id ? "Ocultar Empleados" : "Mostrar Empleados"}
             </button>
 
-            {/* Renderizar empleados si están visibles */}
-            {mostrarEmpleados[proyecto.id] && (
+            {mostrarEmpleadoId === proyecto.id && (
               <div className="empleados-container">
-                <h4>Empleados Asignados:</h4>
+                <h4 className="empleados-titulo">Empleados Asignados:</h4>
                 {proyecto.empleados.length > 0 ? (
                   <ul className="empleados-lista">
                     {proyecto.empleados.map((empleado) => (
                       <li key={empleado.id} className="empleado-item">
+                        <img
+                          src={`http://localhost:8000/media/${empleado.foto}`}
+                          alt={empleado.nombre}
+                          className="empleado-foto"
+                        />
                         <div className="empleado-info">
-                          <img
-                            src={`http://localhost:8000/media/${empleado.foto}`}
-                            alt={empleado.nombre}
-                            className="empleado-foto"
-                          />
-                          <div>
-                            <p>
-                              <strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong>
-                            </p>
-                            <p>
-                              <strong>Rol:</strong> {empleado.rol.rol_display}
-                            </p>
-                            <p>
-                              <strong>Email:</strong> {empleado.email}
-                            </p>
-                            <p>
-                              <strong>Teléfono:</strong> {empleado.telefono}
-                            </p>
-                          </div>
+                          <p className="empleado-nombre">
+                            <strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong>
+                          </p>
+                          <p>
+                            <strong>Rol:</strong> {empleado.rol.rol_display}
+                          </p>
+                          <p>
+                            <strong>Email:</strong> {empleado.email}
+                          </p>
+                          <p>
+                            <strong>Teléfono:</strong> {empleado.telefono}
+                          </p>
                         </div>
                       </li>
                     ))}

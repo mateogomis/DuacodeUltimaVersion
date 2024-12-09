@@ -38,7 +38,7 @@ const Home = () => {
           <button onClick={() => (window.location.href = "/Proyectos")}>
             Proyectos
           </button>
-          <button onClick={() => (window.location.href = "/Protocolos")}>
+          <button onClick={() => (window.location.href = "/Protocolos")}> 
             Protocolos
           </button>
           <button onClick={() => (window.location.href = "/Salas")}>

@@ -114,8 +114,10 @@ const Organigrama = () => {
       };
     }
   }, [datasource]);
+
   const truncateText = (text, maxLength = 20) =>
     text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+
   const transformData = (data) => ({
     name: `${data.nombre} ${data.apellido_1} ${data.apellido_2}`,
     title: truncateText(data.rol.rol_display),
@@ -125,12 +127,32 @@ const Organigrama = () => {
   });
 
   return (
-    <div id="chart-container" className="org-chart-container">
-      {!datasource && (
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      )}
+    <div className="home-container">
+      <header className="home-header">
+        <div className="header-logo"></div>
+        <nav className="header-nav">
+          <button onClick={() => (window.location.href = "/Proyectos")}>
+            Proyectos
+          </button>
+          <button onClick={() => (window.location.href = "/Protocolos")}>
+            Protocolos
+          </button>
+          <button onClick={() => (window.location.href = "/Salas")}>
+            Salas
+          </button>
+          <button onClick={() => (window.location.href = "/")}>
+            Inicio
+          </button>
+        </nav>
+      </header>
+
+      <div id="chart-container" className="org-chart-container">
+        {!datasource && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
