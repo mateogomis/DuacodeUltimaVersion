@@ -20,6 +20,7 @@ const Empleados = () => {
           "http://localhost:8000/api/empleados/"
         );
         setEmpleados(response.data);
+        console.log(response.data);
         setFilteredEmpleados(response.data);
       } catch (error) {
         setError("Error al obtener los empleados");
@@ -114,7 +115,7 @@ const Empleados = () => {
             {expandedCards[empleado.id] && (
               <div className="employee-info-expanded">
                 <p>
-                  <strong>Estado: </strong>
+                  <strong >Estado: </strong>
                   {(() => {
                     if (
                       empleado.baja === false &&

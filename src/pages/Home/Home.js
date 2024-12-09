@@ -4,9 +4,7 @@ import "./Home.css";
 import Empleados from "../Empleados/Empleados";
 import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
-import Eventos from "../Eventos/Eventos";
 import Calendario from "../TestCalendario/TestCalendario";
-import Organigrama from "../Organigrama/Organigrama";
 import Proyectos from "../Proyectos/Proyectos";
 
 const Home = () => {
@@ -47,7 +45,6 @@ const Home = () => {
           <button onClick={() => (window.location.href = "/Organigrama")}>
             Organigrama
           </button>
-          
         </nav>
       </header>
 
@@ -62,7 +59,6 @@ const Home = () => {
             Tu navegador no soporta vídeos HTML5.
           </video>
         </div>
-
         {/* Contenido superpuesto */}
         <div className="home-content">
           <h1 className="home-title">Bienvenido a Duacode</h1>
@@ -92,7 +88,8 @@ const Home = () => {
         <div className="organigrama-link-container">
           <div className="organigrama-preview">
             <p className="organigrama-preview-text">
-              Explora cómo nuestra empresa está estructurada y conoce a nuestros líderes clave.
+              Explora cómo nuestra empresa está estructurada y conoce a nuestros
+              líderes clave.
             </p>
             <div className="organigrama-preview-image">
               <img
@@ -121,7 +118,7 @@ const Home = () => {
           <span className="basket-author">— Michael Jordan</span>
         </h2>
       </section>
-      <Protocolos />
+      {/* <Protocolos /> */}
     </div>
   );
 };

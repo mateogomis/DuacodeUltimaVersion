@@ -11,7 +11,9 @@
   padding: 50px 20px;
   text-align: center;
 }
-
+strong{
+  color: #37a088;
+}
 /* Estilo del título */
 .employee-section-title {
   font-size: 2.5rem;
@@ -27,15 +29,10 @@
   position: relative;
 }
 
-/* Contenedor de tarjetas con Flexbox */
-.employee-card-container {
-    display: flex;
-    flex-wrap: wrap; /* Las tarjetas se ajustan a nuevas filas */
-    justify-content: center; /* Centra las tarjetas horizontalmente */
-    gap: 20px; /* Mayor espacio entre tarjetas */
-    margin: 0 auto; /* Centrado global */
-    max-width: 1200px; /* Limita el ancho total */
-    padding: 20px; /* Añade algo de espacio alrededor */
+.slick-slider,
+.employee-carousel,
+.slick-initialized {
+  overflow: visible;
 }
 
 .slick-prev,
@@ -68,17 +65,17 @@
 
 /* Tarjeta del empleado */
 .employee-card {
-    background-color: #2D2F36; /* Gris oscuro */
-    color: #F5F5F5;
-    border-radius: 15px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    padding: 20px; /* Espaciado interno reducido */
-    flex: 1 1 calc(33.33% - 20px); /* Ajusta para 3 tarjetas por fila */
-    max-width: 300px; /* Tamaño máximo */
-    min-width: 240px; /* Tamaño mínimo ajustado */
-    text-align: center;
-    border: 2px solid transparent;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background-color: #2d2f36;
+  color: #f5f5f5;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 280px;
+  margin: 5px auto;
+  text-align: center;
+  border: 2px solid transparent;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .employee-card:hover {
@@ -86,18 +83,6 @@
   z-index: 10;
   border-color: #4ecca3;
 }
-@media (max-width: 1024px) {
-    .employee-card {
-        flex: 1 1 calc(50% - 20px); /* 2 tarjetas por fila */
-    }
-}
-
-@media (max-width: 768px) {
-    .employee-card {
-        flex: 1 1 calc(100% - 20px); /* 1 tarjeta por fila */
-    }
-}
-
 
 /* Contenedor de la imagen */
 .employee-image-container {

@@ -24,7 +24,9 @@
     gap: 40px;
     position: relative;
   }
-  
+  .error{
+    color: white;
+  }
   .protocol-circle {
     background: linear-gradient(145deg, #292b34, #383a42); /* Gradiente 3D suave */
     border-radius: 50%;
