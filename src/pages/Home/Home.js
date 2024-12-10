@@ -3,7 +3,7 @@ import "react-calendar/dist/Calendar.css"; // Estilos por defecto del calendario
 import "./Home.css";
 import Empleados from "../Empleados/Empleados";
 import Salas from "../Salas/Salas";
-// import Protocolos from "../Protocolos/Protocolos";
+import Protocolos from "../Protocolos/Protocolos";
 import Calendario from "../TestCalendario/TestCalendario";
 import Proyectos from "../Proyectos/Proyectos";
 import '../Organigrama/OrganigramaHome.css';
@@ -121,7 +121,7 @@ const Home = () => {
           <span className="basket-author">— Michael Jordan</span>
         </h2>
       </section>
-      {/* <Protocolos /> */}
+       <Protocolos /> 
     </div>
   );
 };

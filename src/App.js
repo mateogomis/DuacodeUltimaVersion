@@ -16,6 +16,7 @@ import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from "./pages/Admin/Admin";
 import AdminEmpleados from "./pages/Admin/AdminEmpleados/AdminEmpleados";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Protocolos from "./pages/Protocolos/Protocolos";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/salas" element={<Salas />} />
+          <Route path="/protocolos" element={<Protocolos/>}/>
 
           {/*  Rutas panel de administración PROTEGIDAS */}
           <Route
