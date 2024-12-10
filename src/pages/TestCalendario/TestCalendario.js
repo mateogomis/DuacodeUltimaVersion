@@ -2,95 +2,87 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import Reserva from '../Reserva/Reserva';
+import Modal from './Modal';
 import './TestCalendario.css';
-import './loader.css';
 
 const TestCalendario = () => {
-  const [events, setEvents] = useState([]); // Estado para los eventos del calendario
-  const [loading, setLoading] = useState(true); // Estado para la carga de datos
-  const [selectedEvent, setSelectedEvent] = useState(null); // Evento seleccionado
-  const [showReservaModal, setShowReservaModal] = useState(false); // Mostrar modal de reserva
+  const [events, setEvents] = useState([]); // Estado para los eventos
+  const [selectedEvent, setSelectedEvent] = useState(null); // Estado para el evento seleccionado
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [error, setError] = useState(null); // Estado para manejar errores
 
-  // Función para convertir los datos al formato de react-big-calendar
-  const formatData = (reservas) => reservas.map(event => {
-    const startDate = new Date(`${event.fecha}T${event.hora_inicio}`);
-    const endDate = new Date(`${event.fecha}T${event.hora_fin}`);
-    const empleadosAsistentes = event.empleados_asistentes
-      .map(empleado => `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`)
-      .join(', ');
+  // Función para formatear los datos de la API
+  const formatEvents = (reservas) => {
+    return reservas.map((reserva) => ({
+      start: new Date(`${reserva.fecha}T${reserva.hora_inicio}`),
+      end: new Date(`${reserva.fecha}T${reserva.hora_fin}`),
+      title: reserva.reservado_por,
+      empleados: reserva.empleados_asistentes
+        .map((empleado) => `${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`)
+        .join(', '),
+      motivo: reserva.motivo,
+    }));
+  };
 
-    return {
-      start: startDate,
-      end: endDate,
-      title: event.reservado_por,
-      empleados: empleadosAsistentes,
-      motivo: event.motivo,
-      allDay: false,
-    };
-  });
-
-  // Cargar los eventos cuando el componente se monta
+  // Llamada a la API para obtener los datos
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/sedes/salas/1/');
+        const response = await fetch('http://localhost:8000/api/sedes/salas/1/'); // Ajusta la URL de tu API
         if (!response.ok) {
-          throw new Error('Error al cargar las reservas');
+          throw new Error('Error al obtener los datos');
         }
         const data = await response.json();
-        setEvents(formatData(data.reservas));
-      } catch (error) {
-        console.error(error);
+        setEvents(formatEvents(data.reservas)); // Actualiza los eventos con los datos formateados
+      } catch (err) {
+        console.error('Error al cargar eventos:', err);
+        setError('No se pudieron cargar las reservas. Intenta nuevamente.');
       } finally {
-        setLoading(false);
+        setLoading(false); // Finaliza el estado de carga
       }
     };
+
     fetchEvents();
   }, []);
 
-  // Carga animación de carga mientras consulta a la base de datos
+  const handleEventClick = (event) => {
+    console.log('Evento seleccionado:', event);
+    setSelectedEvent(event);
+  };
+
   if (loading) {
+    return <div className="loader-container"><div className="loader"></div></div>;
+  }
+
+  if (error) {
     return (
-      <div className="loader-container">
-        <div className="loader"></div>
+      <div className="error-container">
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()}>Recargar Página</button>
       </div>
     );
   }
 
-  // Mostrar información cuando se muestra el modal
-  console.log('Mostrando el modal de detalles del evento:', selectedEvent);
-
   return (
-    <div style={{ height: '600px' }}>
+    <div className="calendar-container">
       <Calendar
         events={events}
         views={['month', 'week', 'day']}
-        defaultView='month'
+        defaultView="month"
         localizer={momentLocalizer(moment)}
         step={30}
         timeslots={1}
-        onSelectEvent={setSelectedEvent} // Manejar clic en evento
-        components={{
-          event: ({ event }) => (
-            <div>
-              <div style={{ color: 'orange', fontWeight: 'bold' }}>{event.title}</div>
-              <div style={{ fontSize: '0.9em', color: 'white' }}>
-                <strong>Asistentes:</strong><br />
-                {event.empleados}<br />
-                <strong>Motivo:</strong><br />
-                <em>{event.motivo}</em>
-              </div>
-            </div>
-          ),
-        }}
+        onSelectEvent={handleEventClick}
+        className="calendar"
       />
 
       {/* Modal para mostrar información del evento */}
-      {selectedEvent && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setSelectedEvent(null)}>&times;</span>
+      <Modal
+        isVisible={!!selectedEvent}
+        onClose={() => setSelectedEvent(null)}
+      >
+        {selectedEvent && (
+          <div>
             <h2>Detalles del Evento</h2>
             <p><strong>Reservado por:</strong> {selectedEvent.title}</p>
             <p><strong>Fecha:</strong> {selectedEvent.start.toLocaleDateString()}</p>
@@ -98,25 +90,8 @@ const TestCalendario = () => {
             <p><strong>Asistentes:</strong> {selectedEvent.empleados}</p>
             <p><strong>Motivo:</strong> {selectedEvent.motivo}</p>
           </div>
-        </div>
-      )}
-
-      {/* Modal para hacer una nueva reserva */}
-      {showReservaModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowReservaModal(false)}>&times;</span>
-            <Reserva />
-          </div>
-        </div>
-      )}
-
-      {/* Botón de hacer reserva debajo del calendario */}
-      <div className="reserva-footer">
-        <button className="open-reserva-modal" onClick={() => setShowReservaModal(true)}>
-          Hacer Reserva
-        </button>
-      </div>
+        )}
+      </Modal>
     </div>
   );
 };
