@@ -1,47 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./Protocolos.css";
-import axios from "axios";
 import FileUpload from "../../components/FileUpload";
 
 const Protocolos = () => {
   const [protocolos, setProtocolos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Nuevo estado
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Simula verificar si el usuario está autenticado
     const checkAuthentication = () => {
       const token = localStorage.getItem("authToken");
-      setIsAuthenticated(!!token); // Verifica si hay un token presente
+      setIsAuthenticated(!!token);
     };
 
     const fetchProtocolos = async () => {
       try {
-        const protocolo = await axios.get('http://localhost:8000/upload/', {
-          responseType: "text",
-        });
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(protocolo.data, "text/html");
-        const items = [...doc.querySelectorAll("ul li")];
-
-        const data = items.map((item) => {
-          const nombre = item
-            .querySelector("strong:nth-of-type(1)")
-            ?.nextSibling?.textContent?.trim();
-          const descripcion = item
-            .querySelector("strong:nth-of-type(2)")
-            ?.nextSibling?.textContent?.trim();
-          const fecha = item
-            .querySelector("strong:nth-of-type(3)")
-            ?.nextSibling?.textContent?.trim();
-
-          return { nombre, descripcion, fecha };
-        });
-
-        setProtocolos(data);
+        const response = await fetch("http://localhost:8000/upload/");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        const parsedProtocolos = data.map((item) => ({
+          nombre: item.titulo || "Sin título",
+          descripcion: item.descripcion || "Sin descripción",
+          fecha: new Date(item.uploaded_at).toLocaleDateString(),
+          fileUrl: `http://localhost:8000/media/${item.file_name}`,
+        }));
+        setProtocolos(parsedProtocolos);
       } catch (error) {
-        setError("Error al obtener los protocolos");
+        setError("Error al obtener los protocolos. Intenta nuevamente.");
       } finally {
         setLoading(false);
       }
@@ -58,8 +46,10 @@ const Protocolos = () => {
     setProtocolos((prevProtocolos) => [
       ...prevProtocolos,
       {
-        titulo: newFile.name,
-        descripcion: newFile.descripcion || "",
+        nombre: newFile.titulo || "Nuevo archivo",
+        descripcion: newFile.descripcion || "Sin descripción",
+        fecha: new Date().toLocaleDateString(),
+        fileUrl: `http://localhost:8000/media/${newFile.file_name}`,
       },
     ]);
   };
@@ -70,7 +60,13 @@ const Protocolos = () => {
       <div className="protocols-container">
         {protocolos.length > 0 ? (
           protocolos.map((protocolo, index) => (
-            <div key={index} className="protocol-circle">
+            <a
+              key={index}
+              href={protocolo.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="protocol-circle"
+            >
               <div className="protocol-content">
                 <span className="protocol-icon">
                   <svg
@@ -88,8 +84,7 @@ const Protocolos = () => {
                 <h3 className="protocol-name">{protocolo.nombre}</h3>
               </div>
               <p className="protocol-description">{protocolo.descripcion}</p>
-              <p className="protocol-date">{protocolo.fecha}</p>
-            </div>
+            </a>
           ))
         ) : (
           <p>No se encontraron protocolos.</p>
