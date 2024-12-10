@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
@@ -14,21 +13,16 @@ import TestCalendario from "./pages/TestCalendario/TestCalendario";
 import Salas from "./pages/Salas/Salas";
 // Componentes panel de administración
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
-import Admin from  './pages/Admin/Admin'
-import AdminEmpleados from './pages/Admin/AdminEmpleados/AdminEmpleados';
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import AdminPanel from "./pages/Admin/Admin";
+import Admin from "./pages/Admin/Admin";
+import AdminEmpleados from "./pages/Admin/AdminEmpleados/AdminEmpleados";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-// App componente
 const App = () => {
-  const location = useLocation();
-
   return (
     <div className="app-container">
       <Header />
       <main>
         <Routes>
-          {/* <Route path="/protocolos" element={<Protocolos />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="/organigrama" element={<Organigrama />} />
           <Route path="/testcalendario" element={<TestCalendario />} />
@@ -36,25 +30,23 @@ const App = () => {
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/salas" element={<Salas />} />
 
-          {/*  Rutas panel de administración PROTEGIDAS*/}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
-                
-        <Route
-          path="/admin/empleados"
-          element={
-            <ProtectedRoute>
-              <AdminEmpleados />
-            </ProtectedRoute>
-          }
-        />
-
+          {/*  Rutas panel de administración PROTEGIDAS */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/empleados"
+            element={
+              <ProtectedRoute>
+                <AdminEmpleados />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
     </div>
