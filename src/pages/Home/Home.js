@@ -6,6 +6,8 @@ import Salas from "../Salas/Salas";
 import Protocolos from "../Protocolos/Protocolos";
 import Calendario from "../TestCalendario/TestCalendario";
 import Proyectos from "../Proyectos/Proyectos";
+import '../Organigrama/OrganigramaHome.css';
+
 
 const Home = () => {
   useEffect(() => {
@@ -33,17 +35,17 @@ const Home = () => {
       <header className="home-header">
         <div className="header-logo"></div>
         <nav className="header-nav">
-          <button onClick={() => (window.location.href = "/Proyectos")}>
-            Proyectos
+        <button onClick={() => (window.location.href = "/Organigrama")}>
+            Organigrama
           </button>
           <button onClick={() => (window.location.href = "/Protocolos")}> 
             Protocolos
           </button>
+          <button onClick={() => (window.location.href = "/Proyectos")}>
+            Proyectos
+          </button>
           <button onClick={() => (window.location.href = "/Salas")}>
             Salas
-          </button>
-          <button onClick={() => (window.location.href = "/Organigrama")}>
-            Organigrama
           </button>
         </nav>
       </header>
@@ -84,31 +86,32 @@ const Home = () => {
       <Salas />
 
       <section className="organigrama-section">
-        <h2 className="organigrama-title">Organigrama de la Empresa</h2>
-        <div className="organigrama-link-container">
-          <div className="organigrama-preview">
-            <p className="organigrama-preview-text">
-              Explora cómo nuestra empresa está estructurada y conoce a nuestros
-              líderes clave.
-            </p>
-            <div className="organigrama-preview-image">
-              <img
-                src="/Organigrama.jpg"
-                alt="Organigrama Preview"
-                className="organigrama-image"
-              />
-            </div>
-          </div>
-          <button
-            className="organigrama-button"
-            onClick={() =>
-              (window.location.href = "http://localhost:3000/Organigrama")
-            }
-          >
-            Ver Organigrama
-          </button>
-        </div>
-      </section>
+  <h2 className="organigrama-title">Organigrama de la Empresa</h2>
+  <div className="organigrama-link-container">
+    <div className="organigrama-preview">
+      <p className="organigrama-preview-text">
+        Explora cómo nuestra empresa está estructurada y conoce a nuestros
+        líderes clave.
+      </p>
+      <div className="organigrama-preview-image">
+        <img
+          src="/Organigrama.jpg"
+          alt="Organigrama Preview"
+          className="organigrama-image"
+        />
+      </div>
+    </div>
+    <button
+      className="organigrama-button"
+      onClick={() =>
+        (window.location.href = "http://localhost:3000/Organigrama")
+      }
+    >
+      <span>Ver Organigrama</span>
+    </button>
+  </div>
+</section>
+
 
       <section className="basket-section">
         <h2 className="basket-title">

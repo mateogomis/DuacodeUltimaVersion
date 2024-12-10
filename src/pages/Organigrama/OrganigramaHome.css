@@ -1,0 +1,156 @@
+/* Contenedor principal de la sección */
+.organigrama-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    background-color: #1c1e26; /* Fondo oscuro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #f5f5f5; /* Texto claro */
+    gap: 2rem; /* Espaciado entre elementos */
+  }
+  
+  /* Título principal */
+  .organigrama-title {
+    font-size: 2.5rem;
+    color: #4ecca3; /* Color verde claro */
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Contenedor de enlace al organigrama */
+  .organigrama-link-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 100%;
+  }
+  
+  /* Texto de vista previa */
+  .organigrama-preview-text {
+    font-size: 1.2rem;
+    color: #d3d3d3; /* Texto gris claro */
+    max-width: 600px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Contenedor de la imagen de vista previa */
+  .organigrama-preview-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease; /* Efecto de zoom */
+  }
+  
+  /* Imagen dentro del contenedor */
+  .organigrama-preview-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  /* Hover para la imagen */
+  .organigrama-preview-image:hover {
+    transform: scale(1.1); /* Zoom al pasar el ratón */
+  }
+  
+  /* Botón para ver el organigrama */
+  .organigrama-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    color: #1c1e26; /* Texto oscuro */
+    background-color: #4ecca3; /* Fondo verde */
+    border: none;
+    border-radius: 50px 15px 50px 15px; /* Bordes redondeados */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+      background-color 0.3s ease;
+  }
+  
+  /* Efecto hover para el botón */
+  .organigrama-button:hover {
+    color: #fff; /* Texto blanco */
+    transform: translateY(-3px); /* Mover el botón ligeramente hacia arriba */
+    box-shadow: 0 10px 20px rgba(78, 204, 163, 0.4); /* Sombra */
+  }
+  
+  /* Fondo dinámico en hover */
+  .organigrama-button:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 120%;
+    background: linear-gradient(135deg, #37a088, #4ecca3); /* Degradado verde */
+    z-index: -1;
+    transform: rotate(-45deg) translate(-200%, -200%);
+    transition: transform 0.5s ease;
+    border-radius: 50%;
+  }
+  
+  /* Expandir el fondo en hover */
+  .organigrama-button:hover:before {
+    transform: rotate(-45deg) translate(0%, 0%);
+  }
+  
+  /* Efecto de texto animado en el botón */
+  .organigrama-button span {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .organigrama-button:hover span {
+    animation: bounce 0.3s ease; /* Animación de rebote */
+  }
+  
+  /* Animación del texto */
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive: Ajustes para dispositivos pequeños */
+  @media (max-width: 768px) {
+    .organigrama-title {
+      font-size: 2rem; /* Reducir tamaño del título */
+    }
+  
+    .organigrama-preview-text {
+      font-size: 1rem; /* Reducir tamaño del texto */
+    }
+  
+    .organigrama-preview-image {
+      max-width: 200px; /* Reducir tamaño de la imagen */
+    }
+  
+    .organigrama-button {
+      font-size: 1rem; /* Reducir tamaño del botón */
+      padding: 0.8rem 1.5rem;
+    }
+  }
+  
