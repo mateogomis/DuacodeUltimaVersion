@@ -11,12 +11,13 @@ import Organigrama from "./pages/Organigrama/Organigrama";
 import Proyectos from "./pages/Proyectos/Proyectos";
 import TestCalendario from "./pages/TestCalendario/TestCalendario";
 import Salas from "./pages/Salas/Salas";
+import Protocolos from "./pages/Protocolos/Protocolos";
 // Componentes panel de administración
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from "./pages/Admin/Admin";
 import AdminEmpleados from "./pages/Admin/AdminEmpleados/AdminEmpleados";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Protocolos from "./pages/Protocolos/Protocolos";
+
 
 const App = () => {
   return (
