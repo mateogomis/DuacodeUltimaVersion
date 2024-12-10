@@ -1,61 +1,75 @@
 .calendar-container {
-    margin: 0 auto;
+    margin: 50px auto; /* Agregar margen superior */
     padding: 20px;
-    max-width: 1200px;
-    height: 600px;
-}
-
-.calendar {
-    background-color: #ffffff;
+    max-width: 90%; /* Hacer el calendario más ancho */
+    height: 700px; /* Incrementar la altura */
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9); /* Fondo suave */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos del calendario */
 .rbc-calendar {
     color: #333333;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border-radius: 10px;
     width: 100%;
+    background-color: #ffffff;
 }
 
 .rbc-header {
-    background-color: #4ecca3;
+    background-color: #4ecca3; /* Color anterior */
     color: #1c1e26;
     text-align: center;
     font-weight: bold;
     padding: 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    font-size: 14px;
 }
 
 .rbc-header:hover {
-    background-color: #37a088;
+    background-color: #37a088; /* Efecto hover con un verde más oscuro */
+}
+
+.rbc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .rbc-toolbar button {
-    background-color: #4ecca3;
-    color: #1c1e26;
+    background-color: #4ecca3; /* Color anterior */
+    color: #ffffff;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 15px;
     border-radius: 5px;
+    font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .rbc-toolbar button:hover {
-    background-color: #37a088;
+    background-color: #37a088; /* Hover en verde más oscuro */
     transform: scale(1.05);
 }
 
+.rbc-toolbar-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4ecca3;
+}
+
 .rbc-event {
-    background-color: #2d2f36;
+    background-color: #2d2f36; /* Fondo gris oscuro */
     color: #ffffff;
     border: 1px solid #4ecca3;
     border-radius: 5px;
     padding: 5px;
     font-size: 14px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
 }
 
 .rbc-event:hover {
@@ -66,13 +80,15 @@
 .rbc-today {
     background-color: #383a42;
     border: 1px solid #4ecca3;
+    color: #ffffff;
+    font-weight: bold;
 }
 
-/* Responsive adjustments */
+/* Ajustes responsivos */
 @media (max-width: 768px) {
     .rbc-calendar {
         padding: 10px;
-        font-size: 14px;
+        font-size: 12px;
     }
     .rbc-toolbar button {
         padding: 6px 10px;
