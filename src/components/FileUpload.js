@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../components/FileUpload.css";
 
 // Función para obtener el valor de la cookie por nombre
 const getCookie = (name) => {
@@ -18,7 +19,9 @@ const getCookie = (name) => {
 
 const FileUpload = ({ onFileUploadSuccess }) => {
   const [file, setFile] = useState(null);
+  const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
+  const [error, setError] = useState('');
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -27,12 +30,22 @@ const FileUpload = ({ onFileUploadSuccess }) => {
     }
   };
 
+  const handleTituloChange = (event) => {
+    setTitulo(event.target.value);
+  };
+
   const handleDescripcionChange = (event) => {
     setDescripcion(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!titulo) {
+      setError('El título es obligatorio.');
+      return;
+    }
+
     if (!file) {
       alert('Por favor, selecciona un archivo para subir.');
       return;
@@ -40,13 +53,14 @@ const FileUpload = ({ onFileUploadSuccess }) => {
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('titulo', titulo);
     formData.append('descripcion', descripcion);
 
     // Obtener el token CSRF de las cookies
     const csrfToken = getCookie('csrftoken'); // Llama a la función para obtener el token CSRF
 
     try {
-      const response = await fetch('https://belami.pythonanywhere.com/upload/', {
+      const response = await fetch('http://localhost:8000/upload/', {
         method: 'POST',
         headers: {
           'X-CSRFToken': csrfToken, // Incluye el token CSRF en los encabezados
@@ -65,15 +79,18 @@ const FileUpload = ({ onFileUploadSuccess }) => {
 
       // Llamamos a la función para notificar que el archivo se subió con éxito
       // Pasamos el nombre del archivo y la descripción proporcionada por el usuario
-      onFileUploadSuccess({ 
-        name: file.name, 
-        descripcion: descripcion, // Ahora pasamos la descripción
-        url: data.url || '' // Asegúrate de que el servidor responda con la URL del archivo
+      onFileUploadSuccess({
+        nombre: data.titulo,
+        descripcion: data.descripcion || 'Sin descripción',
+        fecha: new Date(data.uploaded_at).toLocaleDateString(),
+        fileUrl: `http://localhost:8000/media/${data.file_name}`
       });
 
       alert('Archivo subido con éxito.');
       setFile(null);
+      setTitulo('');
       setDescripcion('');
+      setError(''); // Limpiar el error
     } catch (error) {
       console.error('Error al subir el archivo:', error);
       alert('Error al subir el archivo: ' + error.message); // Muestra el mensaje de error
@@ -84,7 +101,17 @@ const FileUpload = ({ onFileUploadSuccess }) => {
     <div className="file-upload">
       <h4>Subir Archivo</h4>
       <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} />
+        <input
+          type="text"
+          placeholder="Título"
+          value={titulo}
+          onChange={handleTituloChange}
+        />
+        {error && <p className="error">{error}</p>}
+        <input
+          type="file"
+          onChange={handleFileChange}
+        />
         <input
           type="text"
           placeholder="Descripción (opcional)"

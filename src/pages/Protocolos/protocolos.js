@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import "./Protocolos.css";
-import FileUpload from "../../components/FileUpload";
+import React, { useState, useEffect } from 'react';
+import './Protocolos.css';
+import FileUpload from '../../components/FileUpload';
 
 const Protocolos = () => {
   const [protocolos, setProtocolos] = useState([]);
@@ -10,26 +10,26 @@ const Protocolos = () => {
 
   useEffect(() => {
     const checkAuthentication = () => {
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem('authToken');
       setIsAuthenticated(!!token);
     };
 
     const fetchProtocolos = async () => {
       try {
-        const response = await fetch("http://localhost:8000/upload/");
+        const response = await fetch('http://localhost:8000/upload/');
         if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
+          throw new Error('Error al obtener los datos del servidor');
         }
         const data = await response.json();
         const parsedProtocolos = data.map((item) => ({
-          nombre: item.titulo || "Sin título",
-          descripcion: item.descripcion || "Sin descripción",
+          nombre: item.titulo || 'Sin título',
+          descripcion: item.descripcion || 'Sin descripción',
           fecha: new Date(item.uploaded_at).toLocaleDateString(),
           fileUrl: `http://localhost:8000/media/${item.file_name}`,
         }));
         setProtocolos(parsedProtocolos);
       } catch (error) {
-        setError("Error al obtener los protocolos. Intenta nuevamente.");
+        setError('Error al obtener los protocolos. Intenta nuevamente.');
       } finally {
         setLoading(false);
       }
@@ -46,10 +46,10 @@ const Protocolos = () => {
     setProtocolos((prevProtocolos) => [
       ...prevProtocolos,
       {
-        nombre: newFile.titulo || "Nuevo archivo",
-        descripcion: newFile.descripcion || "Sin descripción",
+        nombre: newFile.name,
+        descripcion: newFile.descripcion || 'Sin descripción',
         fecha: new Date().toLocaleDateString(),
-        fileUrl: `http://localhost:8000/media/${newFile.file_name}`,
+        fileUrl: newFile.url || '',
       },
     ]);
   };
@@ -90,9 +90,7 @@ const Protocolos = () => {
           <p>No se encontraron protocolos.</p>
         )}
       </div>
-      {isAuthenticated && (
-        <FileUpload onFileUploadSuccess={handleFileUploadSuccess} />
-      )}
+      <FileUpload onFileUploadSuccess={handleFileUploadSuccess} />
     </section>
   );
 };
