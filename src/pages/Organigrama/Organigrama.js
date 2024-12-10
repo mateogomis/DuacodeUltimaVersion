@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
-import $ from "jquery";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import * as d3 from "d3";
 import "./Organigrama.css";
-import "orgchart/dist/css/jquery.orgchart.css";
 
 const Organigrama = () => {
-  const [datasource, setDatasource] = useState(null);
+  const [data, setData] = useState(null);
+  const svgRef = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/organigrama"
-        );
+        const response = await axios.get("http://localhost:8000/api/organigrama");
         const rootData = response.data[0];
         const formattedData = transformData(rootData);
-        setDatasource(formattedData);
+        setData(formattedData);
       } catch (error) {
         console.error("Error al cargar el organigrama:", error);
       }
@@ -25,132 +23,117 @@ const Organigrama = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      datasource &&
-      typeof $ !== "undefined" &&
-      typeof $.fn.orgchart !== "undefined"
-    ) {
-      const container = $("#chart-container");
-      container.empty();
-
-      const adjustZoom = () => {
-        const width = window.innerWidth;
-        const zoomLevel =
-          width <= 480 ? 0.6 : width <= 768 ? 0.8 : width <= 1024 ? 0.9 : 1;
-
-        container.css("zoom", zoomLevel);
-      };
-
-      // Ajustar zoom inicial y al redimensionar
-      adjustZoom();
-      window.addEventListener("resize", adjustZoom);
-
-      // Inicializar el organigrama
-      container.orgchart({
-        data: datasource,
-        nodeContent: "title",
-        createNode: function ($node, data) {
-          $node.addClass("org-chart-node");
-          $node.css({
-            borderColor: "#4ECCA3",
-            backgroundColor: "#2D2F36",
-            color: "#F5F5F5",
-            maxWidth: "150px",
-            whiteSpace: "normal",
-            wordWrap: "break-word",
-          });
-
-          // Hover
-          $node.hover(
-            function () {
-              $(this).css({
-                backgroundColor: "#4ECCA3",
-                color: "#1C1E26",
-              });
-            },
-            function () {
-              $(this).css({
-                backgroundColor: "#2D2F36",
-                color: "#F5F5F5",
-              });
-            }
-          );
-
-          // Imagen de perfil
-          if (data.foto) {
-            $node.prepend(
-              `<img src="http://localhost:8000${data.foto}" class="node-photo" alt="${data.name}" style="width: 70px; height: 70px; border-radius: 50%; margin-bottom: 5px;" />`
-            );
-          }
-        },
-        render: function () {
-          $(".orgchart .lines").css("border-color", "#4ECCA3");
-          $(
-            ".orgchart .topEdge, .orgchart .bottomEdge, .orgchart .rightEdge, .orgchart .leftEdge"
-          ).css({
-            borderColor: "#4ECCA3",
-            backgroundColor: "#4ECCA3",
-          });
-          $("path").css("stroke", "#4ECCA3");
-
-          container.find(".node").click(function (event) {
-            const $node = $(this);
-            const $children = $node.find(".children");
-
-            if ($children.length > 0) {
-              $children.toggle();
-            }
-            event.stopPropagation();
-          });
-
-          // Ocultar nodos hijos por defecto
-          container.find(".node").first().find(".children").hide();
-        },
-      });
-
-      // Limpieza del event listener al desmontar
-      return () => {
-        window.removeEventListener("resize", adjustZoom);
-      };
+    if (data) {
+      renderChart(data);
     }
-  }, [datasource]);
+  }, [data]);
 
-  const truncateText = (text, maxLength = 20) =>
-    text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
-
-  const transformData = (data) => ({
-    name: `${data.nombre} ${data.apellido_1} ${data.apellido_2}`,
-    title: truncateText(data.rol.rol_display),
-    foto: data.foto,
-    children: data.children ? data.children.map(transformData) : [],
-    collapsed: true,
+  const transformData = (node) => ({
+    name: `${node.nombre} ${node.apellido_1} ${node.apellido_2}`,
+    title: node.rol.rol_display,
+    foto: node.foto,
+    children: node.children ? node.children.map(transformData) : [],
   });
+
+  const renderChart = (data) => {
+    const width = 1800; // Incrementar ancho del organigrama
+    const height = 1600; // Incrementar altura para más espacio vertical
+  
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove(); // Limpiar el SVG antes de renderizar
+  
+    const g = svg
+      .attr("viewBox", `0 0 ${width} ${height}`) // Ajustar para ser responsive
+      .attr("preserveAspectRatio", "xMidYMid meet") // Mantener proporciones
+      .append("g")
+      .attr("transform", `translate(100, 100)`); // Margen superior e izquierdo
+  
+    // Layout del árbol con separación mayor
+    const treeLayout = d3.tree()
+      .size([height - 300, width - 400]) // Ajustar dimensiones del árbol
+      .separation((a, b) => {
+        if (a.depth === b.depth) {
+          return a.children || b.children ? 2 : 4; // Más separación para nodos hoja
+        }
+        return 2; // Separación normal para otros nodos
+      });
+  
+    const root = d3.hierarchy(data);
+    treeLayout(root);
+  
+    // Dibujar enlaces
+    g.selectAll(".link")
+      .data(root.links())
+      .enter()
+      .append("path")
+      .attr("class", "link")
+      .attr("d", d3
+        .linkHorizontal()
+        .x((d) => d.y)
+        .y((d) => d.x)
+      );
+  
+    // Dibujar nodos
+    const node = g
+      .selectAll(".node")
+      .data(root.descendants())
+      .enter()
+      .append("g")
+      .attr("class", "node")
+      .attr("transform", (d) => `translate(${d.y},${d.x})`);
+  
+    // Círculo del nodo
+    node.append("circle")
+      .attr("r", 30) // Tamaño del círculo
+      .attr("fill", "#2d2f36")
+      .attr("stroke", "#4ecca3")
+      .attr("stroke-width", 3);
+  
+    // Imagen dentro del círculo
+    node.append("image")
+      .attr("xlink:href", (d) => `http://localhost:8000${d.data.foto}`)
+      .attr("x", -25) // Centrar la imagen dentro del círculo
+      .attr("y", -25)
+      .attr("width", 50)
+      .attr("height", 50)
+      .attr("clip-path", "circle(25px at 25px 25px)");
+  
+    // Nombre del nodo
+    node.append("text")
+      .attr("dy", 50) // Debajo del círculo
+      .attr("text-anchor", "middle")
+      .style("font-size", "14px")
+      .style("font-weight", "bold")
+      .style("fill", "#f5f5f5")
+      .text((d) => d.data.name);
+  
+    // Rol del nodo
+    node.append("text")
+      .attr("dy", 70) // Más espacio debajo del nombre
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .style("fill", "#a9a9a9")
+      .text((d) => d.data.title);
+  };
 
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="header-logo"></div>
         <nav className="header-nav">
-          <button onClick={() => (window.location.href = "/Proyectos")}>
-            Proyectos
-          </button>
-          <button onClick={() => (window.location.href = "/Protocolos")}>
-            Protocolos
-          </button>
-          <button onClick={() => (window.location.href = "/Salas")}>
-            Salas
-          </button>
-          <button onClick={() => (window.location.href = "/")}>
-            Inicio
-          </button>
+          <button onClick={() => (window.location.href = "/Proyectos")}>Proyectos</button>
+          <button onClick={() => (window.location.href = "/Protocolos")}>Protocolos</button>
+          <button onClick={() => (window.location.href = "/Salas")}>Salas</button>
+          <button onClick={() => (window.location.href = "/")}>Inicio</button>
         </nav>
       </header>
 
-      <div id="chart-container" className="org-chart-container">
-        {!datasource && (
+      <div className="org-chart-container">
+        {!data ? (
           <div className="loader-container">
             <div className="loader"></div>
           </div>
+        ) : (
+          <svg ref={svgRef}></svg>
         )}
       </div>
     </div>
