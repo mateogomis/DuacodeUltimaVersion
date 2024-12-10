@@ -35,17 +35,17 @@ const Home = () => {
       <header className="home-header">
         <div className="header-logo"></div>
         <nav className="header-nav">
-          <button onClick={() => (window.location.href = "/Proyectos")}>
-            Proyectos
+        <button onClick={() => (window.location.href = "/Organigrama")}>
+            Organigrama
           </button>
           <button onClick={() => (window.location.href = "/Protocolos")}> 
             Protocolos
           </button>
+          <button onClick={() => (window.location.href = "/Proyectos")}>
+            Proyectos
+          </button>
           <button onClick={() => (window.location.href = "/Salas")}>
             Salas
-          </button>
-          <button onClick={() => (window.location.href = "/Organigrama")}>
-            Organigrama
           </button>
         </nav>
       </header>
