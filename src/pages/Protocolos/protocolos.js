@@ -18,12 +18,12 @@ const Protocolos = () => {
 
     const fetchProtocolos = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/upload/", {
+        // Aquí se define protocolo.nombre
+        const protocolo = await axios.get('http://localhost:8000/media/some-protocol-name', {
           responseType: "text",
         });
-
         const parser = new DOMParser();
-        const doc = parser.parseFromString(response.data, "text/html");
+        const doc = parser.parseFromString(protocolo.data, "text/html");
         const items = [...doc.querySelectorAll("ul li")];
 
         const data = items.map((item) => {
