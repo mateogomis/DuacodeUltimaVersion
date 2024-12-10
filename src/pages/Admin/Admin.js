@@ -4,6 +4,7 @@ import { faUserTie, faFolderOpen, faFileAlt, faBuilding, faSignOutAlt, faHome } 
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import './Admin.css';
+import './loader.css';
 
 const Admin = () => {
   const navigate = useNavigate();

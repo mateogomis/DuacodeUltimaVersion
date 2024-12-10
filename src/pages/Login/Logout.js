@@ -14,7 +14,7 @@ const Logout = () => {
   };
 
   return (
-    <Button variant="danger" onClick={handleLogout}>
+    <Button variant="danger"className="ms-auto" onClick={handleLogout}>
       Logout
     </Button>
   );
