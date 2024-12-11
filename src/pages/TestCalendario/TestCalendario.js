@@ -6,10 +6,12 @@ import Modal from './Modal';
 import './TestCalendario.css';
 
 const TestCalendario = () => {
-  const [events, setEvents] = useState([]); // Estado para los eventos
-  const [selectedEvent, setSelectedEvent] = useState(null); // Estado para el evento seleccionado
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [error, setError] = useState(null); // Estado para manejar errores
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [rooms, setRooms] = useState([]); // Estado para las salas
+  const [selectedRoom, setSelectedRoom] = useState(null); // Sala seleccionada
 
   // Función para formatear los datos de la API
   const formatEvents = (reservas) => {
@@ -24,29 +26,53 @@ const TestCalendario = () => {
     }));
   };
 
-  // Llamada a la API para obtener los datos
+  // Cargar la lista de salas
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:8000/api/sedes/salas/');
+        if (!response.ok) {
+          throw new Error('Error al obtener las salas');
+        }
+        const data = await response.json();
+        setRooms(data);
+      } catch (err) {
+        console.error('Error al cargar salas:', err);
+        setError('No se pudieron cargar las salas. Intenta nuevamente.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
+  // Cargar eventos de la sala seleccionada
   useEffect(() => {
     const fetchEvents = async () => {
+      if (!selectedRoom) return;
+
       try {
-        const response = await fetch('http://localhost:8000/api/sedes/salas/1/'); // Ajusta la URL de tu API
+        setLoading(true);
+        const response = await fetch(`http://localhost:8000/api/sedes/salas/${selectedRoom}/`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
         const data = await response.json();
-        setEvents(formatEvents(data.reservas)); // Actualiza los eventos con los datos formateados
+        setEvents(formatEvents(data.reservas));
       } catch (err) {
         console.error('Error al cargar eventos:', err);
         setError('No se pudieron cargar las reservas. Intenta nuevamente.');
       } finally {
-        setLoading(false); // Finaliza el estado de carga
+        setLoading(false);
       }
     };
 
     fetchEvents();
-  }, []);
+  }, [selectedRoom]);
 
   const handleEventClick = (event) => {
-    console.log('Evento seleccionado:', event);
     setSelectedEvent(event);
   };
 
@@ -65,18 +91,35 @@ const TestCalendario = () => {
 
   return (
     <div className="calendar-container">
-      <Calendar
-        events={events}
-        views={['month', 'week', 'day']}
-        defaultView="month"
-        localizer={momentLocalizer(moment)}
-        step={30}
-        timeslots={1}
-        onSelectEvent={handleEventClick}
-        className="calendar"
-      />
+      <div className="room-selector">
+        <label htmlFor="room">Selecciona una sala:</label>
+        <select
+          id="room"
+          value={selectedRoom || ''}
+          onChange={(e) => setSelectedRoom(e.target.value)}
+        >
+          <option value="" disabled>Selecciona una sala</option>
+          {rooms.map((room) => (
+            <option key={room.id} value={room.id}>{room.nombre}</option>
+          ))}
+        </select>
+      </div>
 
-      {/* Modal para mostrar información del evento */}
+      {selectedRoom ? (
+        <Calendar
+          events={events}
+          views={['month', 'week', 'day']}
+          defaultView="month"
+          localizer={momentLocalizer(moment)}
+          step={30}
+          timeslots={1}
+          onSelectEvent={handleEventClick}
+          className="calendar"
+        />
+      ) : (
+        <p>Por favor, selecciona una sala para ver su calendario.</p>
+      )}
+
       <Modal
         isVisible={!!selectedEvent}
         onClose={() => setSelectedEvent(null)}

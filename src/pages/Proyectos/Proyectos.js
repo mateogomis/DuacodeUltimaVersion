@@ -24,7 +24,13 @@ const Proyectos = ({ limite }) => {
     fetchProyectos();
   }, []);
 
-  if (loading) return <p className="loading">Cargando proyectos...</p>;
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
+  } 
   if (error) return <p className="error">{error}</p>;
 
   const proyectosAMostrar = limite ? proyectos.slice(0, limite) : proyectos;

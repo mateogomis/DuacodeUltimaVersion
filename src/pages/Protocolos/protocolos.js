@@ -39,7 +39,13 @@ const Protocolos = () => {
     fetchProtocolos();
   }, []);
 
-  if (loading) return <p>Cargando protocolos...</p>;
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
+  }  
   if (error) return <p className="error">{error}</p>;
 
   const handleFileUploadSuccess = (newFile) => {

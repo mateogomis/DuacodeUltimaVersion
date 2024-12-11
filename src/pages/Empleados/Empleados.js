@@ -29,7 +29,16 @@ const Empleados = () => {
     };
     fetchEmpleados();
   }, []);
-
+  const Meses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+  
+  const FormatoCumple = (birthday) => {
+    const [day, month] = birthday.split("-"); // Divide el string en día y mes
+    return `${day} de ${Meses[parseInt(month, 10) - 1]}`; // Convierte el número del mes a nombre
+  };
+  
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
@@ -136,7 +145,7 @@ const Empleados = () => {
                     })()}
                   </p>
                   <p>
-                    <strong>Cumpleaños:</strong> {empleado.cumpleanos}
+                    <strong>Cumpleaños:</strong> {FormatoCumple(empleado.cumpleanos.substring(0,5))}
                   </p>
                   <p>
                     <strong>Contratación:</strong> {empleado.fecha_contratacion}

@@ -28,39 +28,43 @@ const Organigrama = () => {
     }
   }, [data]);
 
-  const transformData = (node) => ({
-    name: `${node.nombre} ${node.apellido_1} ${node.apellido_2}`,
-    title: node.rol.rol_display,
-    foto: node.foto,
-    children: node.children ? node.children.map(transformData) : [],
-  });
+  const transformData = (node, depth = 0) => {
+    if (depth >= 3) {
+      return null; // No agregar nodos más allá del tercer nivel
+    }
+
+    return {
+      name: `${node.nombre} ${node.apellido_1} ${node.apellido_2}`,
+      title: node.rol.rol_display,
+      foto: node.foto,
+      children: node.children
+        ? node.children
+            .map((child) => transformData(child, depth + 1))
+            .filter((child) => child !== null) // Filtrar nodos nulos
+        : [],
+    };
+  };
 
   const renderChart = (data) => {
     const width = 1800; // Incrementar ancho del organigrama
-    const height = 1600; // Incrementar altura para más espacio vertical
-  
+    const height = 1900; // Incrementar altura para más espacio vertical
+
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove(); // Limpiar el SVG antes de renderizar
-  
+
     const g = svg
       .attr("viewBox", `0 0 ${width} ${height}`) // Ajustar para ser responsive
       .attr("preserveAspectRatio", "xMidYMid meet") // Mantener proporciones
       .append("g")
       .attr("transform", `translate(100, 100)`); // Margen superior e izquierdo
-  
-    // Layout del árbol con separación mayor
+
     const treeLayout = d3.tree()
       .size([height - 300, width - 400]) // Ajustar dimensiones del árbol
-      .separation((a, b) => {
-        if (a.depth === b.depth) {
-          return a.children || b.children ? 2 : 4; // Más separación para nodos hoja
-        }
-        return 2; // Separación normal para otros nodos
-      });
-  
+      .separation((a, b) => (a.depth === b.depth ? 2 : 1.5));
+
     const root = d3.hierarchy(data);
     treeLayout(root);
-  
+
     // Dibujar enlaces
     g.selectAll(".link")
       .data(root.links())
@@ -72,7 +76,7 @@ const Organigrama = () => {
         .x((d) => d.y)
         .y((d) => d.x)
       );
-  
+
     // Dibujar nodos
     const node = g
       .selectAll(".node")
@@ -81,14 +85,14 @@ const Organigrama = () => {
       .append("g")
       .attr("class", "node")
       .attr("transform", (d) => `translate(${d.y},${d.x})`);
-  
+
     // Círculo del nodo
     node.append("circle")
       .attr("r", 30) // Tamaño del círculo
       .attr("fill", "#2d2f36")
       .attr("stroke", "#4ecca3")
       .attr("stroke-width", 3);
-  
+
     // Imagen dentro del círculo
     node.append("image")
       .attr("xlink:href", (d) => `http://localhost:8000${d.data.foto}`)
@@ -97,7 +101,7 @@ const Organigrama = () => {
       .attr("width", 50)
       .attr("height", 50)
       .attr("clip-path", "circle(25px at 25px 25px)");
-  
+
     // Nombre del nodo
     node.append("text")
       .attr("dy", 50) // Debajo del círculo
@@ -106,7 +110,7 @@ const Organigrama = () => {
       .style("font-weight", "bold")
       .style("fill", "#f5f5f5")
       .text((d) => d.data.name);
-  
+
     // Rol del nodo
     node.append("text")
       .attr("dy", 70) // Más espacio debajo del nombre

@@ -1,9 +1,10 @@
-.calendar-container {
+.calendar-container { 
     margin: 50px auto; /* Agregar margen superior */
-    padding: 20px;
+    padding: 10px;
     max-width: 90%; /* Hacer el calendario más ancho */
     height: 700px; /* Incrementar la altura */
-    background: linear-gradient(to bottom, #ffffff, #f9f9f9); /* Fondo suave */
+    overflow: hidden; /* Asegurarse de que el contenido no se salga del contenedor */
+    background:linear-gradient(135deg, #1c1e26, #2d2f36);; /* Fondo suave */
     border-radius: 10px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
@@ -15,6 +16,7 @@
     border-radius: 10px;
     width: 100%;
     background-color: #ffffff;
+    box-sizing: border-box; /* Asegurar que el ancho no exceda los límites */
 }
 
 .rbc-header {
@@ -78,7 +80,7 @@
 }
 
 .rbc-today {
-    background-color: #383a42;
+    background-color: #383a42c7;
     border: 1px solid #4ecca3;
     color: #ffffff;
     font-weight: bold;
@@ -97,4 +99,33 @@
     .rbc-event {
         font-size: 12px;
     }
+}
+
+/* Estilos para el seleccionador de salas */
+.room-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.room-selector select {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #4ecca3;
+    border-radius: 5px;
+    color: #333333;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
+
+.room-selector select:focus {
+    outline: none;
+    border-color: #37a088;
+}
+
+.room-selector label {
+    font-size: 16px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #4ecca3;
 }

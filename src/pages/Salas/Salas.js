@@ -66,7 +66,14 @@ const Salas = () => {
     return `https://www.google.com/maps?q=${encodedAddress}`;
   };
 
-  if (loading) return <p>Cargando salas...</p>;
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+  
   if (error) return <p>{error}</p>;
 
   return (
