@@ -1,24 +1,211 @@
-.calendar-title{
-  color: #4ecca3;
-  margin-top: 20px;
+.calendar-container {
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 95%;
+  height: 750px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  color: #e5e5e5;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.custom-calendar {
-    border: none;
-    background-color: #1c1e26;
-    color: #f5f5f5;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px auto;
+.sede-selector{
+  display: flow-root;
+}
+.room-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Para permitir el comportamiento de distribución horizontal */
+}
+
+.room-selector label {
+  font-size: 16px;
+  margin-right: 10px;
+  font-weight: bold;
+  color: #76c7c0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.room-selector input[type="radio"] {
+  margin-right: 5px;
+}
+
+.room-selector select {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333333;
+  background: #ffffff;
+  border: 1px solid #76c7c0;
+  border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.room-selector select:focus {
+  outline: none;
+  border-color: #5eb4a5;
+  box-shadow: 0 0 8px #76c7c0;
+}
+
+.room-selector select:hover {
+  border-color: #5eb4a5;
+  background: #f4f4f4;
+}
+
+.rbc-calendar {
+  color: #e5e5e5;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 15px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.rbc-header {
+  background: rgba(118, 199, 192, 0.8);
+  color: #203a43;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.rbc-header:hover {
+  transform: scale(1.02);
+  background: rgba(118, 199, 192, 1);
+}
+
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.rbc-toolbar button {
+  background: linear-gradient(135deg, #76c7c0, #64b3a6);
+  color: #ffffff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.rbc-toolbar button:hover {
+  background: linear-gradient(135deg, #5eb4a5, #4aa591);
+  transform: scale(1.05);
+}
+
+.rbc-toolbar-label {
+  font-size: 20px;
+  font-weight: bold;
+  color: #76c7c0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.rbc-event {
+  background: #2c5364;
+  color: #ffffff;
+  border: 1px solid #76c7c0;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.rbc-event:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(118, 199, 192, 0.5);
+}
+
+.rbc-today {
+  background: rgba(0, 150, 136, 0.15);
+  border: 1px solid #76c7c0;
+  color: #ffffff;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.rbc-today:hover {
+  transform: scale(1.02);
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader {
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #76c7c0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
   }
-  
-  .react-calendar__tile--active {
-    background-color: #4ecca3 !important;
-    color: #1c1e26 !important;
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .calendar-events {
-    text-align: center;
-    color: #f5f5f5;
+}
+
+.error-container {
+  text-align: center;
+  color: #ff5252;
+  font-family: 'Poppins', sans-serif;
+}
+
+.error-container p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.error-container button {
+  margin-top: 20px;
+  background: #ff5252;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.error-container button:hover {
+  background: #ff3333;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    height: auto;
   }
-  
+
+  .rbc-toolbar button {
+    padding: 6px 15px;
+    font-size: 12px;
+  }
+
+  .rbc-event {
+    font-size: 12px;
+  }
+}

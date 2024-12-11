@@ -1,7 +1,11 @@
 /* Protocolos Section */
 
 .protocols-section {
-  background: linear-gradient(to bottom, #1c1e26, #2d2f36); /* Gradiente elegante */
+  background: linear-gradient(
+    to bottom,
+    #1c1e26,
+    #2d2f36
+  ); /* Gradiente elegante */
   padding: 80px 20px;
   text-align: center;
   color: #ffffff;
@@ -29,9 +33,30 @@
 .error {
   color: white;
 }
+.inicio {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #1c1e26;
+  background: linear-gradient(135deg, #4ecca3, #00b39b);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
 
 .protocol-circle {
-  background: linear-gradient(145deg, #292b34, #383a42); /* Gradiente 3D suave */
+  background: linear-gradient(
+    145deg,
+    #292b34,
+    #383a42
+  ); /* Gradiente 3D suave */
   border-radius: 50%;
   width: 220px;
   height: 220px;
@@ -39,16 +64,23 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(78, 204, 163, 0.15); /* Sombra refinada */
+  transition: transform 0.5s ease, box-shadow 0.5s ease,
+    background-color 0.5s ease;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5),
+    -10px -10px 20px rgba(78, 204, 163, 0.15); /* Sombra refinada */
   text-decoration: none; /* Quita el estilo de enlace */
   color: inherit; /* Usa el color del contenedor */
 }
 
 .protocol-circle:hover {
   transform: translateY(-10px) rotate(5deg); /* Desplazamiento y rotación */
-  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6), -15px -15px 30px rgba(78, 204, 163, 0.3);
-  background: linear-gradient(145deg, #4ecca3, #3a3c45); /* Gradiente más brillante */
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6),
+    -15px -15px 30px rgba(78, 204, 163, 0.3);
+  background: linear-gradient(
+    145deg,
+    #4ecca3,
+    #3a3c45
+  ); /* Gradiente más brillante */
   cursor: pointer;
 }
 

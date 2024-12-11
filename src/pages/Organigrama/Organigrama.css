@@ -39,7 +39,24 @@ svg {
   stroke-width: 3px;
   transition: all 0.3s ease;
 }
-
+.inicio {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #1c1e26;
+  background: linear-gradient(135deg, #4ecca3, #00b39b);
+  border: none;
+  border-radius: 30px;
+  margin: 10px auto;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
 .node:hover circle {
   fill: #4ecca3; /* Fondo al pasar el mouse */
   stroke: #1c1e26; /* Borde al pasar el mouse */

@@ -5,13 +5,14 @@ import './Protocolos.css';
 
 const ProtocolosView = () => {
   const handleFileUploadSuccess = (newFile) => {
-    // Logic to add the new file to protocolos
+console.log(newFile);
   };
 
   return (
     <section className="protocols-section">
       <Protocolos />
       <FileUpload onFileUploadSuccess={handleFileUploadSuccess} />
+      <button className="inicio" onClick={() => (window.location.href = "/")}>Inicio</button>
     </section>
   );
 };

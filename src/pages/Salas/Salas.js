@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Salas.css";
 import axios from "axios";
 
-const Salas = () => {
+const Salas = ({ showButton = true }) => {
   const [salas, setSalas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"; // Sustituye con tu propia API Key de Google Maps
-
-  // Lista de colores únicos para las cartas
   const colors = [
     "#ff6f6ffb", "#90ee90", "#add8e6", "#F7CAC9", "#be87eb",
     "#ffb6c1", "#87ceeb", "#87ebb9", "#98eb87", "#EFC050",
@@ -42,25 +39,6 @@ const Salas = () => {
     }
   }, [loading, salas]);
 
-  // Función para obtener las coordenadas de Google Maps usando la API de geocodificación
-  const getCoordinates = async (direccion) => {
-    try {
-      const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(direccion)}&key=${API_KEY}`
-      );
-      const data = response.data;
-      if (data.status === "OK") {
-        const location = data.results[0].geometry.location;
-        return `${location.lat},${location.lng}`; // Devuelve latitud y longitud
-      }
-      return null;
-    } catch (error) {
-      console.error("Error al obtener coordenadas:", error);
-      return null;
-    }
-  };
-
-  // Generar el enlace de Google Maps
   const generateMapsUrl = (direccion) => {
     const encodedAddress = encodeURIComponent(direccion);
     return `https://www.google.com/maps?q=${encodedAddress}`;
@@ -73,7 +51,7 @@ const Salas = () => {
       </div>
     );
   }
-  
+
   if (error) return <p>{error}</p>;
 
   return (
@@ -101,7 +79,7 @@ const Salas = () => {
                   viewBox="0 0 16 16"
                 >
                   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4" />
                 </svg>
               </a>
             </div>
@@ -125,6 +103,14 @@ const Salas = () => {
           </div>
         ))}
       </div>
+      {showButton && (
+        <button
+          className="inicio"
+          onClick={() => (window.location.href = "/")}
+        >
+          Inicio
+        </button>
+      )}
     </section>
   );
 };

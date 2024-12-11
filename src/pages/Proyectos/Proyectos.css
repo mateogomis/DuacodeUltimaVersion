@@ -18,7 +18,7 @@ body {
 /* Título principal */
 .proyecto-titulo {
   font-size: 2.5rem;
-  margin-bottom: 30px;
+  margin: 40px auto;
   color: #4ecca3;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -115,7 +115,22 @@ body {
 .empleados-container::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
 }
-
+.inicio{
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #1c1e26;
+  background: linear-gradient(135deg, #4ecca3, #00b39b);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
 /* Botón para mostrar empleados */
 .mostrar-empleados-btn {
   padding: 12px 20px;
@@ -253,7 +268,7 @@ body {
   }
 }
 
-/* Pantallas grandes (laptops y desktops) */
+/* Pantallas grandes */
 @media (min-width: 1200px) {
   .proyecto-cards {
     justify-content: space-between; /* Espaciado uniforme entre las tarjetas */

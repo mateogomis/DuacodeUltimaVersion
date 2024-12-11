@@ -122,15 +122,6 @@ const Organigrama = () => {
 
   return (
     <div className="home-container">
-      <header className="home-header">
-        <nav className="header-nav">
-          <button onClick={() => (window.location.href = "/Proyectos")}>Proyectos</button>
-          <button onClick={() => (window.location.href = "/Protocolos")}>Protocolos</button>
-          <button onClick={() => (window.location.href = "/Salas")}>Salas</button>
-          <button onClick={() => (window.location.href = "/")}>Inicio</button>
-        </nav>
-      </header>
-
       <div className="org-chart-container">
         {!data ? (
           <div className="loader-container">
@@ -140,6 +131,7 @@ const Organigrama = () => {
           <svg ref={svgRef}></svg>
         )}
       </div>
+      <button className="inicio" onClick={() => (window.location.href = "/")}>Inicio</button>
     </div>
   );
 };

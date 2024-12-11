@@ -55,7 +55,6 @@ const Protocolos = () => {
             >
               <div className="protocol-content">
                 <span className="protocol-icon">
-                  {/* SVG Icon */}
                 </span>
                 <h3 className="protocol-name">{protocolo.nombre}</h3>
               </div>

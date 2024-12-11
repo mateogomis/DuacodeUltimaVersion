@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import "react-calendar/dist/Calendar.css"; // Estilos por defecto del calendario
+import "react-calendar/dist/Calendar.css"; 
 import "./Home.css";
 import Empleados from "../Empleados/Empleados";
 import Salas from "../Salas/Salas";
-import Protocolos from "../Protocolos/Protocolos";
-import Calendario from "../TestCalendario/TestCalendario";
+import Protocolos from "../Protocolos/Protocolos"; 
+import Calendario from "../Calendario/Calendario";
 import Proyectos from "../Proyectos/Proyectos";
 import '../Organigrama/OrganigramaHome.css';
+
 
 const Home = () => {
   useEffect(() => {
@@ -43,11 +44,13 @@ const Home = () => {
           <button onClick={() => (window.location.href = "/Proyectos")}>
             Proyectos
           </button>
+          <button onClick={() => (window.location.href = "/Calendario")}>
+            Calendario
+          </button>
           <button onClick={() => (window.location.href = "/Salas")}>
             Salas
           </button>
         </nav>
-        {/* Botón de Iniciar Sesión con ícono SVG */}
         <button
           className="login-button-unique"
           onClick={() => (window.location.href = "/login")}
@@ -83,7 +86,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Proyectos limite={3} />
+      <Proyectos limite={4} showButton={false} />
 
       <section className="nature-section">
         <h2 className="nature-title">
@@ -94,8 +97,8 @@ const Home = () => {
         </h2>
       </section>
 
-      <Calendario />
-      <Salas />
+      <Calendario showButton={false}/>
+      <Salas showButton={false}/>
 
       <section className="organigrama-section">
         <h2 className="organigrama-title">Organigrama de la Empresa</h2>

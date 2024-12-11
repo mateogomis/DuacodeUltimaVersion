@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Proyectos.css";
 
-const Proyectos = ({ limite }) => {
+const Proyectos = ({ limite, showButton = true }) => {
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ const Proyectos = ({ limite }) => {
         <div className="loader"></div>
       </div>
     );
-  } 
+  }
   if (error) return <p className="error">{error}</p>;
 
   const proyectosAMostrar = limite ? proyectos.slice(0, limite) : proyectos;
@@ -105,6 +105,11 @@ const Proyectos = ({ limite }) => {
           </div>
         ))}
       </div>
+      {showButton && (
+        <button className="inicio" onClick={() => (window.location.href = "/")}>
+          Inicio
+        </button>
+      )}
     </section>
   );
 };
