@@ -506,6 +506,64 @@ body {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); 
   transform: translateY(2px); 
 }
+/* Header styles */
+.home-header {
+  position: relative; /* Permite posicionar el botón sin afectar el resto del contenido */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #1c1e26;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+/* Header styles */
+.home-header {
+  position: fixed; /* Habilita posicionamiento relativo para los elementos absolutos */
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #1c1e26;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Navigation links */
+.header-nav {
+  display: flex;
+  gap: 15px;
+  flex-grow: 1; /* Permite que ocupe todo el espacio disponible */
+}
+
+/* Botón de Login (único) */
+.login-button-unique {
+  position: absolute; /* Posición absoluta para alinearlo al extremo derecho */
+  top: 50%; /* Centrado verticalmente dentro del header */
+  right: 30px; /* Alineación al borde derecho del header */
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #4ecca3;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.login-button-unique:hover {
+  color: #ffffff;
+  
+}
+
+.login-button-unique svg {
+  fill: currentColor; /* El ícono respeta el color del botón */
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
