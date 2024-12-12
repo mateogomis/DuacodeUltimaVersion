@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "../components/FileUpload.css";
 
 // Función para obtener el valor de la cookie por nombre
 const getCookie = (name) => {
   let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+      if (cookie.substring(0, name.length + 1) === name + "=") {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
@@ -16,12 +16,23 @@ const getCookie = (name) => {
   }
   return cookieValue;
 };
+const getAccessToken = () => {
+  const accessToken = localStorage.getItem("access_token");
+  if (!accessToken) {
+    console.error("No se encontró el token de acceso en el Local Storage.");
+    return null;
+  }
+  return accessToken;
+};
+
+const accessToken = getAccessToken(); // Obtén el token
+console.log("Access Token:", accessToken); // Usa la variable correcta
 
 const FileUpload = ({ onFileUploadSuccess }) => {
   const [file, setFile] = useState(null);
-  const [titulo, setTitulo] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [error, setError] = useState('');
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [error, setError] = useState("");
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -42,58 +53,63 @@ const FileUpload = ({ onFileUploadSuccess }) => {
     event.preventDefault();
 
     if (!titulo) {
-      setError('El título es obligatorio.');
+      setError("El título es obligatorio.");
       return;
     }
 
     if (!file) {
-      alert('Por favor, selecciona un archivo para subir.');
+      alert("Por favor, selecciona un archivo para subir.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('titulo', titulo);
-    formData.append('descripcion', descripcion);
+    formData.append("file", file);
+    formData.append("titulo", titulo);
+    formData.append("descripcion", descripcion);
 
     // Obtener el token CSRF de las cookies
-    const csrfToken = getCookie('csrftoken'); // Llama a la función para obtener el token CSRF
-
+    const csrfToken = getCookie("csrftoken"); // Llama a la función para obtener el token CSRF
+    const accessToken = localStorage.getItem("accessToken");
     try {
-      const response = await fetch('http://localhost:8000/upload/', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/upload/", {
+        method: "POST",
         headers: {
-          'X-CSRFToken': csrfToken, // Incluye el token CSRF en los encabezados
+          Authorization: `Bearer ${accessToken}`,
+          "X-CSRFToken": csrfToken, // Incluye el token CSRF en los encabezados
         },
         body: formData,
-        credentials: 'include'
+        credentials: "include",
       });
 
       if (!response.ok) {
         const errorData = await response.json(); // Intenta obtener datos de error
-        throw new Error(`Error al subir el archivo: ${response.status} - ${errorData.error || response.statusText}`);
+        throw new Error(
+          `Error al subir el archivo: ${response.status} - ${
+            errorData.error || response.statusText
+          }`
+        );
       }
 
       const data = await response.json();
-      console.log('Archivo subido:', data);
+      console.log("Archivo subido:", data);
 
       // Llamamos a la función para notificar que el archivo se subió con éxito
       // Pasamos el nombre del archivo y la descripción proporcionada por el usuario
       onFileUploadSuccess({
         nombre: data.titulo,
-        descripcion: data.descripcion || 'Sin descripción',
+        descripcion: data.descripcion || "Sin descripción",
         fecha: new Date(data.uploaded_at).toLocaleDateString(),
-        fileUrl: `http://localhost:8000/media/${data.file_name}`
+        fileUrl: `http://localhost:8000/media/${data.file_name}`,
       });
 
-      alert('Archivo subido con éxito.');
+      alert("Archivo subido con éxito.");
       setFile(null);
-      setTitulo('');
-      setDescripcion('');
-      setError(''); // Limpiar el error
+      setTitulo("");
+      setDescripcion("");
+      setError(""); // Limpiar el error
     } catch (error) {
-      console.error('Error al subir el archivo:', error);
-      alert('Error al subir el archivo: ' + error.message); // Muestra el mensaje de error
+      console.error("Error al subir el archivo:", error);
+      alert("Error al subir el archivo: " + error.message); // Muestra el mensaje de error
     }
   };
 
@@ -108,10 +124,7 @@ const FileUpload = ({ onFileUploadSuccess }) => {
           onChange={handleTituloChange}
         />
         {error && <p className="error">{error}</p>}
-        <input
-          type="file"
-          onChange={handleFileChange}
-        />
+        <input type="file" onChange={handleFileChange} />
         <input
           type="text"
           placeholder="Descripción (opcional)"

@@ -253,3 +253,37 @@ const handleQrScan = (imageData) => {
 };
 
 export default Login;
+/**
+ * Componente Login
+ * 
+ * Este componente representa la pantalla de inicio de sesión que incluye un slideshow de presentaciones y opciones para iniciar sesión usando correo/usuario y contraseña, o un escaneo de código QR.
+ * 
+ * Estados:
+ * - `currentSlide`: Mantiene la diapositiva actual en el slideshow.
+ * - `isTextHidden`: Estado para controlar la visibilidad del texto en el slideshow.
+ * - `isLogin`: Determina si el componente está en modo de inicio de sesión o registro.
+ * - `emailOrUser`, `password`, `username`: Valores de entrada del usuario para iniciar sesión.
+ * - `errorMessage`: Mensaje de error mostrado al usuario en caso de error al iniciar sesión.
+ * - `qrOverlayVisible`: Estado para controlar la visibilidad del overlay del escáner de QR.
+ * - `scannedResult`: Resultado del código QR escaneado.
+ * 
+ * Referencias:
+ * - `webcamRef`: Referencia para la cámara Web del escáner de QR.
+ * 
+ * Métodos:
+ * - `handleLogin`: Maneja el envío del formulario de inicio de sesión ya sea con un código QR escaneado o con credenciales manuales.
+ * - `handleQrScan`: Procesa el código QR escaneado usando `jsQR` y maneja la lectura de los datos JSON del código.
+ * - `handleActivateCamera`: Activa la cámara Web para el escaneo de QR y comienza a buscar un código QR cada 500 ms.
+ * - `closeScanner`: Cierra el overlay del escáner de QR y limpia los datos escaneados.
+ * - `handleSubmit`: Enviar los datos del formulario de inicio de sesión en formato `x-www-form-urlencoded`.
+ * 
+ * UI:
+ * - El componente muestra un slideshow rotando cada 4 segundos.
+ * - Permite a los usuarios iniciar sesión manualmente o usar un código QR.
+ * - Si se selecciona el inicio de sesión con QR, se activa la cámara Web y se busca un código QR.
+ * - El overlay del escáner de QR se muestra cuando la cámara está activa y se puede cerrar con un botón.
+ * - Los errores durante el proceso de inicio de sesión se muestran como un mensaje en la UI.
+ * 
+ * Estilos:
+ * - `Login.css` se utiliza para personalizar la apariencia del componente, incluidos el slideshow, los formularios, y el escáner de QR.
+ */

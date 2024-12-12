@@ -5,7 +5,7 @@ import './Protocolos.css';
 
 const ProtocolosView = () => {
   const handleFileUploadSuccess = (newFile) => {
-console.log(newFile);
+
   };
 
   return (

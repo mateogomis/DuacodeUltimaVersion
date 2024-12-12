@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import 'moment/locale/es'; // Importa el idioma español para moment.js
+import 'moment/locale/es'; 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Modal from './Modal';
 import './Calendario.css';
@@ -206,3 +206,36 @@ const Calendario = ({ showButton = true }) => {
 };
 
 export default Calendario;
+/**
+ * Componente Calendario
+ * 
+ * Este componente representa un calendario interactivo que permite visualizar y seleccionar eventos. Utiliza `react-big-calendar` para la visualización del calendario y `moment.js` para la gestión de fechas y horarios.
+ * 
+ * Props:
+ * - `showButton` (opcional, booleano): Muestra un botón de "Inicio" si se pasa como true.
+ * 
+ * Estado:
+ * - `events`: Arreglo de eventos cargados para mostrar en el calendario.
+ * - `selectedEvent`: Evento seleccionado actualmente para mostrar en un modal.
+ * - `loading`: Estado de carga para mostrar un indicador mientras se obtienen los datos.
+ * - `error`: Mensaje de error en caso de que ocurra algún problema al cargar los datos.
+ * - `sedes`: Lista de sedes disponibles.
+ * - `rooms`: Lista de salas disponibles para la sede seleccionada.
+ * - `selectedSede`: Sede seleccionada actualmente.
+ * - `selectedRoom`: Sala seleccionada actualmente.
+ * 
+ * Métodos:
+ * - `fetchSedes()`: Realiza una solicitud HTTP para cargar las sedes disponibles.
+ * - `fetchRooms()`: Realiza una solicitud HTTP para cargar las salas disponibles según la sede seleccionada.
+ * - `fetchEvents()`: Realiza una solicitud HTTP para cargar los eventos de la sala seleccionada.
+ * - `handleEventClick(event)`: Maneja el clic en un evento para mostrar sus detalles en un modal.
+ * 
+ * UI:
+ * - El componente muestra un selector de sedes y salas para filtrar los eventos.
+ * - Muestra un calendario interactivo donde los eventos están representados.
+ * - Los detalles del evento seleccionado se muestran en un modal.
+ * - Si ocurre un error al cargar datos, se muestra un mensaje de error y un botón para recargar la página.
+ * 
+ * Estilos:
+ * - `Calendario.css` se utiliza para personalizar la apariencia del calendario y sus elementos.
+ */

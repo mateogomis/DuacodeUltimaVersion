@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
-    "license-checker": "^25.0.1"
+    "license-checker": "^25.0.1",
+    "react-docgen": "^7.1.0"
   }
 }
