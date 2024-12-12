@@ -1,26 +1,24 @@
-/* Contenedor principal de la sección */
 .organigrama-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 50px 20px;
-    background-color: #1c1e26; /* Fondo oscuro */
+    background-color: #1c1e26;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    color: #f5f5f5; /* Texto claro */
-    gap: 2rem; /* Espaciado entre elementos */
+    color: #f5f5f5; 
+    gap: 2rem; 
   }
   
-  /* Título principal */
   .organigrama-title {
     font-size: 2.5rem;
-    color: #4ecca3; /* Color verde claro */
+    color: #4ecca3; 
     margin-bottom: 20px;
     text-align: center;
   }
   
-  /* Contenedor de enlace al organigrama */
+
   .organigrama-link-container {
     display: flex;
     flex-direction: column;
@@ -29,16 +27,15 @@
     max-width: 100%;
   }
   
-  /* Texto de vista previa */
+
   .organigrama-preview-text {
     font-size: 1.2rem;
-    color: #d3d3d3; /* Texto gris claro */
+    color: #d3d3d3; 
     max-width: 600px;
     text-align: center;
     margin-bottom: 20px;
   }
   
-  /* Contenedor de la imagen de vista previa */
   .organigrama-preview-image {
     display: flex;
     justify-content: center;
@@ -50,10 +47,8 @@
     overflow: hidden;
     border-radius: 8px;
     text-align: center;
-    transition: transform 0.3s ease; /* Efecto de zoom */
-  }
+    transition: transform 0.3s ease; }
   
-  /* Imagen dentro del contenedor */
   .organigrama-preview-image img {
     display: block;
     margin: 0 auto;
@@ -62,19 +57,19 @@
     border-radius: 8px;
   }
   
-  /* Hover para la imagen */
+
   .organigrama-preview-image:hover {
-    transform: scale(1.1); /* Zoom al pasar el ratón */
+    transform: scale(1.1); 
   }
   
-  /* Botón para ver el organigrama */
+
   .organigrama-button {
     padding: 1rem 2rem;
     font-size: 1.2rem;
-    color: #1c1e26; /* Texto oscuro */
-    background-color: #4ecca3; /* Fondo verde */
+    color: #1c1e26; 
+    background-color: #4ecca3;
     border: none;
-    border-radius: 50px 15px 50px 15px; /* Bordes redondeados */
+    border-radius: 50px 15px 50px 15px; 
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -84,14 +79,11 @@
       background-color 0.3s ease;
   }
   
-  /* Efecto hover para el botón */
   .organigrama-button:hover {
-    color: #fff; /* Texto blanco */
-    transform: translateY(-3px); /* Mover el botón ligeramente hacia arriba */
-    box-shadow: 0 10px 20px rgba(78, 204, 163, 0.4); /* Sombra */
+    color: #fff; 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(78, 204, 163, 0.4); 
   }
-  
-  /* Fondo dinámico en hover */
   .organigrama-button:before {
     content: "";
     position: absolute;
@@ -99,29 +91,26 @@
     left: 0;
     width: 120%;
     height: 120%;
-    background: linear-gradient(135deg, #37a088, #4ecca3); /* Degradado verde */
+    background: linear-gradient(135deg, #37a088, #4ecca3); 
     z-index: -1;
     transform: rotate(-45deg) translate(-200%, -200%);
     transition: transform 0.5s ease;
     border-radius: 50%;
   }
   
-  /* Expandir el fondo en hover */
   .organigrama-button:hover:before {
     transform: rotate(-45deg) translate(0%, 0%);
   }
   
-  /* Efecto de texto animado en el botón */
   .organigrama-button span {
     position: relative;
     z-index: 2;
   }
   
   .organigrama-button:hover span {
-    animation: bounce 0.3s ease; /* Animación de rebote */
+    animation: bounce 0.3s ease; 
   }
   
-  /* Animación del texto */
   @keyframes bounce {
     0% {
       transform: translateY(0);
@@ -134,22 +123,21 @@
     }
   }
   
-  /* Responsive: Ajustes para dispositivos pequeños */
   @media (max-width: 768px) {
     .organigrama-title {
-      font-size: 2rem; /* Reducir tamaño del título */
+      font-size: 2rem; 
     }
   
     .organigrama-preview-text {
-      font-size: 1rem; /* Reducir tamaño del texto */
+      font-size: 1rem; 
     }
   
     .organigrama-preview-image {
-      max-width: 200px; /* Reducir tamaño de la imagen */
+      max-width: 200px; 
     }
   
     .organigrama-button {
-      font-size: 1rem; /* Reducir tamaño del botón */
+      font-size: 1rem; 
       padding: 0.8rem 1.5rem;
     }
   }

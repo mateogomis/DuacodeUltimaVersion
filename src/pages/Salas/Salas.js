@@ -1,3 +1,28 @@
+/**
+ * Componente Salas
+ * 
+ * Este componente muestra una lista de salas disponibles en una sede. Utiliza datos cargados desde una API externa y ofrece información detallada sobre cada sala, como su capacidad, ubicación y dirección en Google Maps.
+ * 
+ * Estado:
+ * - `salas`: Arreglo de salas cargadas para mostrar.
+ * - `loading`: Estado de carga para mostrar un indicador mientras se obtienen los datos.
+ * - `error`: Mensaje de error en caso de que ocurra algún problema al cargar los datos.
+ * 
+ * Métodos:
+ * - `fetchSalas()`: Realiza una solicitud HTTP para cargar las salas disponibles.
+ * - `generateMapsUrl(direccion)`: Genera un enlace a Google Maps con la dirección de la sala codificada.
+ * 
+ * UI:
+ * - El componente muestra una lista de tarjetas de salas con información detallada.
+ * - Cada tarjeta muestra el nombre, la capacidad y una imagen de la sala.
+ * - Incluye un enlace a Google Maps para cada sala.
+ * - Los colores de fondo de las tarjetas de salas se asignan de forma secuencial a partir de un conjunto predefinido de colores.
+ * - Si ocurre un error al cargar datos, se muestra un mensaje de error.
+ * 
+ * Estilos:
+ * - `Salas.css` se utiliza para personalizar la apariencia de las tarjetas de salas y sus elementos.
+ */
+
 import React, { useEffect, useState } from "react";
 import "./Salas.css";
 import axios from "axios";
@@ -34,7 +59,7 @@ const Salas = () => {
       cards.forEach((card, index) => {
         setTimeout(() => {
           card.classList.add("visible");
-        }, index * 200); // Aplica un retraso escalonado
+        }, index * 200); 
       });
     }
   }, [loading, salas]);
@@ -109,27 +134,3 @@ const Salas = () => {
 };
 
 export default Salas;
-/**
- * Componente Salas
- * 
- * Este componente muestra una lista de salas disponibles en una sede. Utiliza datos cargados desde una API externa y ofrece información detallada sobre cada sala, como su capacidad, ubicación y dirección en Google Maps.
- * 
- * Estado:
- * - `salas`: Arreglo de salas cargadas para mostrar.
- * - `loading`: Estado de carga para mostrar un indicador mientras se obtienen los datos.
- * - `error`: Mensaje de error en caso de que ocurra algún problema al cargar los datos.
- * 
- * Métodos:
- * - `fetchSalas()`: Realiza una solicitud HTTP para cargar las salas disponibles.
- * - `generateMapsUrl(direccion)`: Genera un enlace a Google Maps con la dirección de la sala codificada.
- * 
- * UI:
- * - El componente muestra una lista de tarjetas de salas con información detallada.
- * - Cada tarjeta muestra el nombre, la capacidad y una imagen de la sala.
- * - Incluye un enlace a Google Maps para cada sala.
- * - Los colores de fondo de las tarjetas de salas se asignan de forma secuencial a partir de un conjunto predefinido de colores.
- * - Si ocurre un error al cargar datos, se muestra un mensaje de error.
- * 
- * Estilos:
- * - `Salas.css` se utiliza para personalizar la apariencia de las tarjetas de salas y sus elementos.
- */

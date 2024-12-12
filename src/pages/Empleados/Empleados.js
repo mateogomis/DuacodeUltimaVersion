@@ -42,8 +42,18 @@ const Empleados = () => {
    * Lista de nombres de los meses en español para dar formato a fechas.
    */
   const Meses = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   /**
@@ -115,23 +125,21 @@ const Empleados = () => {
           {filteredEmpleados.map((empleado) => (
             <div className="employee-card" key={empleado.id}>
               <div className="employee-image-container">
-                {/* Imagen del empleado */}
                 <img
                   src={`http://localhost:8000/media/${empleado.foto}`}
                   alt={empleado.nombre}
                   className="employee-image"
                 />
               </div>
-              {/* Nombre del empleado */}
+
               <h3 className="employee-name">
                 {empleado.nombre} {empleado.apellido_1} {empleado.apellido_2}
               </h3>
-              {/* Botón para expandir detalles */}
+
               <button
                 className="expand-button"
                 onClick={() => toggleInfo(empleado.id)}
               >
-                {/* Icono SVG */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -147,7 +155,6 @@ const Empleados = () => {
                   />
                 </svg>
               </button>
-              {/* Detalles expandidos */}
               {expandedCards[empleado.id] && (
                 <div className="employee-info-expanded">
                   <p>
@@ -168,7 +175,8 @@ const Empleados = () => {
                     })()}
                   </p>
                   <p>
-                    <strong>Cumpleaños:</strong> {FormatoCumple(empleado.cumpleanos.substring(0, 5))}
+                    <strong>Cumpleaños:</strong>{" "}
+                    {FormatoCumple(empleado.cumpleanos.substring(0, 5))}
                   </p>
                   <p>
                     <strong>Contratación:</strong> {empleado.fecha_contratacion}
@@ -180,16 +188,18 @@ const Empleados = () => {
                     <strong>Teléfono:</strong> {empleado.telefono}
                   </p>
                   <p>
-                    <strong>Oficina:</strong> {empleado.sede.nombre || "No asignada"}
+                    <strong>Oficina:</strong>{" "}
+                    {empleado.sede.nombre || "No asignada"}
                   </p>
                   <p>
-                    <strong>Dirección:</strong> {empleado.sede.direccion || "No disponible"}
+                    <strong>Dirección:</strong>{" "}
+                    {empleado.sede.direccion || "No disponible"}
                   </p>
                   <p>
                     <strong>Supervisor:</strong> {empleado.supervisor}
                   </p>
                   <p>
-                    <strong>Puesto:</strong> {empleado.rol.rol_display}
+                    <strong>Puesto:</strong> {empleado.rol_display}
                   </p>
                   <p>
                     <strong>Vacaciones: </strong>

@@ -1,4 +1,3 @@
-/* Estilo general */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -7,7 +6,6 @@ body {
   color: #f5f5f5;
 }
 
-/* Contenedor principal */
 .proyecto-section {
   background: linear-gradient(135deg, #1c1e26, #2d2f36);
   color: #f5f5f5;
@@ -15,7 +13,6 @@ body {
   text-align: center;
 }
 
-/* Título principal */
 .proyecto-titulo {
   font-size: 2.5rem;
   margin: 40px auto;
@@ -24,7 +21,6 @@ body {
   letter-spacing: 3px;
 }
 
-/* Contenedor de tarjetas */
 .proyecto-cards {
   display: flex;
   flex-wrap: wrap;
@@ -32,7 +28,6 @@ body {
   gap: 30px;
 }
 
-/* Tarjetas individuales */
 .proyecto-card {
   background: linear-gradient(135deg, #2d2f36, #1c1e26);
   color: #f5f5f5;
@@ -44,11 +39,10 @@ body {
   border: 3px solid transparent;
   position: relative;
   overflow: hidden;
-  max-height: 300px; /* Limitar altura predeterminada */
+  max-height: 300px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Decoración en la esquina de la tarjeta */
 .proyecto-card:before {
   content: "";
   position: absolute;
@@ -64,25 +58,21 @@ body {
 
 .proyecto-card:hover:before {
   transform: scale(1.2);
-  background: rgba(78, 204, 163, 0.3); /* Ligero cambio de opacidad */
+  background: rgba(78, 204, 163, 0.3);
 }
 
-/* Hover más fluido para las tarjetas */
 .proyecto-card:hover {
-  transform: translateY(-5px); /* Levantamiento sutil */
-  box-shadow: 0 12px 24px rgba(78, 204, 163, 0.5); /* Sombra suave */
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(78, 204, 163, 0.5);
   border-color: #4ecca3;
 }
 
-
-/* Tarjetas expandida */
 .proyecto-card.expandido {
-  max-height: 600px; /* Expandir para mostrar contenido */
-  padding: 20px 20px 40px; /* Agregar espacio extra al final */
+  max-height: 600px;
+  padding: 20px 20px 40px;
   border-color: #4ecca3;
 }
 
-/* Contenedor de empleados oculto por defecto */
 .empleados-container {
   opacity: 0;
   height: 0;
@@ -91,18 +81,16 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   padding: 15px;
-  max-height: 400px; /* Límite de altura máxima */
-  overflow-y: auto; /* Agregar desplazamiento vertical */
+  max-height: 400px;
+  overflow-y: auto;
 }
 
-/* Mostrar empleados solo cuando la tarjeta está expandida */
 .proyecto-card.expandido .empleados-container {
   opacity: 1;
   height: auto;
   margin-top: 20px;
 }
 
-/* Estilo para el scrollbar */
 .empleados-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -115,7 +103,8 @@ body {
 .empleados-container::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
 }
-.inicio{
+
+.inicio {
   margin-top: 20px;
   padding: 12px 20px;
   font-size: 1rem;
@@ -131,7 +120,7 @@ body {
   width: 200px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
-/* Botón para mostrar empleados */
+
 .mostrar-empleados-btn {
   padding: 12px 20px;
   font-size: 1rem;
@@ -147,7 +136,6 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-/* Decoración en el botón */
 .mostrar-empleados-btn:before {
   content: "";
   position: absolute;
@@ -173,7 +161,6 @@ body {
   color: #ffffff;
 }
 
-/* Tarjeta de empleado */
 .empleado-item {
   display: flex;
   align-items: center;
@@ -182,47 +169,42 @@ body {
   background: rgba(45, 47, 54, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  overflow: hidden; /* Evitar desbordamiento */
-  text-overflow: ellipsis; /* Cortar texto largo */
-  flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-wrap: wrap;
 }
 
-/* Foto del empleado */
 .empleado-foto {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   margin-right: 15px;
   border: 2px solid #4ecca3;
-  flex-shrink: 0; /* Evitar que la imagen cambie de tamaño */
+  flex-shrink: 0;
 }
 
-/* Información del empleado */
 .empleado-info {
-  flex: 1; /* Permitir que ocupe el espacio restante */
-  overflow: hidden; /* Ocultar contenido que exceda el contenedor */
-  word-wrap: break-word; /* Ajustar palabras largas */
+  flex: 1;
+  overflow: hidden;
+  word-wrap: break-word;
   line-height: 1.5;
 }
 
-/* Nombre del empleado */
 .empleado-nombre {
   font-size: 1.2rem;
   color: #4ecca3;
   margin-bottom: 5px;
-  white-space: nowrap; /* Evitar que el nombre se divida */
-  text-overflow: ellipsis; /* Mostrar "..." si es muy largo */
-  overflow: hidden; /* Ocultar texto que exceda el contenedor */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-/* Información adicional del empleado */
 .empleado-info p {
-  margin: 0; /* Eliminar márgenes predeterminados */
-  font-size: 0.9rem; /* Ajustar tamaño de texto */
+  margin: 0;
+  font-size: 0.9rem;
   color: #f5f5f5;
 }
 
-/* Texto de carga y error */
 .loading,
 .error {
   color: #f5f5f5;
@@ -230,14 +212,9 @@ body {
   text-align: center;
 }
 
-/* ======================= */
-/* Estilos Responsivos */
-/* ======================= */
-
-/* Pantallas pequeñas (teléfonos) */
 @media (max-width: 576px) {
   .proyecto-card {
-    width: 90%; /* Ocupa casi todo el ancho */
+    width: 90%;
     margin: 0 auto;
   }
 
@@ -251,15 +228,14 @@ body {
   }
 }
 
-/* Pantallas medianas (tabletas) */
 @media (max-width: 768px) {
   .proyecto-cards {
-    flex-direction: column; /* Apilar las tarjetas verticalmente */
+    flex-direction: column;
     gap: 20px;
   }
 
   .proyecto-card {
-    width: 80%; /* Más ancha en tabletas */
+    width: 80%;
     margin: 0 auto;
   }
 
@@ -268,10 +244,9 @@ body {
   }
 }
 
-/* Pantallas grandes */
 @media (min-width: 1200px) {
   .proyecto-cards {
-    justify-content: space-between; /* Espaciado uniforme entre las tarjetas */
+    justify-content: space-between;
   }
 
   .proyecto-card {

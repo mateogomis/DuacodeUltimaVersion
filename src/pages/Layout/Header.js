@@ -6,7 +6,6 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Define los botones que deben mostrarse según la ruta activa
   const buttons = [
     { path: "/", label: "Inicio" },
     { path: "/organigrama", label: "Organigrama" },
@@ -21,7 +20,7 @@ const Header = () => {
       <div className="header-logo"></div>
       <nav className="header-nav">
         {buttons
-          .filter((button) => button.path !== location.pathname) // Oculta el botón de la ruta actual
+          .filter((button) => button.path !== location.pathname) 
           .map((button) => (
             <button
               key={button.path}

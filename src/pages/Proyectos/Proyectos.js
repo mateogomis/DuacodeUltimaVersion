@@ -1,3 +1,31 @@
+/**
+ * Componente Proyectos
+ * 
+ * Este componente muestra una lista de proyectos de la empresa. Permite cargar y mostrar los proyectos desde una API externa y proporciona opciones para expandir detalles específicos de cada proyecto, incluyendo la lista de empleados asignados.
+ * 
+ * Props:
+ * - `limite` (opcional, número): Limita el número de proyectos mostrados en la vista.
+ * 
+ * Estado:
+ * - `proyectos`: Arreglo de proyectos cargados para mostrar.
+ * - `loading`: Estado de carga para mostrar un indicador mientras se obtienen los datos.
+ * - `error`: Mensaje de error en caso de que ocurra algún problema al cargar los datos.
+ * - `mostrarEmpleadoId`: ID del proyecto actualmente expandido para mostrar los empleados.
+ * 
+ * Métodos:
+ * - `fetchProyectos()`: Realiza una solicitud HTTP para cargar los proyectos disponibles.
+ * - `toggleEmpleados(proyectoId)`: Cambia el estado del proyecto expandido para mostrar/ocultar los empleados asignados.
+ * 
+ * UI:
+ * - El componente muestra una lista de proyectos con detalles básicos.
+ * - Permite expandir proyectos para ver detalles adicionales, como empleados asignados.
+ * - Los empleados asignados se muestran con su información básica, incluida la foto.
+ * - Si ocurre un error al cargar datos, se muestra un mensaje de error.
+ * 
+ * Estilos:
+ * - `Proyectos.css` se utiliza para personalizar la apariencia de los proyectos y sus elementos.
+ */
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Proyectos.css";
@@ -6,7 +34,7 @@ const Proyectos = ({ limite}) => {
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [mostrarEmpleadoId, setMostrarEmpleadoId] = useState(null); // Único ID expandido
+  const [mostrarEmpleadoId, setMostrarEmpleadoId] = useState(null); 
 
   useEffect(() => {
     const fetchProyectos = async () => {
@@ -88,7 +116,7 @@ const Proyectos = ({ limite}) => {
                               <strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong>
                             </p>
                             <p>
-                              <strong>Rol:</strong> {empleado.rol.rol_display}
+                              <strong>Rol:</strong> {empleado.rol_display}
                             </p>
                             <p>
                               <strong>Email:</strong> {empleado.email}
@@ -115,30 +143,3 @@ const Proyectos = ({ limite}) => {
 };
 
 export default Proyectos;
-/**
- * Componente Proyectos
- * 
- * Este componente muestra una lista de proyectos de la empresa. Permite cargar y mostrar los proyectos desde una API externa y proporciona opciones para expandir detalles específicos de cada proyecto, incluyendo la lista de empleados asignados.
- * 
- * Props:
- * - `limite` (opcional, número): Limita el número de proyectos mostrados en la vista.
- * 
- * Estado:
- * - `proyectos`: Arreglo de proyectos cargados para mostrar.
- * - `loading`: Estado de carga para mostrar un indicador mientras se obtienen los datos.
- * - `error`: Mensaje de error en caso de que ocurra algún problema al cargar los datos.
- * - `mostrarEmpleadoId`: ID del proyecto actualmente expandido para mostrar los empleados.
- * 
- * Métodos:
- * - `fetchProyectos()`: Realiza una solicitud HTTP para cargar los proyectos disponibles.
- * - `toggleEmpleados(proyectoId)`: Cambia el estado del proyecto expandido para mostrar/ocultar los empleados asignados.
- * 
- * UI:
- * - El componente muestra una lista de proyectos con detalles básicos.
- * - Permite expandir proyectos para ver detalles adicionales, como empleados asignados.
- * - Los empleados asignados se muestran con su información básica, incluida la foto.
- * - Si ocurre un error al cargar datos, se muestra un mensaje de error.
- * 
- * Estilos:
- * - `Proyectos.css` se utiliza para personalizar la apariencia de los proyectos y sus elementos.
- */

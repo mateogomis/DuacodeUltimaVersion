@@ -40,7 +40,6 @@
   opacity: 0;
 }
 
-/* Login Form */
 .login-form-container {
   flex: 1;
   background: #2d2f36;
@@ -162,7 +161,6 @@
   font-size: 16px;
 }
 
-/* Responsividad para pantallas medianas */
 @media (max-width: 1024px) {
   .slideshow-title {
     font-size: 36px;
@@ -182,7 +180,7 @@
   }
 }
 
-/* Responsividad para pantallas pequeñas */
+
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
@@ -228,7 +226,6 @@
     width: 95%;
   }
 
-  /* Ajusta la posición del formulario en pantallas muy pequeñas */
   .login-form-container {
     justify-content: flex-start;
     padding-top: 30px;

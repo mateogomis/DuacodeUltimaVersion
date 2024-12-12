@@ -56,13 +56,12 @@ const Home = () => {
           }
         });
       },
-      { threshold: 0.5 } // Activar cuando el 50% del elemento es visible
+      { threshold: 0.5 }
     );
 
     const roomElements = document.querySelectorAll(".room-card");
     roomElements.forEach((el) => observer.observe(el));
 
-    // Limpiar el observador cuando el componente se desmonta
     return () => {
       roomElements.forEach((el) => observer.unobserve(el));
     };
@@ -97,7 +96,6 @@ const Home = () => {
       </header>
 
       <main className="home-main">
-        {/* Fondo de video */}
         <div className="video-background">
           <video autoPlay muted loop className="background-video">
             <source
@@ -107,7 +105,6 @@ const Home = () => {
             Tu navegador no soporta vídeos HTML5.
           </video>
         </div>
-        {/* Contenido superpuesto */}
         <div className="home-content">
           <h1 className="home-title">Bienvenido a Duacode</h1>
         </div>

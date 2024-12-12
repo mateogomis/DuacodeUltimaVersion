@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './NotFound.css'; // Asegúrate de tener los estilos
-import logo from '../assets/images/logo.png'; // Importa la imagen
+import './NotFound.css'; 
+import logo from '../assets/images/logo.png';
 
 const NotFound = () => {
   return (

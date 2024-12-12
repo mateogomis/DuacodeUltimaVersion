@@ -11,13 +11,11 @@ import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from "./pages/Admin/Admin";
 import AdminEmpleados from "./pages/Admin/AdminEmpleados/AdminEmpleados";
 import Layout from "./pages/Layout/Layout";
-import NotFound from "./components/NotFound"; // Importa el nuevo componente
-
+import NotFound from "./components/NotFound";
 
 const App = () => {
   return (
     <Routes>
-      {/* Layout con Header Global */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/organigrama" element={<Organigrama />} />
@@ -27,7 +25,6 @@ const App = () => {
         <Route path="/protocolos" element={<Protocolos />} />
       </Route>
 
-      {/* Rutas sin Header */}
       <Route path="/login" element={<Login />} />
       <Route
         path="/admin"
@@ -46,7 +43,6 @@ const App = () => {
         }
       />
 
-      {/* Ruta para manejo de 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

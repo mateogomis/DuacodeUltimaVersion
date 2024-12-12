@@ -1,33 +1,30 @@
-/* Contenedor principal */
+
 .protocols-home-wrapper {
-  background-color: #1c1e26; /* Fondo unificado */
+  background-color: #1c1e26;
   text-align: center;
-  padding: 40px 0; /* Espacio arriba y abajo */
+  padding: 40px 0; 
 }
 
-/* Título de la sección */
 .protocols-title {
   font-size: 32px;
   font-weight: bold;
-  color: #4ecca3; /* Verde azulado */
+  color: #4ecca3; 
   text-align: center;
-  margin: 50px auto; /* Espacio debajo del título */
+  margin: 50px auto; 
   text-transform: uppercase;
   letter-spacing: 1.2px;
 }
 
-/* Contenedor de los protocolos */
 .protocols-home-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 40px;
-  padding: 40px 0; /* Espacio interno */
+  padding: 40px 0; 
   margin: 0 auto;
 }
 
-/* Circulos de protocolos */
 .protocol-home-circle {
   background: linear-gradient(145deg, #292b34, #383a42);
   border-radius: 50%;
@@ -43,7 +40,6 @@
   color: inherit;
 }
 
-/* Efecto hover sobre el círculo */
 .protocol-home-circle:hover {
   transform: translateY(-10px) rotate(5deg);
   box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6), -15px -15px 30px rgba(78, 204, 163, 0.3);
@@ -51,7 +47,6 @@
   cursor: pointer;
 }
 
-/* Descripción oculta inicialmente debajo del círculo */
 .protocol-home-description {
   position: absolute;
   opacity: 0;
@@ -60,7 +55,7 @@
   color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  bottom: -30px; /* Posiciona la descripción debajo del círculo */
+  bottom: -30px; 
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   width: 180px;
@@ -69,13 +64,11 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Mostrar descripción al pasar el mouse */
 .protocol-home-circle:hover .protocol-home-description {
   opacity: 1;
-  transform: translateX(-50%) translateY(0); /* Sube la descripción al hover */
+  transform: translateX(-50%) translateY(0); 
 }
 
-/* Responsividad */
 @media (max-width: 768px) {
   .protocols-home-container {
     flex-direction: column;
@@ -86,6 +79,6 @@
     height: 180px;
   }
   .protocol-home-description {
-    width: 150px; /* Ajusta el tamaño de la descripción para pantallas más pequeñas */
+    width: 150px; 
   }
 }

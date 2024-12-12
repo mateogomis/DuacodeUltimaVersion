@@ -1,23 +1,20 @@
-/* Contenedor principal del organigrama */
 .org-chart-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: calc(100vh - 100px); /* Asegura que ocupe todo el alto */
+  min-height: calc(100vh - 100px);
   padding: 20px;
-  background-color: #1c1e26; /* Fondo oscuro */
-  overflow-x: auto; /* Permite desplazamiento horizontal */
-  overflow-y: auto; /* Permite desplazamiento vertical */
+  background-color: #1c1e26;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
-/* Ajuste para pantallas pequeñas */
 @media (max-width: 768px) {
   .org-chart-container {
-    margin-top: 50px; /* Agrega margen superior para evitar solapamientos */
+    margin-top: 50px;
   }
 }
 
-/* Contenedor SVG */
 svg {
   display: block;
   margin: 0 auto;
@@ -25,17 +22,15 @@ svg {
   max-width: 100%;
 }
 
-/* Enlaces entre nodos */
 .link {
   fill: none;
-  stroke: #4ecca3; /* Color de las líneas */
+  stroke: #4ecca3;
   stroke-width: 2px;
 }
 
-/* Nodo del organigrama */
 .node circle {
-  fill: #2d2f36; /* Fondo del nodo */
-  stroke: #4ecca3; /* Borde del nodo */
+  fill: #2d2f36;
+  stroke: #4ecca3;
   stroke-width: 3px;
   transition: all 0.3s ease;
 }
@@ -54,41 +49,37 @@ svg {
   position: relative;
   overflow: hidden;
   width: 200px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease,
-    background-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 .node:hover circle {
-  fill: #4ecca3; /* Fondo al pasar el mouse */
-  stroke: #1c1e26; /* Borde al pasar el mouse */
+  fill: #4ecca3;
+  stroke: #1c1e26;
 }
 
-/* Imagen dentro del nodo */
 .node image {
-  clip-path: circle(25px at 25px 25px); /* Imagen circular */
-  border-radius: 50%; /* Para navegadores que no soporten clip-path */
+  clip-path: circle(25px at 25px 25px);
+  border-radius: 50%;
 }
 
-/* Texto del nombre */
 .node text {
   fill: #f5f5f5;
   font-size: 14px;
   font-weight: bold;
 }
 
-/* Texto del rol */
 .node text.title {
   font-size: 12px;
   fill: #a9a9a9;
   font-style: italic;
 }
 
-/* Responsive: Asegura que sea legible en dispositivos pequeños */
 @media (max-width: 768px) {
   .node text {
     font-size: 10px;
   }
 
   .node circle {
-    r: 15; /* Reducir el tamaño del círculo */
+    r: 15;
   }
 }
+

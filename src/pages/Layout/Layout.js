@@ -6,7 +6,6 @@ const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Define los botones y las rutas excluidas dinámicamente
   const buttons = [
     { path: "/", label: "Inicio" },
     { path: "/organigrama", label: "Organigrama" },
@@ -26,7 +25,7 @@ const Layout = () => {
           <div className="header-logo"></div>
           <nav className="header-nav">
             {buttons
-              .filter((button) => button.path !== location.pathname) // Oculta el botón correspondiente a la ruta actual
+              .filter((button) => button.path !== location.pathname) 
               .map((button) => (
                 <button
                   key={button.path}

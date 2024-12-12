@@ -1,3 +1,30 @@
+/**
+ * Componente Organigrama
+ *
+ * Este componente renderiza un organigrama jerárquico usando D3.js. Utiliza datos obtenidos de una API para construir un gráfico de árbol donde cada nodo representa un empleado con su nombre, título y foto.
+ *
+ * Estados:
+ * - `data`: Almacena la estructura de datos del organigrama.
+ * - `svgRef`: Referencia al elemento SVG donde se renderiza el gráfico.
+ *
+ * Efectos:
+ * - `useEffect(() => { ... })`: Realiza una solicitud GET a la API para obtener los datos del organigrama y formatea la estructura de datos usando `transformData`.
+ * - `useEffect(() => { ... })`: Llama a `renderChart` cada vez que los datos cambian para actualizar la visualización del organigrama.
+ *
+ * Funciones:
+ * - `transformData`: Transforma los datos de la estructura del árbol para que coincidan con los requerimientos de la visualización (limitando la profundidad del árbol).
+ * - `renderChart`: Dibuja el gráfico del organigrama usando D3.js:
+ *   - Configura las dimensiones y separaciones.
+ *   - Dibuja enlaces y nodos.
+ *   - Muestra imágenes de empleados dentro de los nodos.
+ *   - Añade nombres y títulos de los empleados como texto en los nodos.
+ *
+ * UI:
+ * - El gráfico se dibuja dentro de un SVG.
+ * - Si los datos no están cargados, se muestra un cargador.
+ * - Un botón de inicio está disponible para redirigir al usuario a la página de inicio.
+ */
+
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import * as d3 from "d3";
@@ -30,7 +57,7 @@ const Organigrama = () => {
 
   const transformData = (node, depth = 0) => {
     if (depth >= 3) {
-      return null; // No agregar nodos más allá del tercer nivel
+      return null; 
     }
 
     return {
@@ -40,32 +67,31 @@ const Organigrama = () => {
       children: node.children
         ? node.children
             .map((child) => transformData(child, depth + 1))
-            .filter((child) => child !== null) // Filtrar nodos nulos
+            .filter((child) => child !== null) 
         : [],
     };
   };
 
   const renderChart = (data) => {
-    const width = 1800; // Incrementar ancho del organigrama
-    const height = 1900; // Incrementar altura para más espacio vertical
+    const width = 1800; 
+    const height = 1900; 
 
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // Limpiar el SVG antes de renderizar
+    svg.selectAll("*").remove(); 
 
     const g = svg
-      .attr("viewBox", `0 0 ${width} ${height}`) // Ajustar para ser responsive
-      .attr("preserveAspectRatio", "xMidYMid meet") // Mantener proporciones
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("preserveAspectRatio", "xMidYMid meet") 
       .append("g")
-      .attr("transform", `translate(100, 100)`); // Margen superior e izquierdo
+      .attr("transform", `translate(100, 100)`); 
 
     const treeLayout = d3.tree()
-      .size([height - 300, width - 400]) // Ajustar dimensiones del árbol
+      .size([height - 300, width - 400]) 
       .separation((a, b) => (a.depth === b.depth ? 2 : 1.5));
 
     const root = d3.hierarchy(data);
     treeLayout(root);
 
-    // Dibujar enlaces
     g.selectAll(".link")
       .data(root.links())
       .enter()
@@ -77,7 +103,6 @@ const Organigrama = () => {
         .y((d) => d.x)
       );
 
-    // Dibujar nodos
     const node = g
       .selectAll(".node")
       .data(root.descendants())
@@ -86,34 +111,31 @@ const Organigrama = () => {
       .attr("class", "node")
       .attr("transform", (d) => `translate(${d.y},${d.x})`);
 
-    // Círculo del nodo
     node.append("circle")
-      .attr("r", 30) // Tamaño del círculo
+      .attr("r", 30)
       .attr("fill", "#2d2f36")
       .attr("stroke", "#4ecca3")
       .attr("stroke-width", 3);
 
-    // Imagen dentro del círculo
     node.append("image")
       .attr("xlink:href", (d) => `http://localhost:8000${d.data.foto}`)
-      .attr("x", -25) // Centrar la imagen dentro del círculo
+      .attr("x", -25) 
       .attr("y", -25)
       .attr("width", 50)
       .attr("height", 50)
       .attr("clip-path", "circle(25px at 25px 25px)");
 
-    // Nombre del nodo
+
     node.append("text")
-      .attr("dy", 50) // Debajo del círculo
+      .attr("dy", 50) 
       .attr("text-anchor", "middle")
       .style("font-size", "14px")
       .style("font-weight", "bold")
       .style("fill", "#f5f5f5")
       .text((d) => d.data.name);
 
-    // Rol del nodo
     node.append("text")
-      .attr("dy", 70) // Más espacio debajo del nombre
+      .attr("dy", 70) 
       .attr("text-anchor", "middle")
       .style("font-size", "12px")
       .style("fill", "#a9a9a9")
@@ -134,29 +156,3 @@ const Organigrama = () => {
 };
 
 export default Organigrama;
-/**
- * Componente Organigrama
- *
- * Este componente renderiza un organigrama jerárquico usando D3.js. Utiliza datos obtenidos de una API para construir un gráfico de árbol donde cada nodo representa un empleado con su nombre, título y foto.
- *
- * Estados:
- * - `data`: Almacena la estructura de datos del organigrama.
- * - `svgRef`: Referencia al elemento SVG donde se renderiza el gráfico.
- *
- * Efectos:
- * - `useEffect(() => { ... })`: Realiza una solicitud GET a la API para obtener los datos del organigrama y formatea la estructura de datos usando `transformData`.
- * - `useEffect(() => { ... })`: Llama a `renderChart` cada vez que los datos cambian para actualizar la visualización del organigrama.
- *
- * Funciones:
- * - `transformData`: Transforma los datos de la estructura del árbol para que coincidan con los requerimientos de la visualización (limitando la profundidad del árbol).
- * - `renderChart`: Dibuja el gráfico del organigrama usando D3.js:
- *   - Configura las dimensiones y separaciones.
- *   - Dibuja enlaces y nodos.
- *   - Muestra imágenes de empleados dentro de los nodos.
- *   - Añade nombres y títulos de los empleados como texto en los nodos.
- *
- * UI:
- * - El gráfico se dibuja dentro de un SVG.
- * - Si los datos no están cargados, se muestra un cargador.
- * - Un botón de inicio está disponible para redirigir al usuario a la página de inicio.
- */

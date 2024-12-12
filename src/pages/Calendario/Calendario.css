@@ -20,7 +20,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  flex-wrap: wrap; /* Para permitir el comportamiento de distribución horizontal */
+  flex-wrap: wrap; 
 }
 
 .room-selector label {
@@ -197,8 +197,8 @@
 .selectors-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Asegura que los elementos comiencen desde la misma línea superior */
-  gap: 20px; /* Espacio entre los selectores */
+  align-items: flex-start;
+  gap: 20px; 
   margin-bottom: 20px;
 }
 
@@ -207,14 +207,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Alineación horizontal izquierda */
+  align-items: flex-start; 
 }
 
 .sede-selector label,
 .room-selector label {
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 5px; /* Espacio entre el label y el select */
+  margin-bottom: 5px; 
   text-align: left;
   color: #76c7c0;
 }
@@ -246,20 +246,20 @@
 
 @media (max-width: 768px) {
   .selectors-container {
-    flex-direction: column; /* Cambia a diseño vertical en pantallas pequeñas */
-    align-items: center; /* Asegura que estén centrados */
+    flex-direction: column; 
+    align-items: center; 
     gap: 10px;
   }
 
   .sede-selector,
   .room-selector {
-    width: 100%; /* Asegura que los selectores ocupen el ancho completo */
+    width: 100%; 
     text-align: center;
   }
 
   .sede-selector select,
   .room-selector select {
-    width: 100%; /* Asegura que los selectores ocupen el ancho completo */
+    width: 100%; 
   }
 }
 

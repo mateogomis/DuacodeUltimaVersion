@@ -1,31 +1,31 @@
 .home-header {
-    display: flex; /* Flexbox para alinear elementos */
-    align-items: center; /* Centrar verticalmente */
-    justify-content: space-between; /* Espacio entre el logo, botones y el login */
-    position: fixed; /* Fija el header en la parte superior */
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    position: fixed; 
     top: 0;
     left: 0;
-    width: 100%; /* Ocupa todo el ancho */
-    z-index: 1000; /* Asegura que el header esté encima */
-    background-color: rgba(0, 0, 0, 0.664); /* Fondo semitransparente */
-    padding: 10px 20px; /* Añade espacio interno */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    width: 100%; 
+    z-index: 1000; 
+    background-color: rgba(0, 0, 0, 0.664); 
+    padding: 10px 20px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     
   }
   
   .header-nav {
-    display: flex; /* Flexbox para los botones */
-    gap: 15px; /* Espacio entre botones */
-    justify-content: center; /* Centra horizontalmente los botones */
-    flex: 1; /* Deja que ocupe el espacio necesario */
+    display: flex;
+    gap: 15px; 
+    justify-content: center; 
+    flex: 1; 
   }
   
   .header-logo {
-    flex: 0; /* Ajusta el espacio del logo */
+    flex: 0; 
   }
   
   .login-button-unique {
-    flex: 0; /* Ajusta el espacio del botón de login */
+    flex: 0; 
     padding: 8px 16px;
     margin-right: 5%;
     background-color: rgba(0, 150, 135, 0);

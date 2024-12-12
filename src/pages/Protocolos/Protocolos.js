@@ -1,8 +1,29 @@
+/**
+ * Componente Protocolos
+ *
+ * Renderiza una lista de protocolos obtenidos desde una API. Muestra un número limitado de protocolos
+ * especificado mediante la propiedad `limite`.
+ *
+ * @param {Object} props - Propiedades del componente.
+ * @param {number} [props.limite=3] - Número máximo de protocolos que se mostrarán en la lista.
+ *
+ * @example
+ *  Uso del componente con el límite predeterminado de 3 protocolos
+ * <Protocolos />
+ *
+ * @example
+ *  Uso del componente mostrando hasta 7 protocolos
+ * <Protocolos limite={7} />
+ *
+ * @returns {JSX.Element} Elemento JSX que incluye la lista de protocolos o mensajes de error/carga según el estado.
+ */
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Protocolos.css"; // Asegúrate de tener el archivo CSS adecuado
+import "./Protocolos.css"; 
 
-const Protocolos = ({ limite = 3 }) => {
+const Protocolos = ({ limite}) => {
   const [protocolos, setProtocolos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -38,7 +59,6 @@ const Protocolos = ({ limite = 3 }) => {
 
   if (error) return <p className="error">{error}</p>;
 
-  // Limitar el número de protocolos mostrados en la vista inicial a 3
   const protocolosAMostrar = protocolos.slice(0, limite);
 
   return (
