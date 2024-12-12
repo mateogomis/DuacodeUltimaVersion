@@ -8,7 +8,6 @@ import Calendario from "../Calendario/Calendario";
 import Proyectos from "../Proyectos/Proyectos";
 import '../Organigrama/OrganigramaHome.css';
 
-
 const Home = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,42 +31,6 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <header className="home-header">
-        <div className="header-logo"></div>
-        <nav className="header-nav">
-          <button onClick={() => (window.location.href = "/Organigrama")}>
-            Organigrama
-          </button>
-          <button onClick={() => (window.location.href = "/Protocolos")}>
-            Protocolos
-          </button>
-          <button onClick={() => (window.location.href = "/Proyectos")}>
-            Proyectos
-          </button>
-          <button onClick={() => (window.location.href = "/Calendario")}>
-            Calendario
-          </button>
-          <button onClick={() => (window.location.href = "/Salas")}>
-            Salas
-          </button>
-        </nav>
-        <button
-          className="login-button-unique"
-          onClick={() => (window.location.href = "/login")}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="currentColor"
-            className="bi bi-door-open-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
-          </svg>
-        </button>
-      </header>
-
       <main className="home-main">
         {/* Fondo de video */}
         <div className="video-background">
@@ -86,7 +49,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Proyectos limite={4} showButton={false} />
+      <Proyectos limite={3} showButton={false} />
 
       <section className="nature-section">
         <h2 className="nature-title">

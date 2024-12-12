@@ -458,7 +458,8 @@ body {
 .header-nav {
   display: flex;
   gap: 15px; 
-  margin-top: 20px; 
+  margin-top: 5px; 
+  margin-bottom: 5px;
   justify-content: center; 
 }
 

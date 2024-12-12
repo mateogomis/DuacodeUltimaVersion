@@ -40,77 +40,81 @@ const Proyectos = ({ limite, showButton = true }) => {
   };
 
   return (
-    <section className="proyecto-section">
-      <h2 className="proyecto-titulo">Proyectos de la Empresa</h2>
-      <div className="proyecto-cards">
-        {proyectosAMostrar.map((proyecto) => (
-          <div
-            className={`proyecto-card ${
-              mostrarEmpleadoId === proyecto.id ? "expandido" : ""
-            }`}
-            key={proyecto.id}
-          >
-            <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
-            <p className="proyecto-descripcion">
-              <strong>Descripción:</strong> {proyecto.descripcion}
-            </p>
-            <p>
-              <strong>Fecha de Inicio:</strong> {proyecto.fecha_inicio}
-            </p>
-            <p>
-              <strong>Fecha de Fin:</strong> {proyecto.fecha_fin || "En curso"}
-            </p>
-
-            <button
-              className="mostrar-empleados-btn"
-              onClick={() => toggleEmpleados(proyecto.id)}
+    <div className="proyectos-container">
+      <section className="proyecto-section">
+        <h2 className="proyecto-titulo">Proyectos de la Empresa</h2>
+        <div className="proyecto-cards">
+          {proyectosAMostrar.map((proyecto) => (
+            <div
+              className={`proyecto-card ${
+                mostrarEmpleadoId === proyecto.id ? "expandido" : ""
+              }`}
+              key={proyecto.id}
             >
-              {mostrarEmpleadoId === proyecto.id ? "Ocultar Empleados" : "Mostrar Empleados"}
-            </button>
+              <h3 className="proyecto-nombre">{proyecto.nombre}</h3>
+              <p className="proyecto-descripcion">
+                <strong>Descripción:</strong> {proyecto.descripcion}
+              </p>
+              <p>
+                <strong>Fecha de Inicio:</strong> {proyecto.fecha_inicio}
+              </p>
+              <p>
+                <strong>Fecha de Fin:</strong> {proyecto.fecha_fin || "En curso"}
+              </p>
 
-            {mostrarEmpleadoId === proyecto.id && (
-              <div className="empleados-container">
-                <h4 className="empleados-titulo">Empleados Asignados:</h4>
-                {proyecto.empleados.length > 0 ? (
-                  <ul className="empleados-lista">
-                    {proyecto.empleados.map((empleado) => (
-                      <li key={empleado.id} className="empleado-item">
-                        <img
-                          src={`http://localhost:8000/media/${empleado.foto}`}
-                          alt={empleado.nombre}
-                          className="empleado-foto"
-                        />
-                        <div className="empleado-info">
-                          <p className="empleado-nombre">
-                            <strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong>
-                          </p>
-                          <p>
-                            <strong>Rol:</strong> {empleado.rol.rol_display}
-                          </p>
-                          <p>
-                            <strong>Email:</strong> {empleado.email}
-                          </p>
-                          <p>
-                            <strong>Teléfono:</strong> {empleado.telefono}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No hay empleados asignados a este proyecto.</p>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      {showButton && (
-        <button className="inicio" onClick={() => (window.location.href = "/")}>
-          Inicio
-        </button>
-      )}
-    </section>
+              <button
+                className="mostrar-empleados-btn"
+                onClick={() => toggleEmpleados(proyecto.id)}
+              >
+                {mostrarEmpleadoId === proyecto.id
+                  ? "Ocultar Empleados"
+                  : "Mostrar Empleados"}
+              </button>
+
+              {mostrarEmpleadoId === proyecto.id && (
+                <div className="empleados-container">
+                  <h4 className="empleados-titulo">Empleados Asignados:</h4>
+                  {proyecto.empleados.length > 0 ? (
+                    <ul className="empleados-lista">
+                      {proyecto.empleados.map((empleado) => (
+                        <li key={empleado.id} className="empleado-item">
+                          <img
+                            src={`http://localhost:8000/media/${empleado.foto}`}
+                            alt={empleado.nombre}
+                            className="empleado-foto"
+                          />
+                          <div className="empleado-info">
+                            <p className="empleado-nombre">
+                              <strong>{`${empleado.nombre} ${empleado.apellido_1} ${empleado.apellido_2}`}</strong>
+                            </p>
+                            <p>
+                              <strong>Rol:</strong> {empleado.rol.rol_display}
+                            </p>
+                            <p>
+                              <strong>Email:</strong> {empleado.email}
+                            </p>
+                            <p>
+                              <strong>Teléfono:</strong> {empleado.telefono}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No hay empleados asignados a este proyecto.</p>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        {showButton && (
+          <button className="inicio" onClick={() => (window.location.href = "/")}>
+            Inicio
+          </button>
+        )}
+      </section>
+    </div>
   );
 };
 

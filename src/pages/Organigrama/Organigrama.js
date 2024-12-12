@@ -121,17 +121,14 @@ const Organigrama = () => {
   };
 
   return (
-    <div className="home-container">
-      <div className="org-chart-container">
-        {!data ? (
-          <div className="loader-container">
-            <div className="loader"></div>
-          </div>
-        ) : (
-          <svg ref={svgRef}></svg>
-        )}
-      </div>
-      <button className="inicio" onClick={() => (window.location.href = "/")}>Inicio</button>
+    <div className="org-chart-container">
+      {!data ? (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <svg ref={svgRef}></svg>
+      )}
     </div>
   );
 };
