@@ -259,7 +259,6 @@ const handleQrScan = (imageData) => {
             </form>
           ) : (
             <form className="form">
-              {/* Registro */}
             </form>
           )}
         </div>
