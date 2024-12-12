@@ -1,3 +1,28 @@
+/**
+ * Componente Home
+ * 
+ * Este componente representa la página principal de la aplicación que contiene enlaces a diferentes secciones como Organigrama, Protocolos, Proyectos, Calendario y Salas. Además, muestra un video de fondo y citas inspiradoras.
+ * 
+ * Estados:
+ * - `observer`: Referencia al observador de intersección para rastrear la visibilidad de los elementos de la página.
+ * - `roomElements`: Elementos DOM que se observan para agregar la clase "visible" cuando se vuelven visibles en la pantalla.
+ * 
+ * Métodos:
+ * - `useEffect`: Configura un observador de intersección para mostrar elementos cuando son visibles al 50%.
+ * - `handleNavigation`: Función para redirigir a diferentes vistas cuando se hace clic en los botones de navegación.
+ * - `handleOutsideClick`: Función para manejar clics fuera del contenido del modal.
+ * 
+ * UI:
+ * - Encabezado de navegación con enlaces a otras secciones de la aplicación.
+ * - Video de fondo que se reproduce automáticamente y en bucle.
+ * - Citas inspiradoras y vistas de diferentes componentes como Empleados, Proyectos, Calendario y Salas.
+ * - Muestra un organigrama de la empresa con una imagen previa y un botón para ver más detalles.
+ * - Mensaje de error que se muestra al usar el componente Modal si no es visible.
+ * 
+ * Estilos:
+ * - `Home.css`, `OrganigramaHome.css` se utilizan para personalizar la apariencia del componente.
+ * - `Modal.css` se utiliza para estilizar el componente Modal que se muestra en la página.
+ */
 import React, { useEffect } from "react";
 import "react-calendar/dist/Calendar.css"; 
 import "./Home.css";
