@@ -1,255 +1,160 @@
-import React, { useState, useEffect, useRef } from "react";
-import Webcam from "react-webcam";
-import jsQR from "jsqr";
-import "./Login.css";
-import {useNavigate} from "react-router-dom"
-const slides = [
-  {
-    title: "DUACODE",
-    description: "Programa rookie",
-  },
-  {
-    title: "UX",
-    description: "Profesionales en hacértelo más fácil ;) ",
-  },
-  {
-    title: "Equipo Rookie </>",
-    description: "Martin Ois, Adrian Contreras, Mateo Gomis",
-  },
-];
-
-const Login = () => {
-  const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTextHidden, setIsTextHidden] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-  const [emailOrUser, setEmailOrUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [qrOverlayVisible, setQrOverlayVisible] = useState(false);
-  const webcamRef = useRef(null);
-  const [scannedResult, setScannedResult] = useState(null);
-
+/**
+ * Componente Home
+ * 
+ * Este componente representa la página principal de la aplicación que contiene enlaces a diferentes secciones como Organigrama, Protocolos, Proyectos, Calendario y Salas. Además, muestra un video de fondo y citas inspiradoras.
+ * 
+ * Estados:
+ * - `observer`: Referencia al observador de intersección para rastrear la visibilidad de los elementos de la página.
+ * - `roomElements`: Elementos DOM que se observan para agregar la clase "visible" cuando se vuelven visibles en la pantalla.
+ * 
+ * Métodos:
+ * - `useEffect`: Configura un observador de intersección para mostrar elementos cuando son visibles al 50%.
+ * - `handleNavigation`: Función para redirigir a diferentes vistas cuando se hace clic en los botones de navegación.
+ * - `handleOutsideClick`: Función para manejar clics fuera del contenido del modal.
+ * 
+ * UI:
+ * - Encabezado de navegación con enlaces a otras secciones de la aplicación.
+ * - Video de fondo que se reproduce automáticamente y en bucle.
+ * - Citas inspiradoras y vistas de diferentes componentes como Empleados, Proyectos, Calendario y Salas.
+ * - Muestra un organigrama de la empresa con una imagen previa y un botón para ver más detalles.
+ * - Mensaje de error que se muestra al usar el componente Modal si no es visible.
+ * 
+ * Estilos:
+ * - `Home.css`, `OrganigramaHome.css` se utilizan para personalizar la apariencia del componente.
+ * - `Modal.css` se utiliza para estilizar el componente Modal que se muestra en la página.
+ */
+const Home = () => {
+  /**
+   * Hook de efecto secundario para observar la intersección de elementos.
+   * Se añade la clase 'visible' a los elementos cuando se vuelven visibles.
+   */
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTextHidden(true);
-      setTimeout(() => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-        setIsTextHidden(false);
-      }, 800);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-  useEffect(() => {
-    // Detener la webcam al desmontar el componente
-    return () => {
-        if (webcamRef.current) {
-            const videoTracks = webcamRef.current?.stream?.getTracks();
-            if (videoTracks) {
-                videoTracks.forEach(track => track.stop()); // Detiene cada track de video
-            }
-        }
-    };
-}, []);
-const handleLogin = async (e, qrUsername = null, qrPassword = null) => {
-  if (e) e.preventDefault(); // Manejo del evento solo si se llama desde el formulario
-
-  const usernameToUse = qrUsername || emailOrUser; // Usa los valores del QR o del formulario
-  const passwordToUse = qrPassword || password;
-
-  try {
-    const response = await fetch("http://localhost:8000/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: usernameToUse, password: passwordToUse }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Inicio de sesión exitoso", data);
-      localStorage.setItem("access_token", data.access);
-      localStorage.setItem("refresh_token", data.refresh);
-      setErrorMessage("");
-      setQrOverlayVisible(false); // Cierra el overlay del QR si estaba activo
-      navigate("/admin/")
-    } else {
-      const errorData = await response.json();
-      setErrorMessage(errorData.detail || "Error en las credenciales");
-    }
-  } catch (err) {
-    console.error("Error al iniciar sesión", err);
-    setErrorMessage("No se pudo conectar con el servidor");
-  }
-};
-
-
-const handleQrScan = (imageData) => {
-  const code = jsQR(imageData.data, imageData.width, imageData.height);
-  if (code) {
-    console.log("Código QR leído:", code.data);
-
-    try {
-      const employeeData = JSON.parse(code.data);
-      const Username = `${employeeData.nombre}.${employeeData.apellido_1}`.toLowerCase();
-      const Password = employeeData.contraseña;
-
-      alert(`Código QR leído correctamente para ${employeeData.nombre}`);
-      handleLogin(null, Username, Password); // Llama a handleLogin con los datos del QR
-    } catch (error) {
-      console.error("Error al leer los datos del QR", error);
-      alert("Formato de QR inválido");
-    }
-  }
-};
-
-
-  const handleActivateCamera = async () => {
-    console.log("Intentando activar la cámara...");
-
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (stream) {
-        console.log("Cámara activada correctamente");
-        setQrOverlayVisible(true);
-
-        const interval = setInterval(() => {
-          if (webcamRef.current && webcamRef.current.video) {
-            const video = webcamRef.current.video;
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            handleQrScan(imageData);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
           }
-        }, 500); // Revisar cada 500 ms por QR
-        return () => clearInterval(interval);
-      }
-    } catch (err) {
-      console.error("No se pudo activar la cámara", err);
-      alert("No se pudo activar la cámara. Por favor, verifica tus permisos.");
-    }
-  };
-  // Cierrre de webcam
-  const closeScanner = () => {
-    setQrOverlayVisible(false); // Cierra el overlay
-    setScannedResult(null); // Opcional: Limpiar el resultado escaneado
-
-  };
-  const handleSubmit = async () => {
-    const response = await fetch("http://localhost:8000/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        });
       },
-      body: new URLSearchParams({
-        username: username.toLowerCase(),
-        password: password,
-      }),
-      credentials: "include",
-    });
+      { threshold: 0.5 } // Activar cuando el 50% del elemento es visible
+    );
 
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-    } else {
-      const errorData = await response.json();
-    }
+    const roomElements = document.querySelectorAll(".room-card");
+    roomElements.forEach((el) => observer.observe(el));
+
+    // Limpiar el observador cuando el componente se desmonta
+    return () => {
+      roomElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
+  /**
+   * Maneja el cambio de vista para redirigir a las diferentes secciones.
+   * @param {string} path - La ruta a redirigir.
+   */
+  const handleNavigation = (path) => {
+    window.location.href = path;
   };
-
-  useEffect(() => {
-    if (username && password) {
-      handleSubmit();
-    }
-  }, [username, password]);
 
   return (
-    <div className="login-container">
-      <div className="slideshow">
-        <h2 className={`slideshow-title ${isTextHidden ? "hidden" : ""}`}>
-          {slides[currentSlide].title}
-        </h2>
-        <p className={`slideshow-description ${isTextHidden ? "hidden" : ""}`}>
-          {slides[currentSlide].description}
-        </p>
-      </div>
-      <div className="login-form-container">
-        <div className="tabs">
-          <h3
-            className={`tab ${isLogin ? "active" : ""}`}
-            onClick={() => setIsLogin(true)}
+    <div className="home-container">
+      <header className="home-header">
+        <div className="header-logo"></div>
+        <nav className="header-nav">
+          <button onClick={() => handleNavigation("/Organigrama")}>Organigrama</button>
+          <button onClick={() => handleNavigation("/Protocolos")}>Protocolos</button>
+          <button onClick={() => handleNavigation("/Proyectos")}>Proyectos</button>
+          <button onClick={() => handleNavigation("/Calendario")}>Calendario</button>
+          <button onClick={() => handleNavigation("/Salas")}>Salas</button>
+        </nav>
+        <button
+          className="login-button-unique"
+          onClick={() => handleNavigation("/login")}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            className="bi bi-door-open-fill"
+            viewBox="0 0 16 16"
           >
-            Iniciar sesión
-          </h3>    
-        </div>
-        <div className="form-content">
-          {isLogin ? (
-            <form className="form" onSubmit={handleLogin}>
-              <input
-                type="text"
-                placeholder="Correo o Usuario"
-                className="form-input"
-                value={emailOrUser}
-                onChange={(e) => setEmailOrUser(e.target.value)}
-              />
-              <input
-                type="password"
-                placeholder="Contraseña"
-                className="form-input"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {errorMessage && <p className="form-error">{errorMessage}</p>}
-              <button type="submit" className="form-button">
-                Iniciar sesión
-              </button>
-              <button
-                type="button"
-                className="form-button qr-button"
-                onClick={handleActivateCamera}
-              >
-                Iniciar sesión con QR
-              </button>
-            </form>
-          ) : (
-            <form className="form">
-              {/* Registro */}
-            </form>
-          )}
-        </div>
-      </div>
+            <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+          </svg>
+        </button>
+      </header>
 
-      {qrOverlayVisible && (
-               <div className="qr-overlay">
-          <div className="qr-scanner-container">
-            <Webcam
-              ref={webcamRef}
-              onUserMedia={handleQrScan}
-              audio={false}
-              screenshotFormat="image/jpeg"
-              style={{ width: "100%", height: "auto" }}
+      <main className="home-main">
+        {/* Fondo de video */}
+        <div className="video-background">
+          <video autoPlay muted loop className="background-video">
+            <source
+              src="https://cdn.pixabay.com/video/2023/04/11/158384-816637349_large.mp4"
+              type="video/mp4"
             />
-            {/* <button className="form-button" onClick={() => setQrActive(false)}> */}
-            <button className="form-button" onClick={closeScanner}>
-              Cerrar escáner
-            </button>
-            {scannedResult && (
-              <p className="scanned-result">
-                Resultado escaneado: {scannedResult}
-              </p>
-            )}
-          </div>
+            Tu navegador no soporta vídeos HTML5.
+          </video>
         </div>
-      )}
+        {/* Contenido superpuesto */}
+        <div className="home-content">
+          <h1 className="home-title">Bienvenido a Duacode</h1>
+        </div>
+      </main>
 
+      <Empleados />
+      <Proyectos limite={4} showButton={false} />
+
+      <section className="nature-section">
+        <h2 className="nature-title">
+          "El diseño no es solo cómo se ve o cómo se siente. El diseño es cómo
+          funciona."
+          <br />
+          <span className="nature-author">— Steve Jobs</span>
+        </h2>
+      </section>
+
+      <Calendario showButton={false}/>
+      <Salas showButton={false}/>
+
+      <section className="organigrama-section">
+        <h2 className="organigrama-title">Organigrama de la Empresa</h2>
+        <div className="organigrama-link-container">
+          <div className="organigrama-preview">
+            <p className="organigrama-preview-text">
+              Explora cómo nuestra empresa está estructurada y conoce a nuestros
+              líderes clave.
+            </p>
+            <div className="organigrama-preview-image">
+              <img
+                src="/Organigrama.jpg"
+                alt="Organigrama Preview"
+                className="organigrama-image"
+              />
+            </div>
+          </div>
+          <button
+            className="organigrama-button"
+            onClick={() =>
+              handleNavigation("http://localhost:3000/Organigrama")
+            }
+          >
+            <span>Ver Organigrama</span>
+          </button>
+        </div>
+      </section>
+
+      <section className="basket-section">
+        <h2 className="basket-title">
+          "El talento gana partidos, pero el trabajo en equipo y la inteligencia
+          ganan campeonatos."
+          <br />
+          <span className="basket-author">— Michael Jordan</span>
+        </h2>
+      </section>
+      <Protocolos />
     </div>
   );
 };
 
-export default Login;
+export default Home;

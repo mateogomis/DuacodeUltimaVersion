@@ -39,15 +39,19 @@ const Empleados = () => {
   }, []);
 
   /**
+   * Lista de nombres de los meses en español para dar formato a fechas.
+   */
+  const Meses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
+  /**
    * Formato de cumpleaños en un estilo legible.
    * @param {string} birthday - Fecha en formato "DD-MM".
    * @returns {string} Fecha con el mes en texto.
    */
   const FormatoCumple = (birthday) => {
-    const Meses = [
-      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    ];
     const [day, month] = birthday.split("-");
     return `${day} de ${Meses[parseInt(month, 10) - 1]}`;
   };
@@ -146,11 +150,53 @@ const Empleados = () => {
               {/* Detalles expandidos */}
               {expandedCards[empleado.id] && (
                 <div className="employee-info-expanded">
-                  <p><strong>Estado: </strong>{/* Lógica para mostrar estado */}</p>
-                  <p><strong>Cumpleaños:</strong> {FormatoCumple(empleado.cumpleanos.substring(0,5))}</p>
-                  <p><strong>Contratación:</strong> {empleado.fecha_contratacion}</p>
-                  <p><strong>Correo:</strong> {empleado.email}</p>
-                  {/* Otros detalles del empleado */}
+                  <p>
+                    <strong>Estado: </strong>
+                    {(() => {
+                      if (
+                        empleado.baja === false &&
+                        empleado.excedencia === false &&
+                        empleado.vacaciones === false &&
+                        empleado.teletrabajo === false
+                      ) {
+                        return "Está trabajando";
+                      } else if (empleado.teletrabajo === true) {
+                        return "Está teletrabajando";
+                      } else {
+                        return "No está trabajando";
+                      }
+                    })()}
+                  </p>
+                  <p>
+                    <strong>Cumpleaños:</strong> {FormatoCumple(empleado.cumpleanos.substring(0, 5))}
+                  </p>
+                  <p>
+                    <strong>Contratación:</strong> {empleado.fecha_contratacion}
+                  </p>
+                  <p>
+                    <strong>Correo:</strong> {empleado.email}
+                  </p>
+                  <p>
+                    <strong>Teléfono:</strong> {empleado.telefono}
+                  </p>
+                  <p>
+                    <strong>Oficina:</strong> {empleado.sede.nombre || "No asignada"}
+                  </p>
+                  <p>
+                    <strong>Dirección:</strong> {empleado.sede.direccion || "No disponible"}
+                  </p>
+                  <p>
+                    <strong>Supervisor:</strong> {empleado.supervisor}
+                  </p>
+                  <p>
+                    <strong>Puesto:</strong> {empleado.rol.rol_display}
+                  </p>
+                  <p>
+                    <strong>Vacaciones: </strong>
+                    {empleado.vacaciones
+                      ? "Está de vacaciones"
+                      : "No está de vacaciones"}
+                  </p>
                 </div>
               )}
             </div>

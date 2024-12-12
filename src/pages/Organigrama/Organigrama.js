@@ -137,3 +137,29 @@ const Organigrama = () => {
 };
 
 export default Organigrama;
+/**
+ * Componente Organigrama
+ *
+ * Este componente renderiza un organigrama jerárquico usando D3.js. Utiliza datos obtenidos de una API para construir un gráfico de árbol donde cada nodo representa un empleado con su nombre, título y foto.
+ *
+ * Estados:
+ * - `data`: Almacena la estructura de datos del organigrama.
+ * - `svgRef`: Referencia al elemento SVG donde se renderiza el gráfico.
+ *
+ * Efectos:
+ * - `useEffect(() => { ... })`: Realiza una solicitud GET a la API para obtener los datos del organigrama y formatea la estructura de datos usando `transformData`.
+ * - `useEffect(() => { ... })`: Llama a `renderChart` cada vez que los datos cambian para actualizar la visualización del organigrama.
+ *
+ * Funciones:
+ * - `transformData`: Transforma los datos de la estructura del árbol para que coincidan con los requerimientos de la visualización (limitando la profundidad del árbol).
+ * - `renderChart`: Dibuja el gráfico del organigrama usando D3.js:
+ *   - Configura las dimensiones y separaciones.
+ *   - Dibuja enlaces y nodos.
+ *   - Muestra imágenes de empleados dentro de los nodos.
+ *   - Añade nombres y títulos de los empleados como texto en los nodos.
+ *
+ * UI:
+ * - El gráfico se dibuja dentro de un SVG.
+ * - Si los datos no están cargados, se muestra un cargador.
+ * - Un botón de inicio está disponible para redirigir al usuario a la página de inicio.
+ */

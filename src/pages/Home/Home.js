@@ -8,8 +8,20 @@ import Calendario from "../Calendario/Calendario";
 import Proyectos from "../Proyectos/Proyectos";
 import '../Organigrama/OrganigramaHome.css';
 
-
+/**
+ * Componente principal de la página de inicio.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <Home />
+ * )
+ */
 const Home = () => {
+  /**
+   * Hook de efecto secundario para observar la intersección de elementos.
+   * Se añade la clase 'visible' a los elementos cuando se vuelven visibles.
+   */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -19,12 +31,13 @@ const Home = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 } // Activar cuando el 50% del elemento es visible
     );
 
     const roomElements = document.querySelectorAll(".room-card");
     roomElements.forEach((el) => observer.observe(el));
 
+    // Limpiar el observador cuando el componente se desmonta
     return () => {
       roomElements.forEach((el) => observer.unobserve(el));
     };
@@ -35,21 +48,11 @@ const Home = () => {
       <header className="home-header">
         <div className="header-logo"></div>
         <nav className="header-nav">
-          <button onClick={() => (window.location.href = "/Organigrama")}>
-            Organigrama
-          </button>
-          <button onClick={() => (window.location.href = "/Protocolos")}>
-            Protocolos
-          </button>
-          <button onClick={() => (window.location.href = "/Proyectos")}>
-            Proyectos
-          </button>
-          <button onClick={() => (window.location.href = "/Calendario")}>
-            Calendario
-          </button>
-          <button onClick={() => (window.location.href = "/Salas")}>
-            Salas
-          </button>
+          <button onClick={() => (window.location.href = "/Organigrama")}>Organigrama</button>
+          <button onClick={() => (window.location.href = "/Protocolos")}>Protocolos</button>
+          <button onClick={() => (window.location.href = "/Proyectos")}>Proyectos</button>
+          <button onClick={() => (window.location.href = "/Calendario")}>Calendario</button>
+          <button onClick={() => (window.location.href = "/Salas")}>Salas</button>
         </nav>
         <button
           className="login-button-unique"
