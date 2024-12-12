@@ -103,14 +103,7 @@ const Salas = ({ showButton = true }) => {
           </div>
         ))}
       </div>
-      {showButton && (
-        <button
-          className="inicio"
-          onClick={() => (window.location.href = "/")}
-        >
-          Inicio
-        </button>
-      )}
+     
     </section>
   );
 };

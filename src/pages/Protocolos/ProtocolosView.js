@@ -12,7 +12,7 @@ console.log(newFile);
     <section className="protocols-section">
       <Protocolos />
       <FileUpload onFileUploadSuccess={handleFileUploadSuccess} />
-      <button className="inicio" onClick={() => (window.location.href = "/")}>Inicio</button>
+     
     </section>
   );
 };

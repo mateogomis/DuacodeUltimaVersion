@@ -200,14 +200,7 @@ const Calendario = ({ showButton = true }) => {
         )}
       </Modal>
       
-      {showButton && (
-        <button
-          className="inicio"
-          onClick={() => (window.location.href = "/")}
-        >
-          Inicio
-        </button>
-      )}
+     
     </div>
   );
 };
