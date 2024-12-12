@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Salas.css";
 import axios from "axios";
 
-const Salas = ({ showButton = true }) => {
+const Salas = () => {
   const [salas, setSalas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -113,9 +113,6 @@ export default Salas;
  * Componente Salas
  * 
  * Este componente muestra una lista de salas disponibles en una sede. Utiliza datos cargados desde una API externa y ofrece información detallada sobre cada sala, como su capacidad, ubicación y dirección en Google Maps.
- * 
- * Props:
- * - `showButton` (opcional, booleano): Muestra un botón de "Inicio" si se pasa como true.
  * 
  * Estado:
  * - `salas`: Arreglo de salas cargadas para mostrar.

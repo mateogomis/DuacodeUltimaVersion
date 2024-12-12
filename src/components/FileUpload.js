@@ -26,7 +26,6 @@ const getAccessToken = () => {
 };
 
 const accessToken = getAccessToken(); // Obtén el token
-console.log("Access Token:", accessToken); // Usa la variable correcta
 
 const FileUpload = ({ onFileUploadSuccess }) => {
   const [file, setFile] = useState(null);

@@ -8,7 +8,7 @@ import './Calendario.css';
 
 moment.locale('es'); // Configura moment.js al idioma español
 
-const Calendario = ({ showButton = true }) => {
+const Calendario = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -210,9 +210,6 @@ export default Calendario;
  * Componente Calendario
  * 
  * Este componente representa un calendario interactivo que permite visualizar y seleccionar eventos. Utiliza `react-big-calendar` para la visualización del calendario y `moment.js` para la gestión de fechas y horarios.
- * 
- * Props:
- * - `showButton` (opcional, booleano): Muestra un botón de "Inicio" si se pasa como true.
  * 
  * Estado:
  * - `events`: Arreglo de eventos cargados para mostrar en el calendario.

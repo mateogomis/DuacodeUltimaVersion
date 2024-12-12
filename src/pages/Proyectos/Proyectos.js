@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Proyectos.css";
 
-const Proyectos = ({ limite, showButton = true }) => {
+const Proyectos = ({ limite}) => {
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -122,7 +122,6 @@ export default Proyectos;
  * 
  * Props:
  * - `limite` (opcional, número): Limita el número de proyectos mostrados en la vista.
- * - `showButton` (opcional, booleano): Muestra un botón de "Inicio" si se pasa como true.
  * 
  * Estado:
  * - `proyectos`: Arreglo de proyectos cargados para mostrar.

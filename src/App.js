@@ -6,12 +6,13 @@ import Organigrama from "./pages/Organigrama/Organigrama";
 import Proyectos from "./pages/Proyectos/Proyectos";
 import Calendario from "./pages/Calendario/Calendario";
 import Salas from "./pages/Salas/Salas";
-import ProtocolosView from "./pages/Protocolos/ProtocolosView";
+import Protocolos from "./pages/Protocolos/Protocolos";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from "./pages/Admin/Admin";
 import AdminEmpleados from "./pages/Admin/AdminEmpleados/AdminEmpleados";
 import Layout from "./pages/Layout/Layout";
 import NotFound from "./components/NotFound"; // Importa el nuevo componente
+
 
 const App = () => {
   return (
@@ -23,7 +24,7 @@ const App = () => {
         <Route path="/calendario" element={<Calendario />} />
         <Route path="/proyectos" element={<Proyectos />} />
         <Route path="/salas" element={<Salas />} />
-        <Route path="/protocolos" element={<ProtocolosView />} />
+        <Route path="/protocolos" element={<Protocolos />} />
       </Route>
 
       {/* Rutas sin Header */}

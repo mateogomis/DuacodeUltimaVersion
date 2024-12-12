@@ -114,7 +114,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Proyectos limite={3} showButton={false} />
+      <Proyectos limite={3}  />
 
       <section className="nature-section">
         <h2 className="nature-title">
@@ -125,8 +125,8 @@ const Home = () => {
         </h2>
       </section>
 
-      <Calendario showButton={false}/>
-      <Salas showButton={false}/>
+      <Calendario />
+      <Salas />
 
       <section className="organigrama-section">
         <h2 className="organigrama-title">Organigrama de la Empresa</h2>
@@ -163,7 +163,7 @@ const Home = () => {
           <span className="basket-author">— Michael Jordan</span>
         </h2>
       </section>
-      <Protocolos />
+      <Protocolos limite={3}/>
     </div>
   );
 };
