@@ -194,6 +194,75 @@
   background: #ff3333;
   transform: scale(1.05);
 }
+.selectors-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Asegura que los elementos comiencen desde la misma línea superior */
+  gap: 20px; /* Espacio entre los selectores */
+  margin-bottom: 20px;
+}
+
+.sede-selector,
+.room-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Alineación horizontal izquierda */
+}
+
+.sede-selector label,
+.room-selector label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px; /* Espacio entre el label y el select */
+  text-align: left;
+  color: #76c7c0;
+}
+
+.sede-selector select,
+.room-selector select {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333333;
+  background: #ffffff;
+  border: 1px solid #76c7c0;
+  border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.sede-selector select:hover,
+.room-selector select:hover {
+  border-color: #5eb4a5;
+  background: #f4f4f4;
+}
+
+.sede-selector select:focus,
+.room-selector select:focus {
+  outline: none;
+  border-color: #5eb4a5;
+  box-shadow: 0 0 8px #76c7c0;
+}
+
+@media (max-width: 768px) {
+  .selectors-container {
+    flex-direction: column; /* Cambia a diseño vertical en pantallas pequeñas */
+    align-items: center; /* Asegura que estén centrados */
+    gap: 10px;
+  }
+
+  .sede-selector,
+  .room-selector {
+    width: 100%; /* Asegura que los selectores ocupen el ancho completo */
+    text-align: center;
+  }
+
+  .sede-selector select,
+  .room-selector select {
+    width: 100%; /* Asegura que los selectores ocupen el ancho completo */
+  }
+}
+
 
 @media (max-width: 768px) {
   .calendar-container {

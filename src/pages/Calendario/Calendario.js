@@ -1,21 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import 'moment/locale/es'; // Importa el idioma español para moment.js
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Modal from './Modal';
 import './Calendario.css';
+
+moment.locale('es'); // Configura moment.js al idioma español
 
 const Calendario = ({ showButton = true }) => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [sedes, setSedes] = useState([]); // Estado para las sedes
-  const [rooms, setRooms] = useState([]); // Estado para las salas
-  const [selectedSede, setSelectedSede] = useState(null); // Sede seleccionada
-  const [selectedRoom, setSelectedRoom] = useState(null); // Sala seleccionada
+  const [sedes, setSedes] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [selectedSede, setSelectedSede] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
-  // Función para formatear los datos de la API
+  const localizer = momentLocalizer(moment); // Localizador configurado con moment.js
+
+  const messages = {
+    allDay: 'Todo el día',
+    previous: 'Atrás',
+    next: 'Siguiente',
+    today: 'Hoy',
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    agenda: 'Agenda',
+    date: 'Fecha',
+    time: 'Hora',
+    event: 'Evento',
+    noEventsInRange: 'No hay eventos en este rango.',
+    showMore: (count) => `+ Ver más (${count})`,
+  };
+
   const formatEvents = (reservas) => {
     return reservas.map((reserva) => ({
       start: new Date(`${reserva.fecha}T${reserva.hora_inicio}`),
@@ -28,7 +48,6 @@ const Calendario = ({ showButton = true }) => {
     }));
   };
 
-  // Cargar la lista de sedes
   useEffect(() => {
     const fetchSedes = async () => {
       try {
@@ -50,7 +69,6 @@ const Calendario = ({ showButton = true }) => {
     fetchSedes();
   }, []);
 
-  // Cargar la lista de salas dependiendo de la sede seleccionada
   useEffect(() => {
     const fetchRooms = async () => {
       if (!selectedSede) return;
@@ -62,8 +80,7 @@ const Calendario = ({ showButton = true }) => {
           throw new Error('Error al obtener las salas');
         }
         const data = await response.json();
-        // Filtra las salas para mostrar solo las de la sede seleccionada
-        const filteredRooms = data.filter(room => room.sede.id === selectedSede);
+        const filteredRooms = data.filter(room => room.sede.id === Number(selectedSede));
         setRooms(filteredRooms);
       } catch (err) {
         console.error('Error al cargar salas:', err);
@@ -76,10 +93,12 @@ const Calendario = ({ showButton = true }) => {
     fetchRooms();
   }, [selectedSede]);
 
-  // Cargar eventos de la sala seleccionada
   useEffect(() => {
     const fetchEvents = async () => {
-      if (!selectedRoom) return;
+      if (!selectedRoom) {
+        setEvents([]);
+        return;
+      }
 
       try {
         setLoading(true);
@@ -119,24 +138,21 @@ const Calendario = ({ showButton = true }) => {
 
   return (
     <div className="calendar-container">
-      <div className="sede-selector">
-        <p>Selecciona una sede:</p>
-        {sedes.map((sede) => (
-          <div key={sede.id}>
-            <input
-              type="radio"
-              id={`sede-${sede.id}`}
-              name="sede"
-              value={sede.id}
-              checked={selectedSede === sede.id}
-              onChange={() => setSelectedSede(sede.id)}
-            />
-            <label htmlFor={`sede-${sede.id}`}>{sede.nombre}</label>
-          </div>
-        ))}
-      </div>
+      <div className="selectors-container">
+        <div className="sede-selector">
+          <label htmlFor="sede">Selecciona una sede:</label>
+          <select
+            id="sede"
+            value={selectedSede || ''}
+            onChange={(e) => setSelectedSede(e.target.value)}
+          >
+            <option value="" disabled>Selecciona una sede</option>
+            {sedes.map((sede) => (
+              <option key={sede.id} value={sede.id}>{sede.nombre}</option>
+            ))}
+          </select>
+        </div>
 
-      {selectedSede && (
         <div className="room-selector">
           <label htmlFor="room">Selecciona una sala:</label>
           <select
@@ -150,22 +166,23 @@ const Calendario = ({ showButton = true }) => {
             ))}
           </select>
         </div>
-      )}
+      </div>
 
-      {selectedRoom ? (
-        <Calendar
-          events={events}
-          views={['month', 'week', 'day']}
-          defaultView="month"
-          localizer={momentLocalizer(moment)}
-          step={30}
-          timeslots={1}
-          onSelectEvent={handleEventClick}
-          className="calendar"
-        />
-      ) : (
-        <p>Por favor, selecciona una sala para ver su calendario.</p>
-      )}
+      <Calendar
+        events={events}
+        views={['month', 'week', 'day']}
+        defaultView="month"
+        localizer={localizer}
+        step={30}
+        timeslots={1}
+        startAccessor="start"
+        endAccessor="end"
+        onSelectEvent={handleEventClick}
+        className="calendar"
+        culture="es" // Configura el idioma del calendario a español
+        messages={messages} // Aplica los mensajes personalizados
+        dayLayoutAlgorithm="no-overlap" // Configuración para evitar solapamiento
+      />
 
       <Modal
         isVisible={!!selectedEvent}
