@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import jsQR from "jsqr";
+import Cookies from "js-cookie"
 import "./Login.css";
 import {useNavigate} from "react-router-dom"
 const slides = [
@@ -72,6 +73,9 @@ const handleLogin = async (e, qrUsername = null, qrPassword = null) => {
       console.log("Inicio de sesión exitoso", data);
       localStorage.setItem("access_token", data.access);
       localStorage.setItem("refresh_token", data.refresh);
+      // Almacena los tokens en las cookies
+      Cookies.set('access_token', data.access, { expires: 7, path: '' });
+      Cookies.set('refresh_token', data.refresh, { expires: 7, path: '' });
       setErrorMessage("");
       setQrOverlayVisible(false); // Cierra el overlay del QR si estaba activo
       window.location.href = 'http://localhost:8000/dashboard';
