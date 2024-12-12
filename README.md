@@ -1,3 +1,107 @@
+# Ejecución del Frontend en Local
+
+Este documento describe cómo instalar, configurar y ejecutar el frontend del proyecto en tu entorno local. El frontend está desarrollado en React y utiliza herramientas modernas del ecosistema JavaScript.
+
+## Requisitos Previos
+
+Antes de comenzar, asegúrate de cumplir con los siguientes requisitos:
+
+- **Node.js** (versión 16 o superior): Puedes descargarlo desde [Node.js Official Website](https://nodejs.org/).
+- **npm**: Instalado junto con Node.js para manejar paquetes.
+
+Opcional:
+- **yarn**: Un gestor de paquetes alternativo (opcional).
+
+## Instalación del Proyecto
+
+1. Clona el repositorio del proyecto a tu máquina local:
+   ```
+   git clone https://github.com/usuario/repo-frontend.git
+   cd repo-frontend
+   ```
+
+2. Instala las dependencias necesarias ejecutando:
+   ```
+   npm install
+   ```
+   Si prefieres usar `yarn`:
+   ```
+   yarn install
+   ```
+
+## Configuración para la Ejecución en Local
+
+Verifica que el archivo `.env` esté correctamente configurado para conectarse al backend. Si no existe, crea un archivo `.env` en la raíz del proyecto con un contenido similar al siguiente:
+
+```
+REACT_APP_BACKEND_URL=http://localhost:8000
+```
+
+Esto asegura que el frontend pueda comunicarse con el backend alojado en tu máquina o en un servidor local.
+
+## Iniciar el Servidor de Desarrollo
+
+1. Ejecuta el siguiente comando para iniciar el servidor de desarrollo:
+   ```
+   npm start
+   ```
+   O, si estás usando `yarn`:
+   ```
+   yarn start
+   ```
+
+2. Una vez iniciado, el servidor estará disponible en tu navegador en la dirección:
+   ```
+   http://localhost:3000
+   ```
+
+## Solución de Problemas Comunes
+
+1. **El servidor no inicia:**
+   - Verifica que no haya otro proceso utilizando el puerto 3000.
+   - Si el puerto está ocupado, puedes cambiarlo utilizando la variable `PORT` en el archivo `.env`.
+
+2. **Error de conexión al backend:**
+   - Asegúrate de que el backend esté corriendo en `http://localhost:8000` o en la URL configurada en `REACT_APP_BACKEND_URL`.
+
+3. **Dependencias faltantes:**
+   - Ejecuta nuevamente `npm install` o `yarn install` para reinstalar los paquetes.
+
+4. **Problemas con el navegador:**
+   - Limpia el caché o prueba abriendo la aplicación en modo incógnito.
+
+## Dependencias Clave
+
+El proyecto utiliza las siguientes herramientas y bibliotecas principales:
+
+- **React**: Biblioteca principal para construir interfaces de usuario.
+- **React Router Dom**: Navegación entre páginas.
+- **axios**: Manejo de solicitudes HTTP.
+- **react-big-calendar**: Componente de calendario interactivo.
+- **moment.js**: Manejo de fechas y horarios.
+
+Para una lista completa de dependencias, consulta el archivo `package.json` 
+
+---
+
+Con esta guía, deberías poder ejecutar el frontend en tu entorno local sin problemas. Si necesitas ayuda adicional, no dudes en consultar la documentación del proyecto o ponerte en contacto con el equipo de desarrollo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
