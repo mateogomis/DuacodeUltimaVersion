@@ -89,7 +89,7 @@ const Home = () => {
       </main>
 
       <Empleados />
-      <Proyectos limite={4} showButton={false} />
+      <Proyectos limite={3} showButton={false} />
 
       <section className="nature-section">
         <h2 className="nature-title">
