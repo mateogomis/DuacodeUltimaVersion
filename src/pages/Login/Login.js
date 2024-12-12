@@ -74,7 +74,8 @@ const handleLogin = async (e, qrUsername = null, qrPassword = null) => {
       localStorage.setItem("refresh_token", data.refresh);
       setErrorMessage("");
       setQrOverlayVisible(false); // Cierra el overlay del QR si estaba activo
-      navigate("/admin/")
+      window.location.href = 'http://localhost:8000/dashboard';
+
     } else {
       const errorData = await response.json();
       setErrorMessage(errorData.detail || "Error en las credenciales");
