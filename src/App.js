@@ -11,6 +11,7 @@ import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 import Admin from "./pages/Admin/Admin";
 import AdminEmpleados from "./pages/Admin/AdminEmpleados/AdminEmpleados";
 import Layout from "./pages/Layout/Layout";
+import NotFound from "./components/NotFound"; // Importa el nuevo componente
 
 const App = () => {
   return (
@@ -43,6 +44,9 @@ const App = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* Ruta para manejo de 404 */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
